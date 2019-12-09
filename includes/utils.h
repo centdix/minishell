@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/07 23:48:25 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/09 20:22:14 by lmartin          ###   ########.fr       */
+/*   Created: 2019/12/09 20:16:41 by lmartin           #+#    #+#             */
+/*   Updated: 2019/12/09 21:02:47 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef UTILS_H
+# define UTILS_H
 
-# include <dirent.h>
-# include <fcntl.h>
-# include <signal.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/errno.h>
-# include <sys/stat.h>
-# include <sys/wait.h>
-# include <unistd.h>
-
-# include "utils.h"
+char	*ft_strdup(const char *s1);
+char	*ft_strjoin(char const *s1, char const *s2);
+size_t	ft_strlen(const char *s);
 
 #endif

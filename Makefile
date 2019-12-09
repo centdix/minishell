@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/07 23:13:40 by lmartin           #+#    #+#              #
-#    Updated: 2019/12/07 23:47:34 by lmartin          ###   ########.fr        #
+#    Updated: 2019/12/09 21:00:52 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,10 +64,16 @@ DIR_SRCS	=	./srcs/
 
 DIR_OBJS	=	./compiled_srcs/
 
+DIR_UTILS	=	utils/
+
 
 # FILES #
 
-SRC			=	minishell.c
+SRC			=	utils/ft_strdup.c \
+				utils/ft_strjoin.c \
+				utils/ft_strlen.c \
+				\
+				minishell.c
 
 SRCS		=	$(SRC)
 
@@ -99,6 +105,7 @@ $(DIR_OBJS)%.o: $(DIR_SRCS)%.c
 
 $(DIR_OBJS):
 				@mkdir $(DIR_OBJS)
+				@mkdir $(DIR_OBJS)$(DIR_UTILS)
 
 
 # OBLIGATORY PART #
