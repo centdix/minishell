@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   commands.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/09 20:10:43 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/09 22:50:55 by lmartin          ###   ########.fr       */
+/*   Created: 2019/12/09 21:23:05 by lmartin           #+#    #+#             */
+/*   Updated: 2019/12/09 23:39:11 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef COMMANDS_H
+# define COMMANDS_H
 
-char	*ft_strdup(const char *s1)
-{
-	char *cpy;
-	char *pt;
+# define CMD_NOT_FOUND "command not found\n"
 
-	if (!(cpy = malloc(sizeof(char) * (ft_strlen(s1) + 1))))
-		return (NULL);
-	pt = cpy;
-	while (*s1)
-	{
-		if ((int)*s1 != ESC_CHAR)
-			*pt++ = *s1;
-		else
-		{
-			*pt++ = '^';
-			*pt++ = '[';
-		}
-		s1++;
-	}
-	*pt = '\0';
-	return (cpy);
-}
+char	*wait_command(char *command);
+int		command_not_found(char *name, char *command);
+int		parsing_command(t_minishell *minishell);
+
+#endif

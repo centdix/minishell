@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   minishell_struct.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/09 20:10:43 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/09 22:50:55 by lmartin          ###   ########.fr       */
+/*   Created: 2019/12/09 22:55:26 by lmartin           #+#    #+#             */
+/*   Updated: 2019/12/09 23:10:43 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef MINISHELL_STRUCT_H
+# define MINISHELL_STRUCT_H
 
-char	*ft_strdup(const char *s1)
+typedef struct	s_minishell
 {
-	char *cpy;
-	char *pt;
+	char		*name;
+	char		*command;
+}				t_minishell;
 
-	if (!(cpy = malloc(sizeof(char) * (ft_strlen(s1) + 1))))
-		return (NULL);
-	pt = cpy;
-	while (*s1)
-	{
-		if ((int)*s1 != ESC_CHAR)
-			*pt++ = *s1;
-		else
-		{
-			*pt++ = '^';
-			*pt++ = '[';
-		}
-		s1++;
-	}
-	*pt = '\0';
-	return (cpy);
-}
+#endif

@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 20:11:59 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/09 20:15:57 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/09 22:45:41 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ size_t	ft_strlen(const char *s)
 	size_t i;
 
 	i = 0;
-	while (*s && ++i)
-		s++;
+	while (*s)
+	{
+		if (*s++ == ESC_CHAR)
+			i++;
+		i++;
+	}
 	return (i);
 }

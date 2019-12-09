@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/09 20:10:43 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/09 22:50:55 by lmartin          ###   ########.fr       */
+/*   Created: 2019/12/09 22:01:09 by lmartin           #+#    #+#             */
+/*   Updated: 2019/12/09 22:09:27 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_strdup(const char *s1)
+int		ft_strcmp(const char *s1, const char *s2)
 {
-	char *cpy;
-	char *pt;
-
-	if (!(cpy = malloc(sizeof(char) * (ft_strlen(s1) + 1))))
-		return (NULL);
-	pt = cpy;
-	while (*s1)
+	while (*s1 && *s2 && *s1 == *s2)
 	{
-		if ((int)*s1 != ESC_CHAR)
-			*pt++ = *s1;
-		else
-		{
-			*pt++ = '^';
-			*pt++ = '[';
-		}
 		s1++;
+		s2++;
 	}
-	*pt = '\0';
-	return (cpy);
+	return ((unsigned char)*s1 - (unsigned char)*s2);
 }

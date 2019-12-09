@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/07 23:13:40 by lmartin           #+#    #+#              #
-#    Updated: 2019/12/09 21:00:52 by lmartin          ###   ########.fr        #
+#    Updated: 2019/12/09 23:03:46 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,10 +66,15 @@ DIR_OBJS	=	./compiled_srcs/
 
 DIR_UTILS	=	utils/
 
+DIR_COMMANDS=	commands/
 
 # FILES #
 
-SRC			=	utils/ft_strdup.c \
+SRC			=	commands/commands.c \
+				\
+				utils/ft_isspace.c \
+				utils/ft_strcmp.c \
+				utils/ft_strdup.c \
 				utils/ft_strjoin.c \
 				utils/ft_strlen.c \
 				\
@@ -105,6 +110,7 @@ $(DIR_OBJS)%.o: $(DIR_SRCS)%.c
 
 $(DIR_OBJS):
 				@mkdir $(DIR_OBJS)
+				@mkdir $(DIR_OBJS)$(DIR_COMMANDS)
 				@mkdir $(DIR_OBJS)$(DIR_UTILS)
 
 
@@ -122,13 +128,17 @@ fclean:			clean
 
 re:				fclean all
 
+# NORME #
+
+norm:
+				norminette $(DIR_SRCS)
+				norminette $(DIR_HEADERS)
 
 # BONUS #
 
 bonus:			all
 
 re_bonus:		fclean bonus
-
 
 # PHONY #
 
