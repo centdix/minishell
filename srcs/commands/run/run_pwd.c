@@ -6,11 +6,15 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 22:20:27 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 22:25:39 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/10 22:49:26 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Run pwd command
+*/
 
 int		run_pwd(t_minishell *minishell)
 {

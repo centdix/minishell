@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:22:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 22:28:14 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/10 23:12:44 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,35 @@ char	*wait_command(char *command)
 }
 
 /*
+** Choose a command by it's type (minishell->commands->type)
+*/
+
+int		choice_command(t_minishell *minishell)
+{
+	if (minishell->commands->type == TYPE_CD)
+	{
+		if (run_cd(minishell) < 0)
+			return (-1);
+	}
+	else if (minishell->commands->type == TYPE_PWD)
+	{
+		if (run_pwd(minishell) < 0)
+			return (-1);
+	}
+	else if (minishell->commands->type == TYPE_ECHO)
+	{
+		if (run_echo(minishell) < 0)
+			return (-1);
+	}
+	else if (minishell->commands->type == TYPE_EXIT)
+	{
+		if (run_exit(minishell) < 0)
+			return (-1);
+	}
+	return (0);
+}
+
+/*
 ** Run every commands that are in lstcommands minishell.commands
 */
 
@@ -52,21 +81,8 @@ int		running_commands(t_minishell *minishell)
 
 	while (minishell->commands)
 	{
-		if (minishell->commands->type == TYPE_CD)
-		{
-			if (run_cd(minishell) < 0)
-				return (-1);
-		}
-		else if (minishell->commands->type == TYPE_PWD)
-		{
-			if (run_pwd(minishell) < 0)
-				return (-1);
-		}
-		else if (minishell->commands->type == TYPE_ECHO)
-		{
-			if (run_echo(minishell) < 0)
-				return (-1);
-		}
+		if (choice_command(minishell) < 0)
+			return (-1);
 		next = minishell->commands->next;
 		free(minishell->commands->data);
 		free(minishell->commands);

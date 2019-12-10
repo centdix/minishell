@@ -6,11 +6,33 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 23:20:13 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 10:18:17 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/10 22:42:13 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int		prompt(t_minishell *minishell)
+{
+	minishell->commands = NULL;
+	if (write_prompt(minishell->path) < 0)
+		return (-1);
+	if (!(minishell->command_line = ft_strdup("")))
+		return (-1);
+	if (!(minishell->command_line = wait_command(minishell->command_line)))
+		return (-1);
+	if (parsing_command(minishell) < 0)
+		return (-1);
+	if (running_commands(minishell) < 0)
+		return (-1);
+	free(minishell->command_line);
+	return (0);
+}
+
+/*
+** Initialize environment variables and the actual path of the shell, then wait
+** for prompt
+*/
 
 int		main(int argc, char *argv[], char **envv)
 {
@@ -26,18 +48,8 @@ int		main(int argc, char *argv[], char **envv)
 		return (-1);
 	while (1)
 	{
-		minishell.commands = NULL;
-		if (write_prompt(minishell.path) < 0)
+		if (prompt(&minishell) < 0)
 			return (-1);
-		if (!(minishell.command_line = ft_strdup("")))
-			return (-1);
-		if (!(minishell.command_line = wait_command(minishell.command_line)))
-			return (-1);
-		if (parsing_command(&minishell) < 0)
-			return (-1);
-		if (running_commands(&minishell) < 0)
-			return (-1);
-		free(minishell.command_line);
 	}
 	return (0);
 }

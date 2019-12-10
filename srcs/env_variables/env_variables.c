@@ -6,11 +6,15 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 09:59:13 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 10:23:55 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/10 22:48:35 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Create a new lstenv_v to store a environment variable
+*/
 
 t_lstenv_v			*new_lstenv_v(char *name, char *value)
 {
@@ -23,6 +27,11 @@ t_lstenv_v			*new_lstenv_v(char *name, char *value)
 	lstenv_v->next = NULL;
 	return (lstenv_v);
 }
+
+/*
+** Create a new env_variables and add it at the end of the lst (or create a new
+** list if lst is NULL)
+*/
 
 int					add_back_env(t_lstenv_v **lst, char *name, char *value)
 {
@@ -45,7 +54,11 @@ int					add_back_env(t_lstenv_v **lst, char *name, char *value)
 	return (0);
 }
 
-char		*get_env_value(t_lstenv_v *lst, char *name)
+/*
+** Get the environment variable who's name name
+*/
+
+char				*get_env_value(t_lstenv_v *lst, char *name)
 {
 	while (lst)
 	{
@@ -56,10 +69,15 @@ char		*get_env_value(t_lstenv_v *lst, char *name)
 	return (NULL);
 }
 
-t_lstenv_v	*init_env(char **envv)
+/*
+** Create the list of env_variables by adding them one by one to a new lst
+** and return it
+*/
+
+t_lstenv_v			*init_env(char **envv)
 {
 	t_lstenv_v	*lst;
-	char *ptr;
+	char		*ptr;
 
 	lst = NULL;
 	while (*envv)

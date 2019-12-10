@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_cd.c                                       :+:      :+:    :+:   */
+/*   run_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/10 07:21:44 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 22:49:51 by lmartin          ###   ########.fr       */
+/*   Created: 2019/12/10 23:12:03 by lmartin           #+#    #+#             */
+/*   Updated: 2019/12/10 23:13:35 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-** Parse a cd command
+** Run exit command
 */
 
-int		parsing_cd(char **line, t_lstcommands **commands)
+int		run_exit(t_minishell *minishell)
 {
-	*line = &(*line)[2];
-	if ((add_back(commands, TYPE_CD, get_data_no_space(line))) < 0)
-		return (-1);
-	return (0);
+	(void)minishell;
+	exit(0);
 }

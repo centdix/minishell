@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:23:05 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 22:24:24 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/10 23:13:20 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define TYPE_CD 1
 # define TYPE_PWD 2
 # define TYPE_ECHO 3
+# define TYPE_EXIT 4
 
 # include "commands_struct.h"
 # include "minishell_struct.h"
@@ -29,6 +30,7 @@
 
 int					run_cd(t_minishell *minishell);
 int					run_echo(t_minishell *minishell);
+int					run_exit(t_minishell *minishell);
 int					run_pwd(t_minishell *minishell);
 
 /*
