@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:35:53 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 23:14:00 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/10 23:22:20 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSING_H
 
 char	*get_data(char **str);
+char	*get_data_one_space(char **str);
 char	*get_data_no_space(char **str);
 
 int		parsing_command(t_minishell *minishell);

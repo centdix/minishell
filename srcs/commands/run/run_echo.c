@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 22:20:16 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 22:49:15 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 00:22:40 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,21 @@
 
 int		run_echo(t_minishell *minishell)
 {
-	if (write(1, minishell->commands->data,
-ft_strlen(minishell->commands->data)) < 0)
+	char	*data;
+	int		option_n;
+
+	option_n = 0;
+	data = minishell->commands->data;
+	if (!ft_strncmp(data, "-n", 2) && ft_isspace(data[2]))
+	{
+		option_n = 1;
+		data = &data[2];
+		while (data && ft_isspace(*data))
+			data++;
+	}
+	if (write(1, data, ft_strlen(data)) < 0)
 		return (-1);
-	if (write(1, "\n", 1) < 0)
+	if (!option_n && write(1, "\n", 1) < 0)
 		return (-1);
 	return (0);
 }

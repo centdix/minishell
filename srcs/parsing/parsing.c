@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:35:38 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 23:11:48 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 00:14:18 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int		choice_parsing2(t_minishell *minishell, char **line)
 {
 	int		ret;
 
-	if (!ft_strncmp((*line), "exit", 4) && (ft_isspace((*line)[4]) || !(*line)[4]))
+	if (!ft_strncmp((*line), "exit", 4) &&
+(ft_isspace((*line)[4]) || !(*line)[4]))
 	{
 		if (parsing_exit(line, &minishell->commands) < 0)
 			return (-1);
@@ -50,19 +51,22 @@ int		choice_parsing2(t_minishell *minishell, char **line)
 
 int		choice_parsing(t_minishell *minishell, char **line)
 {
-	if (!ft_strncmp((*line), "cd", 2) && (ft_isspace((*line)[2]) || !(*line)[2]))
+	if (!ft_strncmp((*line), "cd", 2) &&
+(ft_isspace((*line)[2]) || !(*line)[2]))
 	{
 		if (parsing_cd(line, &minishell->commands) < 0)
 			return (-1);
 		return (1);
 	}
-	else if (!ft_strncmp((*line), "pwd", 3) && (ft_isspace((*line)[3]) || !(*line)[3]))
+	else if (!ft_strncmp((*line), "pwd", 3) &&
+(ft_isspace((*line)[3]) || !(*line)[3]))
 	{
 		if (parsing_pwd(line, &minishell->commands) < 0)
 			return (-1);
 		return (1);
 	}
-	else if (!ft_strncmp((*line), "echo", 4) && (ft_isspace((*line)[4]) || !(*line)[4]))
+	else if (!ft_strncmp((*line), "echo", 4) &&
+(ft_isspace((*line)[4]) || !(*line)[4]))
 	{
 		if (parsing_echo(line, &minishell->commands) < 0)
 			return (-1);

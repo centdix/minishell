@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   ft_isquote.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/09 20:16:41 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 23:27:02 by lmartin          ###   ########.fr       */
+/*   Created: 2019/12/10 23:26:18 by lmartin           #+#    #+#             */
+/*   Updated: 2019/12/10 23:26:54 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "minishell.h"
 
-# define ESC_CHAR 27
+/*
+** Check if char c is a simple or double quote
+*/
 
-int		ft_isquote(char c);
-int		ft_isseparator(char c);
-int		ft_isspace(char c);
-
-int		ft_strcmp(const char *s1, const char *s2);
-char	*ft_strdup(const char *s1);
-char	*ft_strjoin(char const *s1, char const *s2);
-size_t	ft_strlen(const char *s);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-char	*ft_strchr(const char *s, int c);
-
-#endif
+int		ft_isquote(char c)
+{
+	return ((c == '\'' || c == '"'));
+}
