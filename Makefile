@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/07 23:13:40 by lmartin           #+#    #+#              #
-#    Updated: 2019/12/10 10:15:11 by lmartin          ###   ########.fr        #
+#    Updated: 2019/12/10 22:23:05 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,8 @@ DIR_OBJS	=	./compiled_srcs/
 
 DIR_COMMANDS=	commands/
 
+DIR_CMDS_RUN=	commands/run/
+
 DIR_ENV_V	=	env_variables/
 
 DIR_ERRORS	=	errors/
@@ -79,7 +81,10 @@ DIR_UTILS	=	utils/
 
 # FILES #
 
-SRC			=	commands/commands.c \
+SRC			=	commands/run/run_cd.c \
+				commands/run/run_echo.c \
+				commands/run/run_pwd.c \
+				commands/commands.c \
 				commands/lstcommands.c \
 				\
 				env_variables/env_variables.c \
@@ -135,6 +140,7 @@ $(DIR_OBJS)%.o: $(DIR_SRCS)%.c
 $(DIR_OBJS):
 				@mkdir $(DIR_OBJS)
 				@mkdir $(DIR_OBJS)$(DIR_COMMANDS)
+				@mkdir $(DIR_OBJS)$(DIR_CMDS_RUN)
 				@mkdir $(DIR_OBJS)$(DIR_ENV_V)
 				@mkdir $(DIR_OBJS)$(DIR_ERRORS)
 				@mkdir $(DIR_OBJS)$(DIR_PARSING)

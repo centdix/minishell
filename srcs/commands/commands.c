@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:22:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 10:24:54 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/10 22:28:14 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,25 +54,18 @@ int		running_commands(t_minishell *minishell)
 	{
 		if (minishell->commands->type == TYPE_CD)
 		{
-			if (!ft_strcmp(minishell->commands->data, ""))
-			{
-				minishell->commands->data = ft_strdup(get_env_value(minishell->env_variables, "HOME"));
-			}
-			if (chdir(minishell->commands->data) > 0)
+			if (run_cd(minishell) < 0)
 				return (-1);
-			free(minishell->path);
-			minishell->path = NULL;
-			minishell->path = getcwd(minishell->path, 0);
 		}
 		else if (minishell->commands->type == TYPE_PWD)
 		{
-			write(1, minishell->path, ft_strlen(minishell->path));
-			write(1, "\n", 1);
+			if (run_pwd(minishell) < 0)
+				return (-1);
 		}
 		else if (minishell->commands->type == TYPE_ECHO)
 		{
-			write(1, minishell->commands->data, ft_strlen(minishell->commands->data));
-			write(1, "\n", 1);
+			if (run_echo(minishell) < 0)
+				return (-1);
 		}
 		next = minishell->commands->next;
 		free(minishell->commands->data);

@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:23:05 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 06:57:12 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/10 22:24:24 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,18 @@
 
 # include "commands_struct.h"
 # include "minishell_struct.h"
+
+/*
+** run commands
+*/
+
+int					run_cd(t_minishell *minishell);
+int					run_echo(t_minishell *minishell);
+int					run_pwd(t_minishell *minishell);
+
+/*
+** commands
+*/
 
 char				*wait_command(char *command);
 int					running_commands(t_minishell *minishell);
