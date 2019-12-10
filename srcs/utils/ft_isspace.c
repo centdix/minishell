@@ -6,11 +6,15 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 22:59:23 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/09 23:10:15 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/10 06:35:39 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Check if char c is a whitespace 
+*/
 
 int		ft_isspace(char c)
 {

@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 23:48:25 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 05:25:11 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/10 06:28:49 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@
 # include <unistd.h>
 
 # include "commands.h"
+# include "error.h"
 # include "parsing.h"
 # include "utils.h"
+
 # include "commands_struct.h"
 # include "minishell_struct.h"
 

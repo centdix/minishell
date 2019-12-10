@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/07 23:13:40 by lmartin           #+#    #+#              #
-#    Updated: 2019/12/10 05:00:31 by lmartin          ###   ########.fr        #
+#    Updated: 2019/12/10 06:44:26 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,14 +66,19 @@ DIR_OBJS	=	./compiled_srcs/
 
 DIR_COMMANDS=	commands/
 
+DIR_ERRORS	=	errors/
+
 DIR_PARSING =	parsing/
 
 DIR_UTILS	=	utils/
+
 
 # FILES #
 
 SRC			=	commands/commands.c \
 				commands/lstcommands.c \
+				\
+				errors/command_errors.c \
 				\
 				parsing/parsing.c \
 				\
@@ -83,6 +88,7 @@ SRC			=	commands/commands.c \
 				utils/ft_strdup.c \
 				utils/ft_strjoin.c \
 				utils/ft_strlen.c \
+				utils/ft_strncmp.c \
 				\
 				minishell.c
 
@@ -117,6 +123,7 @@ $(DIR_OBJS)%.o: $(DIR_SRCS)%.c
 $(DIR_OBJS):
 				@mkdir $(DIR_OBJS)
 				@mkdir $(DIR_OBJS)$(DIR_COMMANDS)
+				@mkdir $(DIR_OBJS)$(DIR_ERRORS)
 				@mkdir $(DIR_OBJS)$(DIR_PARSING)
 				@mkdir $(DIR_OBJS)$(DIR_UTILS)
 

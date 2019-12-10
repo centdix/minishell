@@ -6,11 +6,16 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 20:10:43 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/09 22:50:55 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/10 06:38:02 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Copy the string s1 and allocate sufficient memory to return it
+** This version replace ESC_CHAR by her representation '^['
+*/
 
 char	*ft_strdup(const char *s1)
 {

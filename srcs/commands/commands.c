@@ -6,11 +6,15 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:22:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 06:04:28 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/10 07:11:02 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Wait for command to be write in input
+*/
 
 char	*wait_command(char *command)
 {
@@ -38,6 +42,10 @@ char	*wait_command(char *command)
 	return (command);
 }
 
+/*
+** Run every commands that are in lstcommands minishell.commands
+*/
+
 int		running_commands(t_minishell *minishell)
 {
 	t_lstcommands	*next;
@@ -57,39 +65,15 @@ int		running_commands(t_minishell *minishell)
 			write(1, minishell->path, ft_strlen(minishell->path));
 			write(1, "\n", 1);
 		}
+		else if (minishell->commands->type == TYPE_ECHO)
+		{
+			write(1, minishell->commands->data, ft_strlen(minishell->commands->data));
+			write(1, "\n", 1);
+		}
 		next = minishell->commands->next;
 		free(minishell->commands->data);
 		free(minishell->commands);
 		minishell->commands = next;
 	}
-	return (0);
-}
-
-int		command_not_found(char *name, char *command)
-{
-	char	*begin;
-	char	*command_line;
-	char	*cpy;
-	size_t	i;
-
-	i = 0;
-	begin = ft_strdup(command);
-	while (command[i] && !ft_isspace(command[i]) && !ft_isseparator(command[i]))
-		i++;
-	begin[i] = '\0';
-	if (!(command_line = ft_strjoin(name, CMD_NOT_FOUND)))
-		return (-1);
-	if (!(cpy = ft_strjoin(command_line, ": ")))
-		return (-1);
-	free(command_line);
-	if (!(command_line = ft_strjoin(cpy, begin)))
-		return (-1);
-	free(begin);
-	free(cpy);
-	if ((write(1, command_line, ft_strlen(command_line))) < 0)
-		return (-2);
-	free(command_line);
-	if ((write(1, "\n", 1)) < 0)
-		return (-2);
 	return (0);
 }

@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isseparator.c                                   :+:      :+:    :+:   */
+/*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/10 04:59:39 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 06:35:23 by lmartin          ###   ########.fr       */
+/*   Created: 2019/12/10 06:25:36 by lmartin           #+#    #+#             */
+/*   Updated: 2019/12/10 06:48:23 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef ERROR_H
+# define ERROR_H
 
 /*
-** Check if char c is a separator of command line
+** Errors about command
 */
 
-int		ft_isseparator(char c)
-{
-	return ((c == ';' || c == '|'));
-}
+int		command_not_found(char *name, char *command);
+int		check_too_many_args(char **str);
+
+#endif
