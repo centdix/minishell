@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 23:48:25 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/09 22:56:00 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/10 05:25:11 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-# include "minishell_struct.h"
 # include "commands.h"
+# include "parsing.h"
 # include "utils.h"
+# include "commands_struct.h"
+# include "minishell_struct.h"
 
 #endif

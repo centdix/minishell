@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   commands_struct.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/09 20:16:41 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 05:00:16 by lmartin          ###   ########.fr       */
+/*   Created: 2019/12/10 05:23:57 by lmartin           #+#    #+#             */
+/*   Updated: 2019/12/10 05:24:28 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef COMMANDS_STRUCT_H
+# define COMMANDS_STRUCT_H
 
-# define ESC_CHAR 27
+/*
+** lstcommands is a command, the type of the command is stored,
+** the command and the next command (pipe is considered as a command)
+*/
 
-int		ft_isseparator(char c);
-int		ft_isspace(char c);
-
-int		ft_strcmp(const char *s1, const char *s2);
-char	*ft_strdup(const char *s1);
-char	*ft_strjoin(char const *s1, char const *s2);
-size_t	ft_strlen(const char *s);
+typedef	struct		s_lstcommands
+{
+	int				type;
+	char			*data;
+	void			*next;
+}					t_lstcommands;
 
 #endif

@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/09 20:16:41 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 05:00:16 by lmartin          ###   ########.fr       */
+/*   Created: 2019/12/10 02:35:53 by lmartin           #+#    #+#             */
+/*   Updated: 2019/12/10 02:36:19 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef PARSING_H
+# define PARSING_H
 
-# define ESC_CHAR 27
-
-int		ft_isseparator(char c);
-int		ft_isspace(char c);
-
-int		ft_strcmp(const char *s1, const char *s2);
-char	*ft_strdup(const char *s1);
-char	*ft_strjoin(char const *s1, char const *s2);
-size_t	ft_strlen(const char *s);
+int		parsing_command(t_minishell *minishell);
 
 #endif
