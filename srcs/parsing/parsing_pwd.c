@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   parsing_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/10 02:35:53 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 08:14:03 by lmartin          ###   ########.fr       */
+/*   Created: 2019/12/10 08:07:24 by lmartin           #+#    #+#             */
+/*   Updated: 2019/12/10 08:08:52 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include "minishell.h"
 
-char	*get_data(char **str);
-char	*get_data_no_space(char **str);
-
-int		parsing_command(t_minishell *minishell);
-
-int		parsing_cd(char **line, t_lstcommands **commands);
-int		parsing_echo(char **line, t_lstcommands **commands);
-int		parsing_pwd(char **line, t_lstcommands **commands);
-
-#endif
+int		parsing_pwd(char **line, t_lstcommands **commands)
+{
+	*line = &(*line)[3];
+	if ((check_too_many_args(line)) < 0)
+		return (-3);
+	if ((add_back(commands, TYPE_PWD, NULL)) < 0)
+		return (-1);
+	return (0);
+}

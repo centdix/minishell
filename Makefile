@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/07 23:13:40 by lmartin           #+#    #+#              #
-#    Updated: 2019/12/10 06:44:26 by lmartin          ###   ########.fr        #
+#    Updated: 2019/12/10 09:24:50 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,8 @@ DIR_ERRORS	=	errors/
 
 DIR_PARSING =	parsing/
 
+DIR_STYLE	=	style/
+
 DIR_UTILS	=	utils/
 
 
@@ -80,7 +82,12 @@ SRC			=	commands/commands.c \
 				\
 				errors/command_errors.c \
 				\
+				parsing/parsing_cd.c \
+				parsing/parsing_echo.c \
+				parsing/parsing_pwd.c \
 				parsing/parsing.c \
+				\
+				style/style.c \
 				\
 				utils/ft_isseparator.c \
 				utils/ft_isspace.c \
@@ -125,6 +132,7 @@ $(DIR_OBJS):
 				@mkdir $(DIR_OBJS)$(DIR_COMMANDS)
 				@mkdir $(DIR_OBJS)$(DIR_ERRORS)
 				@mkdir $(DIR_OBJS)$(DIR_PARSING)
+				@mkdir $(DIR_OBJS)$(DIR_STYLE)
 				@mkdir $(DIR_OBJS)$(DIR_UTILS)
 
 

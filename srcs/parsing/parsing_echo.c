@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   parsing_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/10 02:35:53 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 08:14:03 by lmartin          ###   ########.fr       */
+/*   Created: 2019/12/10 08:08:44 by lmartin           #+#    #+#             */
+/*   Updated: 2019/12/10 08:10:01 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include "minishell.h"
 
-char	*get_data(char **str);
-char	*get_data_no_space(char **str);
-
-int		parsing_command(t_minishell *minishell);
-
-int		parsing_cd(char **line, t_lstcommands **commands);
-int		parsing_echo(char **line, t_lstcommands **commands);
-int		parsing_pwd(char **line, t_lstcommands **commands);
-
-#endif
+int		parsing_echo(char **line, t_lstcommands **commands)
+{
+	*line = &(*line)[4];
+	if ((add_back(commands, TYPE_ECHO, get_data(line))) < 0) // A CHANGER
+		return (-1);
+	return (0);
+}

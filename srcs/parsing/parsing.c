@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:35:38 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 07:11:44 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/10 08:15:00 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,33 +76,26 @@ int		parsing_command(t_minishell *minishell)
 			line++;
 		if (!ft_strncmp(line, "cd", 2) && (ft_isspace(line[2]) || !line[2]))
 		{
-			line = &line[2];
-			if ((add_back(&minishell->commands, TYPE_CD, get_data_no_space(&line))) < 0)
+			if (parsing_cd(&line, &minishell->commands) < 0)
 				return (-1);
 		}
 		else if (!ft_strncmp(line, "pwd", 3) && (ft_isspace(line[3]) || !line[3]))
 		{
-			line = &line[3];
-			if ((check_too_many_args(&line)) < 0)
-				return (-3);
-			if ((add_back(&minishell->commands, TYPE_PWD, NULL)) < 0)
+			if (parsing_pwd(&line, &minishell->commands) < 0)
 				return (-1);
 		}
 		else if (!ft_strncmp(line, "echo", 4) && (ft_isspace(line[4]) || !line[4]))
 		{
-			line = &line[4];
-			if ((add_back(&minishell->commands, TYPE_ECHO, get_data(&line))) < 0) // A CHANGER
+			if (parsing_echo(&line, &minishell->commands) < 0)
 				return (-1);
 		}
 		else if (ft_isseparator(*line))
-		{
-			line++;
-		}
+			line++; // A CHANGER
 		else
 		{
-			if ((ret = command_not_found(minishell->name, line)) < 0)
+			if ((ret = command_not_found(minishell->name, get_data(&line))) < 0)
 				return (ret);
-			while (*line && !ft_isspace(*line) && !ft_isseparator(*line))
+			while (*line && !ft_isseparator(*line))
 				line++;
 		}
 	}
