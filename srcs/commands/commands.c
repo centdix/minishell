@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:22:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 07:11:02 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/10 10:24:54 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ int		running_commands(t_minishell *minishell)
 	{
 		if (minishell->commands->type == TYPE_CD)
 		{
+			if (!ft_strcmp(minishell->commands->data, ""))
+			{
+				minishell->commands->data = ft_strdup(get_env_value(minishell->env_variables, "HOME"));
+			}
 			if (chdir(minishell->commands->data) > 0)
 				return (-1);
 			free(minishell->path);

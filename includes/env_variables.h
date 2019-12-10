@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   env_variables.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/09 20:16:41 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 10:04:13 by lmartin          ###   ########.fr       */
+/*   Created: 2019/12/10 09:52:50 by lmartin           #+#    #+#             */
+/*   Updated: 2019/12/10 10:21:23 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef ENV_VARIABLES_H
+# define ENV_VARIABLES_H
 
-# define ESC_CHAR 27
+typedef	struct		s_lstenv_v
+{
+	char			*name;
+	char			*value;
+	void			*next;
+}					t_lstenv_v;
 
-int		ft_isseparator(char c);
-int		ft_isspace(char c);
-
-int		ft_strcmp(const char *s1, const char *s2);
-char	*ft_strdup(const char *s1);
-char	*ft_strjoin(char const *s1, char const *s2);
-size_t	ft_strlen(const char *s);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-char	*ft_strchr(const char *s, int c);
+t_lstenv_v			*new_lstenv_v(char *name, char *value);
+int					add_back_env(t_lstenv_v **lst, char *name, char *value);
+char				*get_env_value(t_lstenv_v *lst, char *name);
+t_lstenv_v			*init_env(char **envv);
 
 #endif

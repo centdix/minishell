@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/07 23:13:40 by lmartin           #+#    #+#              #
-#    Updated: 2019/12/10 09:24:50 by lmartin          ###   ########.fr        #
+#    Updated: 2019/12/10 10:15:11 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,8 @@ DIR_OBJS	=	./compiled_srcs/
 
 DIR_COMMANDS=	commands/
 
+DIR_ENV_V	=	env_variables/
+
 DIR_ERRORS	=	errors/
 
 DIR_PARSING =	parsing/
@@ -80,6 +82,8 @@ DIR_UTILS	=	utils/
 SRC			=	commands/commands.c \
 				commands/lstcommands.c \
 				\
+				env_variables/env_variables.c \
+				\
 				errors/command_errors.c \
 				\
 				parsing/parsing_cd.c \
@@ -91,6 +95,7 @@ SRC			=	commands/commands.c \
 				\
 				utils/ft_isseparator.c \
 				utils/ft_isspace.c \
+				utils/ft_strchr.c \
 				utils/ft_strcmp.c \
 				utils/ft_strdup.c \
 				utils/ft_strjoin.c \
@@ -130,6 +135,7 @@ $(DIR_OBJS)%.o: $(DIR_SRCS)%.c
 $(DIR_OBJS):
 				@mkdir $(DIR_OBJS)
 				@mkdir $(DIR_OBJS)$(DIR_COMMANDS)
+				@mkdir $(DIR_OBJS)$(DIR_ENV_V)
 				@mkdir $(DIR_OBJS)$(DIR_ERRORS)
 				@mkdir $(DIR_OBJS)$(DIR_PARSING)
 				@mkdir $(DIR_OBJS)$(DIR_STYLE)

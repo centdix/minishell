@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 23:48:25 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 07:42:43 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/10 09:54:38 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 # include <unistd.h>
 
 # include "commands.h"
-# include "error.h"
+# include "env_variables.h"
+# include "errors.h"
 # include "parsing.h"
 # include "style.h"
 # include "utils.h"
