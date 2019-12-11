@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 00:33:01 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 02:57:58 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 04:37:30 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,34 @@ int		export_write_envv(t_lstenv_v *envv)
 }
 
 /*
+** Sort lstenv_v and write
+*/
+
+int		sort_and_write_envv(t_lstenv_v *envv)
+{
+	t_lstenv_v	*sorted;
+	size_t		size;
+
+	size = 0;
+	sorted = NULL;
+	while (envv && ++size)
+	{
+		if (add_back_env(&sorted, envv->name, envv->value) < 0)
+			return (-1);
+		envv = envv->next;
+	}
+	sorted = sort_envv(sorted, size);
+	while (sorted && (envv = sorted))
+	{
+		if (export_write_envv(sorted) < 0)
+			return (-1);
+		sorted = sorted->next;
+		free(envv);
+	}
+	return (0);
+}
+
+/*
 ** Run export command
 */
 
@@ -107,12 +135,8 @@ int		run_export(t_minishell *minishell)
 	envv = minishell->env_variables;
 	if (!ft_strcmp(minishell->commands->data, ""))
 	{
-		while (envv)
-		{
-			if (export_write_envv(envv) < 0)
-				return (-1);
-			envv = envv->next;
-		}
+		if (sort_and_write_envv(envv) < 0)
+			return (-1);
 	}
 	else
 	{

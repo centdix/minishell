@@ -6,52 +6,43 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 09:59:13 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 02:18:55 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 04:41:05 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-** Create a new lstenv_v to store a environment variable
+** Sort list of env_variables and return the first element
 */
 
-t_lstenv_v			*new_lstenv_v(char *name, char *value)
+t_lstenv_v			*sort_envv(t_lstenv_v *lst, size_t size)
 {
-	t_lstenv_v *lstenv_v;
+	t_lstenv_v	*begin;
+	t_lstenv_v	*prev;
+	t_lstenv_v	*next;
 
-	if (!(lstenv_v = malloc(sizeof(t_lstenv_v))))
-		return (NULL);
-	lstenv_v->name = name;
-	lstenv_v->value = value;
-	lstenv_v->next = NULL;
-	return (lstenv_v);
-}
-
-/*
-** Create a new env_variables and add it at the end of the lst (or create a new
-** list if lst is NULL)
-*/
-
-int					add_back_env(t_lstenv_v **lst, char *name, char *value)
-{
-	t_lstenv_v *begin;
-
-	begin = *lst;
-	if (begin)
+	while (size-- && !(prev = NULL))
 	{
-		while (begin->next)
-			begin = begin->next;
-		if (!(begin->next = new_lstenv_v(name, value)))
-			return (-1);
+		begin = lst;
+		while (lst->next)
+		{
+			next = lst->next;
+			if (ft_strcmp(lst->name, next->name) > 0)
+			{
+				lst->next = next->next;
+				next->next = lst;
+				lst = next;
+				begin = (!prev) ? lst : begin;
+				if (prev)
+					prev->next = lst;
+			}
+			prev = lst;
+			lst = lst->next;
+		}
+		lst = begin;
 	}
-	else
-	{
-		if (!(*lst = new_lstenv_v(name, value)))
-			return (-1);
-		begin = *lst;
-	}
-	return (0);
+	return (lst);
 }
 
 /*

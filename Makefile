@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/07 23:13:40 by lmartin           #+#    #+#              #
-#    Updated: 2019/12/11 02:27:56 by lmartin          ###   ########.fr        #
+#    Updated: 2019/12/11 04:16:35 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,6 +91,7 @@ SRC			=	commands/run/run_cd.c \
 				commands/lstcommands.c \
 				\
 				env_variables/env_variables.c \
+				env_variables/lstenv_v.c \
 				\
 				errors/command_errors.c \
 				\
