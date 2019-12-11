@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:35:38 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 00:39:32 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 01:47:51 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		choice_parsing2(t_minishell *minishell, char **line)
 	}
 	else if (ft_isseparator(*(*line)))
 		(*line)++; // A CHANGER
-	else
+	else if (**line)
 	{
 		if ((ret = command_not_found(minishell->name, get_data(line))) < 0)
 			return (ret);
