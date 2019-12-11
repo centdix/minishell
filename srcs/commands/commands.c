@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:22:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 02:26:27 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 08:07:49 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,36 +48,23 @@ char	*wait_command(char *command)
 
 int		choice_command(t_minishell *minishell)
 {
-	if (minishell->commands->type == TYPE_CD)
-	{
-		if (run_cd(minishell) < 0)
-			return (-1);
-	}
-	else if (minishell->commands->type == TYPE_PWD)
-	{
-		if (run_pwd(minishell) < 0)
-			return (-1);
-	}
-	else if (minishell->commands->type == TYPE_ECHO)
-	{
-		if (run_echo(minishell) < 0)
-			return (-1);
-	}
-	else if (minishell->commands->type == TYPE_EXIT)
-	{
-		if (run_exit(minishell) < 0)
-			return (-1);
-	}
-	else if (minishell->commands->type == TYPE_EXPORT)
-	{
-		if (run_export(minishell) < 0)
-			return (-1);
-	}
-	else if (minishell->commands->type == TYPE_ENV)
-	{
-		if (run_env(minishell) < 0)
-			return (-1);
-	}
+	int type;
+
+	type = minishell->commands->type;
+	if (type == TYPE_CD && run_cd(minishell) < 0)
+		return (-1);
+	else if (type == TYPE_PWD && run_pwd(minishell) < 0)
+		return (-1);
+	else if (type == TYPE_ECHO && run_echo(minishell) < 0)
+		return (-1);
+	else if (type == TYPE_EXIT && run_exit(minishell) < 0)
+		return (-1);
+	else if (type == TYPE_EXPORT && run_export(minishell) < 0)
+		return (-1);
+	else if (type == TYPE_ENV && run_env(minishell) < 0)
+		return (-1);
+	else if (type == TYPE_UNSET && run_unset(minishell) < 0)
+		return (-1);
 	return (0);
 }
 

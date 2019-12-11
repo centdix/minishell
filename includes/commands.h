@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:23:05 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 02:26:11 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 07:33:37 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define TYPE_EXIT 4
 # define TYPE_EXPORT 5
 # define TYPE_ENV 6
+# define TYPE_UNSET 7
 
 # include "commands_struct.h"
 # include "minishell_struct.h"
@@ -36,6 +37,7 @@ int					run_env(t_minishell *minishell);
 int					run_exit(t_minishell *minishell);
 int					run_export(t_minishell *minishell);
 int					run_pwd(t_minishell *minishell);
+int					run_unset(t_minishell *minishell);
 
 /*
 ** commands

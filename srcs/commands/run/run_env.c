@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 02:25:01 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 06:39:51 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 07:59:14 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		env_export_env(t_lstenv_v *env_variables, char **data)
 	if ((name = ft_strdup(begin)) < 0)
 		return (-1);
 	if (!(envv = get_env_variable(env_variables, name)) && equal != '=')
-		return (-2);
+		return (ft_free_return(name));
 	if (equal != '=')
 		return (1);
 	if (env_set_value(&value, begin, &(*data)) < 0)
@@ -109,7 +109,7 @@ int		add_and_write_envv(t_minishell *minishell)
 	{
 		if (env_write_envv(new) < 0 || (!(new = new->next) && new))
 			return (-1);
-		free(envv);
+		ft_multifree(envv->value, envv->name, envv, NULL);
 	}
 	return (0);
 }

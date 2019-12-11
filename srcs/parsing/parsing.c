@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:35:38 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 02:29:51 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 07:16:26 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,47 @@
 
 /*
 ** Choice which command is to parse :
-** - exit
-** - export
+** - unset
 ** - '|' or ';'
 ** - command not found
 */
 
-int		choice_parsing2(t_minishell *minishell, char **line)
+int		choice_parsing3(t_minishell *minishell, char **line)
 {
 	int		ret;
 
+	if (!ft_strncmp((*line), "unset", 5) &&
+(ft_isspace((*line)[5]) || !(*line)[5]))
+	{
+		if (parsing_unset(line, &minishell->commands) < 0)
+			return (-1);
+		return (1);
+	}
+	else if (ft_isseparator(*(*line)))
+	{
+		(*line)++; // A CHANGER
+		return (1);
+	}
+	else if (**line)
+	{
+		if ((ret = command_not_found(minishell->name, get_data(line))) < 0)
+			return (ret);
+		while (*(*line) && !ft_isseparator(*(*line)))
+			(*line)++;
+		return (1);
+	}
+	return (0);
+}
+
+/*
+** Choice which command is to parse :
+** - exit
+** - export
+** - env
+*/
+
+int		choice_parsing2(t_minishell *minishell, char **line)
+{
 	if (!ft_strncmp((*line), "exit", 4) &&
 (ft_isspace((*line)[4]) || !(*line)[4]))
 	{
@@ -44,15 +75,6 @@ int		choice_parsing2(t_minishell *minishell, char **line)
 		if (parsing_env(line, &minishell->commands) < 0)
 			return (-1);
 		return (1);
-	}
-	else if (ft_isseparator(*(*line)))
-		(*line)++; // A CHANGER
-	else if (**line)
-	{
-		if ((ret = command_not_found(minishell->name, get_data(line))) < 0)
-			return (ret);
-		while (*(*line) && !ft_isseparator(*(*line)))
-			(*line)++;
 	}
 	return (0);
 }
@@ -109,7 +131,9 @@ int		parsing_command(t_minishell *minishell)
 			line++;
 		if ((ret = choice_parsing(minishell, &line)) < 0)
 			return (-1);
-		if (!ret && choice_parsing2(minishell, &line) < 0)
+		if (!ret && (ret = choice_parsing2(minishell, &line) < 0))
+			return (-1);
+		if (!ret && (ret = choice_parsing3(minishell, &line) < 0))
 			return (-1);
 	}
 	return (0);

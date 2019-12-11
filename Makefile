@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/07 23:13:40 by lmartin           #+#    #+#              #
-#    Updated: 2019/12/11 06:39:15 by lmartin          ###   ########.fr        #
+#    Updated: 2019/12/11 07:58:44 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,6 +87,7 @@ SRC			=	commands/run/run_cd.c \
 				commands/run/run_exit.c \
 				commands/run/run_export.c \
 				commands/run/run_pwd.c \
+				commands/run/run_unset.c \
 				commands/commands.c \
 				commands/lstcommands.c \
 				\
@@ -102,15 +103,18 @@ SRC			=	commands/run/run_cd.c \
 				parsing/parsing_exit.c \
 				parsing/parsing_export.c \
 				parsing/parsing_pwd.c \
+				parsing/parsing_unset.c \
 				parsing/parsing.c \
 				\
 				style/style.c \
 				\
+				utils/ft_free_return.c \
 				utils/ft_isalpha.c \
 				utils/ft_isdigit.c \
 				utils/ft_isquote.c \
 				utils/ft_isseparator.c \
 				utils/ft_isspace.c \
+				utils/ft_multifree.c \
 				utils/ft_strchr.c \
 				utils/ft_strcmp.c \
 				utils/ft_strdup.c \
