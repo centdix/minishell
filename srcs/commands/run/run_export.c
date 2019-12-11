@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 00:33:01 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 01:46:58 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 02:16:29 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		set_value(char **value, char *begin, char **data)
 {
 	while (*(*data) && !ft_isspace(*(*data)))
 		(*data)++;
-	if (*data)
+	if (**data)
 		*(*data)++ = '\0';
 	if ((*value = ft_strdup(begin)) < 0)
 		return (-1);
@@ -49,7 +49,7 @@ int		export_env(t_minishell *minishell, char **data)
 		return (-1);
 	if (!*(*data) || ft_isspace(*(*data)))
 		value = NULL;
-	else if ((begin = (*data)) && set_value(&value, begin, data) < 0)
+	else if ((begin = (*data)) && set_value(&value, begin, &(*data)) < 0)
 		return (-1);
 	if ((envv = get_env_variable(minishell->env_variables, name)))
 		envv->value = value;
