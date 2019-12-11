@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 20:16:41 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 23:27:02 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 06:41:53 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # define ESC_CHAR 27
 
+int		ft_isalpha(char c);
+int		ft_isdigit(char c);
 int		ft_isquote(char c);
 int		ft_isseparator(char c);
 int		ft_isspace(char c);

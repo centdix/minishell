@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/07 23:13:40 by lmartin           #+#    #+#              #
-#    Updated: 2019/12/11 04:16:35 by lmartin          ###   ########.fr        #
+#    Updated: 2019/12/11 06:39:15 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,6 +106,8 @@ SRC			=	commands/run/run_cd.c \
 				\
 				style/style.c \
 				\
+				utils/ft_isalpha.c \
+				utils/ft_isdigit.c \
 				utils/ft_isquote.c \
 				utils/ft_isseparator.c \
 				utils/ft_isspace.c \

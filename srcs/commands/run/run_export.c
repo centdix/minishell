@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 00:33:01 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 04:37:30 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 07:09:07 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,26 +53,25 @@ int		export_export_env(t_minishell *minishell, char **data)
 	t_lstenv_v	*envv;
 	char		*name;
 
-	begin = (*data);
-	if (*(*data) == '=')
+	if (((begin = (*data)) || !begin) && *(*data) == '=')
 		return (-1);
 	while (*(*data) && *(*data) != '=' && !ft_isspace(*(*data)))
-		(*data)++;
-	if (*(*data) == '=')
 	{
-		if (export_set_value(minishell, &begin, &(*data)) < 0)
-			return (-1);
+		if (!ft_isalpha(**data) && !ft_isdigit(**data) && **data != '_')
+			return (-2);
+		(*data)++;
 	}
-	else
+	if (*(*data) != '=')
 	{
 		if (*(*data))
 			*(*data)++ = '\0';
-		if ((name = ft_strdup(begin)) < 0)
-			return (-1);
-		if (!(envv = get_env_variable(minishell->env_variables, name)) &&
-add_back_env(&minishell->env_variables, name, NULL) < 0)
+		if (((name = ft_strdup(begin)) < 0) ||
+(!(envv = get_env_variable(minishell->env_variables, name)) &&
+add_back_env(&minishell->env_variables, name, NULL) < 0))
 			return (-1);
 	}
+	else if (export_set_value(minishell, &begin, &(*data)) < 0)
+		return (-1);
 	return (0);
 }
 
@@ -129,6 +128,7 @@ int		sort_and_write_envv(t_lstenv_v *envv)
 
 int		run_export(t_minishell *minishell)
 {
+	int			ret;
 	char		*data;
 	t_lstenv_v	*envv;
 
@@ -143,8 +143,11 @@ int		run_export(t_minishell *minishell)
 		data = minishell->commands->data;
 		while (*data)
 		{
-			if (export_export_env(minishell, &data) < 0)
+			ret = export_export_env(minishell, &data);
+			if (ret == -1)
 				return (-1);
+			if (ret == -2)
+				return (1); // ERREUR A GERER
 			if (ft_isspace(*data))
 				data++;
 		}
