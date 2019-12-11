@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:35:53 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 07:16:41 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 09:03:34 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	*get_data_no_space(char **str);
 
 int		parsing_command(t_minishell *minishell);
 
+int		parsing_bin(char **line, t_lstcommands **commands);
 int		parsing_cd(char **line, t_lstcommands **commands);
 int		parsing_echo(char **line, t_lstcommands **commands);
 int		parsing_env(char **line, t_lstcommands **commands);

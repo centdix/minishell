@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:22:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 08:07:49 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 09:40:12 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int		choice_command(t_minishell *minishell)
 	else if (type == TYPE_ENV && run_env(minishell) < 0)
 		return (-1);
 	else if (type == TYPE_UNSET && run_unset(minishell) < 0)
+		return (-1);
+	else if (type == TYPE_BIN && run_bin(minishell) < 0)
 		return (-1);
 	return (0);
 }

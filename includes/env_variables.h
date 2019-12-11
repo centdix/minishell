@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 09:52:50 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 04:17:34 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 09:57:53 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int					add_back_env(t_lstenv_v **lst, char *name, char *value);
 ** env_variables
 */
 
+char				**t_lstenv_v_to_array(t_lstenv_v *lst);
 t_lstenv_v			*sort_envv(t_lstenv_v *lst, size_t size);
 t_lstenv_v			*get_env_variable(t_lstenv_v *lst, char *name);
 char				*get_env_value(t_lstenv_v *lst, char *name);

@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:35:38 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 07:16:26 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 09:39:43 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Choice which command is to parse :
 ** - unset
 ** - '|' or ';'
-** - command not found
+** - command not found or bin
 */
 
 int		choice_parsing3(t_minishell *minishell, char **line)
@@ -37,11 +37,19 @@ int		choice_parsing3(t_minishell *minishell, char **line)
 	}
 	else if (**line)
 	{
-		if ((ret = command_not_found(minishell->name, get_data(line))) < 0)
-			return (ret);
-		while (*(*line) && !ft_isseparator(*(*line)))
-			(*line)++;
-		return (1);
+		ret = parsing_bin(line, &minishell->commands);
+		if (ret == 1)
+			return (1);
+		else if (ret < 0)
+			return (-1);
+		else
+		{
+			if ((ret = command_not_found(minishell->name, get_data(line))) < 0)
+				return (ret);
+			while (*(*line) && !ft_isseparator(*(*line)))
+				(*line)++;
+			return (1);
+		}
 	}
 	return (0);
 }

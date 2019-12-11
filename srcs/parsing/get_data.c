@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 23:03:25 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 00:12:29 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 09:25:22 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*get_data_no_space(char **str)
 		(*str)++;
 	begin = *str;
 	size = 0;
-	while (!ft_isspace(*begin) && !ft_isseparator(*begin) && begin++)
+	while (!ft_isspace(*begin) && !ft_isseparator(*begin) && *begin++)
 		size++;
 	if (!(data = malloc(sizeof(char) * (size + 1))))
 		return (NULL);
