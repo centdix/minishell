@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/07 23:13:40 by lmartin           #+#    #+#              #
-#    Updated: 2019/12/11 02:05:17 by lmartin          ###   ########.fr        #
+#    Updated: 2019/12/11 02:27:56 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,6 +83,7 @@ DIR_UTILS	=	utils/
 
 SRC			=	commands/run/run_cd.c \
 				commands/run/run_echo.c \
+				commands/run/run_env.c \
 				commands/run/run_exit.c \
 				commands/run/run_export.c \
 				commands/run/run_pwd.c \
@@ -96,6 +97,7 @@ SRC			=	commands/run/run_cd.c \
 				parsing/get_data.c \
 				parsing/parsing_cd.c \
 				parsing/parsing_echo.c \
+				parsing/parsing_env.c \
 				parsing/parsing_exit.c \
 				parsing/parsing_export.c \
 				parsing/parsing_pwd.c \

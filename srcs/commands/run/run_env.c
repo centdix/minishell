@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_export.c                                       :+:      :+:    :+:   */
+/*   run_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/11 00:33:01 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 02:57:58 by lmartin          ###   ########.fr       */
+/*   Created: 2019/12/11 02:25:01 by lmartin           #+#    #+#             */
+/*   Updated: 2019/12/11 02:34:35 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,13 @@
 ** Set value for export_env
 */
 
-int		export_set_value(t_minishell *minishell, char **begin, char **data)
+int		env_set_value(char **value, char *begin, char **data)
 {
-	t_lstenv_v	*envv;
-	char		*name;
-	char		*value;
-
-	value = NULL;
-	if (*(*data))
+	while (*(*data) && !ft_isspace(*(*data)))
+		(*data)++;
+	if (**data)
 		*(*data)++ = '\0';
-	if ((name = ft_strdup(*begin)) < 0)
-		return (-1);
-	if (*(*data) && !ft_isspace(*(*data) && (*begin = (*data))))
-	{
-		while (*(*data) && !ft_isspace(*(*data)))
-			(*data)++;
-		if (**data)
-			*(*data)++ = '\0';
-		if ((value = ft_strdup(*begin)) < 0)
-			return (-1);
-	}
-	if ((envv = get_env_variable(minishell->env_variables, name)))
-		envv->value = value;
-	else if (add_back_env(&minishell->env_variables, name, value) < 0)
+	if ((*value = ft_strdup(begin)) < 0)
 		return (-1);
 	return (0);
 }
@@ -47,32 +31,30 @@ int		export_set_value(t_minishell *minishell, char **begin, char **data)
 ** Parse data and add or modify existing env_variables
 */
 
-int		export_export_env(t_minishell *minishell, char **data)
+int		env_export_env(t_minishell *minishell, char **data)
 {
 	char		*begin;
-	t_lstenv_v	*envv;
 	char		*name;
+	char		*value;
+	t_lstenv_v	*envv;
 
 	begin = (*data);
 	if (*(*data) == '=')
 		return (-1);
 	while (*(*data) && *(*data) != '=' && !ft_isspace(*(*data)))
 		(*data)++;
-	if (*(*data) == '=')
-	{
-		if (export_set_value(minishell, &begin, &(*data)) < 0)
-			return (-1);
-	}
-	else
-	{
-		if (*(*data))
-			*(*data)++ = '\0';
-		if ((name = ft_strdup(begin)) < 0)
-			return (-1);
-		if (!(envv = get_env_variable(minishell->env_variables, name)) &&
-add_back_env(&minishell->env_variables, name, NULL) < 0)
-			return (-1);
-	}
+	if (*(*data))
+		*(*data)++ = '\0';
+	if ((name = ft_strdup(begin)) < 0)
+		return (-1);
+	if (!*(*data) || ft_isspace(*(*data)))
+		value = NULL;
+	else if ((begin = (*data)) && env_set_value(&value, begin, &(*data)) < 0)
+		return (-1);
+	if ((envv = get_env_variable(minishell->env_variables, name)))
+		envv->value = value;
+	else if (add_back_env(&minishell->env_variables, name, value) < 0)
+		return (-1);
 	return (0);
 }
 
@@ -80,15 +62,13 @@ add_back_env(&minishell->env_variables, name, NULL) < 0)
 ** Write env_variables
 */
 
-int		export_write_envv(t_lstenv_v *envv)
+int		env_write_envv(t_lstenv_v *envv)
 {
 	if (write(1, envv->name, ft_strlen(envv->name)) < 0)
 		return (-1);
 	if (write(1, "=", 1) < 0)
 		return (-1);
 	if (envv->value && write(1, envv->value, ft_strlen(envv->value)) < 0)
-		return (-1);
-	else if (!envv->value && write(1, "''", 2) < 0)
 		return (-1);
 	if (write(1, "\n", 1) < 0)
 		return (-1);
@@ -99,7 +79,7 @@ int		export_write_envv(t_lstenv_v *envv)
 ** Run export command
 */
 
-int		run_export(t_minishell *minishell)
+int		run_env(t_minishell *minishell)
 {
 	char		*data;
 	t_lstenv_v	*envv;
@@ -109,7 +89,7 @@ int		run_export(t_minishell *minishell)
 	{
 		while (envv)
 		{
-			if (export_write_envv(envv) < 0)
+			if (env_write_envv(envv) < 0)
 				return (-1);
 			envv = envv->next;
 		}
@@ -119,7 +99,7 @@ int		run_export(t_minishell *minishell)
 		data = minishell->commands->data;
 		while (*data)
 		{
-			if (export_export_env(minishell, &data) < 0)
+			if (env_export_env(minishell, &data) < 0)
 				return (-1);
 			if (ft_isspace(*data))
 				data++;
