@@ -6,36 +6,37 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 00:33:01 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 01:10:10 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 01:31:57 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		export_env(t_minishell *minishell, char *data)
+int		export_env(t_minishell *minishell, char **data)
 {
 	char		*begin;
 	char		*name;
 	char		*value;
 	t_lstenv_v	*envv;
 
-	begin = data;
-	if (*data == '=')
+	begin = (*data);
+	if (*(*data) == '=')
 		return (-1);
-	while (*data && *data != '=' && !ft_isspace(*data))
-		data++;
-	if (*data)
-		*data++ = '\0';
+	while (*(*data) && *(*data) != '=' && !ft_isspace(*(*data)))
+		(*data)++;
+	if (*(*data))
+		*(*data)++ = '\0';
 	if ((name = ft_strdup(begin)) < 0)
 		return (-1);
-	if (!*data || ft_isspace(*data))
+	if (!*(*data) || ft_isspace(*(*data)))
 		value = NULL;
 	else
 	{
-		begin = data;
-		while (*data && !ft_isspace(*data))
-			data++;
-		*data = '\0';
+		begin = (*data);
+		while (*(*data) && !ft_isspace(*(*data)))
+			(*data)++;
+		if (*data)
+			*(*data)++ = '\0';
 		if ((value = ft_strdup(begin)) < 0)
 			return (-1);
 	}
@@ -80,10 +81,8 @@ int		run_export(t_minishell *minishell)
 		data = minishell->commands->data;
 		while (*data)
 		{
-			if (export_env(minishell, data) < 0)
+			if (export_env(minishell, &data) < 0)
 				return (-1);
-			while (*data && !ft_isspace(*data))
-				data++;
 			if (ft_isspace(*data))
 				data++;
 		}
