@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 09:59:13 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 01:07:56 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 02:18:55 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ t_lstenv_v			*init_env(char **envv)
 	{
 		ptr = ft_strchr(*envv, '=');
 		*ptr++ = '\0';
+		if (*ptr == '\0')
+			ptr = NULL;
 		if (add_back_env(&lst, *envv, ptr) < 0)
 			return (NULL);
 		envv++;
