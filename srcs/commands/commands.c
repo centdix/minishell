@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:22:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 23:12:44 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 00:40:01 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ int		choice_command(t_minishell *minishell)
 	else if (minishell->commands->type == TYPE_EXIT)
 	{
 		if (run_exit(minishell) < 0)
+			return (-1);
+	}
+	else if (minishell->commands->type == TYPE_EXPORT)
+	{
+		if (run_export(minishell) < 0)
 			return (-1);
 	}
 	return (0);

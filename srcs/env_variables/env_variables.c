@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 09:59:13 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 22:48:35 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 01:07:56 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,21 @@ int					add_back_env(t_lstenv_v **lst, char *name, char *value)
 		begin = *lst;
 	}
 	return (0);
+}
+
+/*
+** Get the lstenv_v who's name name
+*/
+
+t_lstenv_v			*get_env_variable(t_lstenv_v *lst, char *name)
+{
+	while (lst)
+	{
+		if (!ft_strcmp(lst->name, name))
+			return (lst);
+		lst = lst->next;
+	}
+	return (NULL);
 }
 
 /*

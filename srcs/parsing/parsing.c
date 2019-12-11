@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:35:38 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 00:14:18 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 00:39:32 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Choice which command is to parse :
 ** - exit
+** - export
 ** - '|' or ';'
 ** - command not found
 */
@@ -27,6 +28,13 @@ int		choice_parsing2(t_minishell *minishell, char **line)
 (ft_isspace((*line)[4]) || !(*line)[4]))
 	{
 		if (parsing_exit(line, &minishell->commands) < 0)
+			return (-1);
+		return (1);
+	}
+	if (!ft_strncmp((*line), "export", 6) &&
+(ft_isspace((*line)[6]) || !(*line)[6]))
+	{
+		if (parsing_export(line, &minishell->commands) < 0)
 			return (-1);
 		return (1);
 	}

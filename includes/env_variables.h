@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 09:52:50 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 10:21:23 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/11 01:08:03 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef	struct		s_lstenv_v
 
 t_lstenv_v			*new_lstenv_v(char *name, char *value);
 int					add_back_env(t_lstenv_v **lst, char *name, char *value);
+t_lstenv_v			*get_env_variable(t_lstenv_v *lst, char *name);
 char				*get_env_value(t_lstenv_v *lst, char *name);
 t_lstenv_v			*init_env(char **envv);
 
