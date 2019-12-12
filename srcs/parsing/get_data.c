@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 23:03:25 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 03:20:20 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/12 03:44:03 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ void	fill_data_one_space(char **str, char **data)
 			saved_quote = (ft_isquote(**str)) ? **str : 0;
 			if (!saved_quote)
 			{
-				if (!ft_isspace(**str) || (*(*str + 1) && !ft_isspace(*(*str + 1))))
+				if (!ft_isspace(**str) || (*(*str + 1) &&
+!ft_isspace(*(*str + 1))))
 					*(*data)++ = *(*str);
 			}
 		}

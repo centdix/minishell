@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 04:13:20 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 03:36:33 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/12 04:30:24 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int					add_back_env(t_lstenv_v **lst, char *name, char *value)
 ** Return size of lstenv_v
 */
 
-size_t	get_size_lstenv_v(t_lstenv_v	*lst)
+size_t				get_size_lstenv_v(t_lstenv_v *lst)
 {
 	size_t		size;
 	t_lstenv_v	*ptr;

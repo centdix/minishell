@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:35:38 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 09:39:43 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/12 04:31:41 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,14 @@
 
 /*
 ** Choice which command is to parse :
-** - unset
-** - '|' or ';'
 ** - command not found or bin
 */
 
-int		choice_parsing3(t_minishell *minishell, char **line)
+int		choice_parsing4(t_minishell *minishell, char **line)
 {
 	int		ret;
 
-	if (!ft_strncmp((*line), "unset", 5) &&
-(ft_isspace((*line)[5]) || !(*line)[5]))
-	{
-		if (parsing_unset(line, &minishell->commands) < 0)
-			return (-1);
-		return (1);
-	}
-	else if (ft_isseparator(*(*line)))
-	{
-		(*line)++; // A CHANGER
-		return (1);
-	}
-	else if (**line)
+	if (**line)
 	{
 		ret = parsing_bin(line, &minishell->commands);
 		if (ret == 1)
@@ -50,6 +36,29 @@ int		choice_parsing3(t_minishell *minishell, char **line)
 				(*line)++;
 			return (1);
 		}
+	}
+	return (0);
+}
+
+/*
+** Choice which command is to parse :
+** - unset
+** - '|' or ';'
+*/
+
+int		choice_parsing3(t_minishell *minishell, char **line)
+{
+	if (!ft_strncmp((*line), "unset", 5) &&
+(ft_isspace((*line)[5]) || !(*line)[5]))
+	{
+		if (parsing_unset(line, &minishell->commands) < 0)
+			return (-1);
+		return (1);
+	}
+	else if (ft_isseparator(*(*line)))
+	{
+		(*line)++; // A CHANGER
+		return (1);
 	}
 	return (0);
 }
@@ -142,6 +151,8 @@ int		parsing_command(t_minishell *minishell)
 		if (!ret && (ret = choice_parsing2(minishell, &line) < 0))
 			return (-1);
 		if (!ret && (ret = choice_parsing3(minishell, &line) < 0))
+			return (-1);
+		if (!ret && (ret = choice_parsing4(minishell, &line) < 0))
 			return (-1);
 	}
 	return (0);
