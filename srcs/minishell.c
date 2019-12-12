@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 23:20:13 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 09:44:22 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/12 10:11:02 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		launch_minishell(void)
 }
 
 /*
-** Handle (CTRL+C etc..)
+** Handle SIGINT (CTRL + C)
 */
 
 void	signal_handler(int nb)
@@ -75,6 +75,16 @@ void	signal_handler(int nb)
 }
 
 /*
+** Handle SIGQUIT (CTRL \) Do nothing.
+*/
+
+void	do_nothing(int nb)
+{
+	(void)nb;
+	return ;
+}
+
+/*
 ** Initialize environment variables and the actual path of the shell, then wait
 ** for prompt
 */
@@ -90,6 +100,7 @@ int		main(int argc, char *argv[], char **envv)
 	if (!(g_envv = init_env(envv)))
 		return (-1);
 	g_name = argv[0];
+	signal(SIGQUIT, do_nothing);
 	if (!(g_pid = fork()))
 	{
 		if (!launch_minishell())
