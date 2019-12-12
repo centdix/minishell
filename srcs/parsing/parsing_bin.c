@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 09:01:49 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 03:42:53 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/12 04:42:29 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@ char	*create_bin_path(char **line)
 	char	*exec;
 	char	*path;
 
-	if (ft_strncmp(*line, "/bin/", 5))
+	if (!ft_strncmp(*line, "/bin/", 5) || !ft_strncmp(*line, "./", 2))
+	{
+		if (!(path = get_data_no_space(line)))
+			return (NULL);
+	}
+	else
 	{
 		if (!(exec = get_data_no_space(line)))
 			return (NULL);
@@ -32,8 +37,6 @@ char	*create_bin_path(char **line)
 		}
 		free(exec);
 	}
-	else if (!(path = get_data_no_space(line)))
-		return (NULL);
 	return (path);
 }
 

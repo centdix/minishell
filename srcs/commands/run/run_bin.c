@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 08:53:30 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 03:21:10 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/12 04:44:05 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,12 @@ char	**getting_args(char **data)
 	if (!(arguments = malloc(sizeof(char *) * (size + 1))))
 		return (NULL);
 	tmp = arguments;
-	if (ft_strncmp(*data, "/bin/", 5))
+	if (!ft_strncmp(*data, "/bin/", 5) || !ft_strncmp(*data, "./", 2))
+	{
+		if (!(*tmp++ = get_data_no_space(data)))
+			return (NULL);
+	}
+	else
 	{
 		if (!(ptr = get_data_no_space(data)))
 			return (NULL);
@@ -65,8 +70,6 @@ char	**getting_args(char **data)
 			return (NULL);
 		free(ptr);
 	}
-	else if (!(*tmp++ = get_data_no_space(data)))
-		return (NULL);
 	while (--size)
 		if (!(*tmp++ = get_data_no_space(data)))
 			return (NULL); // FAIRE UN TRUC POUR LE NO LEAKS
