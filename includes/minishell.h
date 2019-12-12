@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 23:48:25 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 09:54:38 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/12 08:53:33 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,12 @@
 
 # include "commands_struct.h"
 # include "minishell_struct.h"
+
+char		*g_name;
+t_lstenv_v	*g_envv;
+pid_t		g_pid;
+
+int		prompt(t_minishell *minishell);
+void	signal_handler(int nb);
 
 #endif

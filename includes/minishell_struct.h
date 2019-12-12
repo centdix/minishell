@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 22:55:26 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 10:18:42 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/12 07:43:48 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 typedef struct	s_minishell
 {
+	pid_t			pid;
 	char			*name;
 	char			*command_line;
 	char			*path;

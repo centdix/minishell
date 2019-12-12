@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 08:53:30 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 04:57:11 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/12 09:43:13 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ int		run_bin(t_minishell *minishell)
 	char	**arguments;
 	char	**envv;
 	pid_t	pid;
+	int		status;
 
 	data = minishell->commands->data;
 	if (!(arguments = getting_args(&data)))
@@ -145,7 +146,9 @@ int		run_bin(t_minishell *minishell)
 		exit(0);
 	}
 	else
-		wait(NULL);
+		while ((pid = wait(&status)) > 0)
+		{
+		}
 	free_2d_array((void **)envv);
 	free_2d_array((void **)arguments);
 	return (0);
