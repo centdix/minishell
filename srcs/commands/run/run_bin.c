@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 08:53:30 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 04:44:05 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/12 04:57:11 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,41 +43,6 @@ size_t	count_args(char **data)
 }
 
 /*
-** Getting args from data and return a allocated array arguments of all data
-*/
-
-char	**getting_args(char **data)
-{
-	size_t		size;
-	char		*ptr;
-	char		**arguments;
-	char		**tmp;
-
-	size = count_args(data);
-	if (!(arguments = malloc(sizeof(char *) * (size + 1))))
-		return (NULL);
-	tmp = arguments;
-	if (!ft_strncmp(*data, "/bin/", 5) || !ft_strncmp(*data, "./", 2))
-	{
-		if (!(*tmp++ = get_data_no_space(data)))
-			return (NULL);
-	}
-	else
-	{
-		if (!(ptr = get_data_no_space(data)))
-			return (NULL);
-		if (!(*tmp++ = ft_strjoin("/bin/", ptr)))
-			return (NULL);
-		free(ptr);
-	}
-	while (--size)
-		if (!(*tmp++ = get_data_no_space(data)))
-			return (NULL); // FAIRE UN TRUC POUR LE NO LEAKS
-	*tmp = NULL;
-	return (arguments);
-}
-
-/*
 ** Free 2D array
 */
 
@@ -92,6 +57,69 @@ void	free_2d_array(void **array)
 		ptr++;
 	}
 	free(array);
+}
+
+/*
+** Get and set exec name in arguments
+*/
+
+int		getting_exec_name(char **data, char ***arguments)
+{
+	char		*ptr;
+
+	if (!ft_strncmp(*data, "/bin/", 5) || !ft_strncmp(*data, "./", 2))
+	{
+		if (!(*(*arguments)++ = get_data_no_space(data)))
+		{
+			--(*arguments);
+			return (-1);
+		}
+	}
+	else
+	{
+		if (!(ptr = get_data_no_space(data)))
+			return (-1);
+		if (!(*(*arguments)++ = ft_strjoin("/bin/", ptr)))
+		{
+			--(*arguments);
+			free(ptr);
+			return (-1);
+		}
+		free(ptr);
+	}
+	return (0);
+}
+
+/*
+** Getting args from data and return a allocated array arguments of all data
+*/
+
+char	**getting_args(char **data)
+{
+	size_t		size;
+	char		**arguments;
+	char		**tmp;
+
+	size = count_args(data);
+	if (!(arguments = malloc(sizeof(char *) * (size + 1))))
+		return (NULL);
+	tmp = arguments;
+	if (getting_exec_name(data, &tmp) < 0)
+	{
+		*tmp = NULL;
+		free_2d_array((void **)arguments);
+		return (NULL);
+	}
+	while (--size)
+		if (!(*tmp++ = get_data_no_space(data)))
+		{
+			--tmp;
+			*tmp = NULL;
+			free_2d_array((void **)arguments);
+			return (NULL);
+		}
+	*tmp = NULL;
+	return (arguments);
 }
 
 /*
@@ -113,7 +141,7 @@ int		run_bin(t_minishell *minishell)
 	if (!(pid = fork()))
 	{
 		if (execve(arguments[0], arguments, envv) < 0)
-			return (-2);
+			return (-2); // ERROR HANDLE
 		exit(0);
 	}
 	else
