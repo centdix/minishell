@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 12:50:07 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 15:18:32 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/12 17:10:04 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int		get_data_no_space_size(char **str)
 	size = 0;
 	while (!ft_isspace(*ptr) && !ft_isseparator(*ptr) && *ptr)
 	{
-		if (*ptr == '$' && (!ft_isalpha((*(ptr + 1))) ||
+		if (*ptr == '\\')
+			ptr++;
+		if ((*(ptr - 1)) != '\\' &&
+*ptr == '$' && (!ft_isalpha((*(ptr + 1))) ||
 !ft_isdigit(*(ptr + 1)) || (*(ptr + 1)) == '_'))
 		{
 			++ptr;
@@ -59,7 +62,10 @@ char	*get_data_no_space(char **str)
 	ptr = data;
 	while (!ft_isspace(**str) && !ft_isseparator(**str) && **str)
 	{
-		if (**str == '$' && (!ft_isalpha((*(*str + 1))) ||
+		if (**str == '\\')
+			(*str)++;
+		if ((*((*str) - 1)) != '\\' && **str == '$' &&
+(!ft_isalpha((*(*str + 1))) ||
 !ft_isdigit(*(*str + 1)) || (*(*str + 1)) == '_'))
 		{
 			++(*str);

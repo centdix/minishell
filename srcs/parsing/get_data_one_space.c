@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 12:49:35 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 15:41:47 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/12 17:04:44 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int		add_size_one_space(char **ptr, int *size)
 {
 	int		ret;
 
-	if (*(*ptr) == '$' && (!ft_isalpha((*((*ptr) + 1))) ||
+	if ((*((*ptr) - 1)) != '\\' && *(*ptr) == '$' &&
+(!ft_isalpha((*((*ptr) + 1))) ||
 !ft_isdigit(*((*ptr) + 1)) || (*((*ptr) + 1)) == '_'))
 	{
 		++(*ptr);
@@ -39,7 +40,8 @@ int		add_size_one_space(char **ptr, int *size)
 
 int		add_chars_one_space(char **data, char **str)
 {
-	if (*(*str) == '$' && (!ft_isalpha((*((*str) + 1))) ||
+	if ((*((*str) - 1)) != '\\' && *(*str) == '$' &&
+(!ft_isalpha((*((*str) + 1))) ||
 !ft_isdigit(*((*str) + 1)) || (*((*str) + 1)) == '_'))
 	{
 		++(*str);
@@ -62,6 +64,8 @@ int		fill_data_one_space(char **str, char **data)
 	saved_quote = 0;
 	while (!ft_isseparator(**str) && **str)
 	{
+		if (**str == '\\')
+			*(*data)++ = *(*str)++;
 		if (saved_quote && *(*str) == saved_quote && (*str)++)
 			saved_quote = 0;
 		else if (saved_quote)
@@ -97,6 +101,8 @@ int		get_size_one_space(char *ptr)
 	saved_quote = 0;
 	while (!ft_isseparator(*ptr) && *ptr)
 	{
+		if (*ptr == '\\' && ++size)
+			ptr++;
 		if (saved_quote && *ptr == saved_quote && ptr++)
 			saved_quote = 0;
 		else if (saved_quote)

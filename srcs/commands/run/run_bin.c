@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 08:53:30 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 09:43:13 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/12 17:01:24 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int		run_bin(t_minishell *minishell)
 	int		status;
 
 	data = minishell->commands->data;
+	printf("%s\n", data);
 	if (!(arguments = getting_args(&data)))
 		return (-1);
 	if (!(envv = t_lstenv_v_to_array(minishell->env_variables)))
