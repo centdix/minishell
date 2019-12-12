@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 23:03:25 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 02:17:25 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/12 03:20:20 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,22 @@
 char	*get_data(char **str)
 {
 	char	*data;
-	char	*begin;
+	char	*ptr;
 	size_t	size;
 
 	while (ft_isspace(**str))
 		(*str)++;
-	begin = *str;
+	ptr = *str;
 	size = 0;
-	while (!ft_isseparator(*begin) && *begin++)
+	while (!ft_isseparator(*ptr) && *ptr++)
 		size++;
 	if (!(data = malloc(sizeof(char) * (size + 1))))
 		return (NULL);
-	begin = data;
+	ptr = data;
 	while (!ft_isseparator(**str) && **str)
-		*data++ = *(*str)++;
-	*data = '\0';
-	return (begin);
+		*ptr++ = *(*str)++;
+	*ptr = '\0';
+	return (data);
 }
 
 /*
@@ -44,24 +44,22 @@ char	*get_data(char **str)
 char	*get_data_no_space(char **str)
 {
 	char	*data;
-	char	*begin;
+	char	*ptr;
 	size_t	size;
 
 	while (ft_isspace(**str))
 		(*str)++;
-	begin = *str;
+	ptr = *str;
 	size = 0;
-	while (!ft_isspace(*begin) && !ft_isseparator(*begin) && *begin++)
+	while (!ft_isspace(*ptr) && !ft_isseparator(*ptr) && *ptr++)
 		size++;
 	if (!(data = malloc(sizeof(char) * (size + 1))))
 		return (NULL);
-	begin = data;
+	ptr = data;
 	while (!ft_isspace(**str) && !ft_isseparator(**str) && **str)
-		*data++ = *(*str)++;
-	*data = '\0';
-	if (**str)
-		(*str)++;
-	return (begin);
+		*ptr++ = *(*str)++;
+	*ptr = '\0';
+	return (data);
 }
 
 /*
@@ -99,24 +97,24 @@ void	fill_data_one_space(char **str, char **data)
 
 size_t	get_size_one_space(char **str)
 {
-	char	*begin;
+	char	*ptr;
 	size_t	size;
 	char	saved_quote;
 
-	begin = *str;
+	ptr = *str;
 	size = 0;
 	saved_quote = 0;
-	while (!ft_isseparator(*begin) && *begin)
+	while (!ft_isseparator(*ptr) && *ptr)
 	{
-		if (saved_quote && *begin == saved_quote)
+		if (saved_quote && *ptr == saved_quote)
 			saved_quote = 0;
 		else if (saved_quote)
 			size++;
-		else if (ft_isquote(*begin))
-			saved_quote = *begin;
-		else if (!ft_isspace(*begin) || (*(begin + 1) && !ft_isspace(*(begin + 1))))
+		else if (ft_isquote(*ptr))
+			saved_quote = *ptr;
+		else if (!ft_isspace(*ptr) || (*(ptr + 1) && !ft_isspace(*(ptr + 1))))
 			size++;
-		begin++;
+		ptr++;
 	}
 	return (size);
 }

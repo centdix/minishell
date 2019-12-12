@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 09:59:13 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 09:58:47 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/12 03:34:58 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,14 @@
 
 char				**t_lstenv_v_to_array(t_lstenv_v *lst)
 {
-	size_t		size;
 	t_lstenv_v	*ptr;
 	char		*tmp;
 	char		**array;
-	char		**begin;
+	char		**ptr2;
 
-	size = 0;
-	ptr = lst;
-	while (ptr)
-	{
-		size++;
-		ptr = ptr->next;
-	}
-	if (!(array = malloc(sizeof(char *) * (size + 1))))
+	if (!(array = malloc(sizeof(char *) * (get_size_lstenv_v(lst) + 1))))
 		return (NULL);
-	begin = array;
+	ptr2 = array;
 	ptr = lst;
 	while (ptr)
 	{
@@ -41,20 +33,16 @@ char				**t_lstenv_v_to_array(t_lstenv_v *lst)
 			return (NULL);
 		if (ptr->value)
 		{
-			if (!(*array = ft_strjoin(tmp, ptr->value)))
+			if (!(*ptr2++ = ft_strjoin(tmp, ptr->value)))
 				return (NULL);
 		}
-		else
-		{
-			if (!(*array = ft_strdup(tmp)))
-				return (NULL);
-		}
+		else if (!(*ptr2++ = ft_strdup(tmp)))
+			return (NULL);
 		free(tmp);
-		(*array)++;
 		ptr = ptr->next;
 	}
-	*array = NULL;
-	return (begin);
+	*ptr2 = NULL;
+	return (array);
 }
 
 /*
