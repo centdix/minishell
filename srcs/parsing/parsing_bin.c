@@ -6,14 +6,14 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 09:01:49 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 04:42:29 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/12 14:27:41 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-** If the path on line isn't /bin/, set it to /bin
+** If the path on line isn't /bin/, set it to /bin (working with binary ./)
 */
 
 char	*create_bin_path(char **line)
@@ -62,7 +62,7 @@ int		parsing_bin(char **line, t_lstcommands **commands)
 	{
 		ft_multifree(stat, path, NULL, NULL);
 		*line = begin;
-		if ((add_back(commands, TYPE_BIN, get_data_one_space(line))) < 0)
+		if ((add_back(commands, TYPE_BIN, get_data_one_space(line)) < 0))
 			return (-1);
 		return (1);
 	}

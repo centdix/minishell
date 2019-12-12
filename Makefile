@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/07 23:13:40 by lmartin           #+#    #+#              #
-#    Updated: 2019/12/12 08:45:56 by lmartin          ###   ########.fr        #
+#    Updated: 2019/12/12 13:17:40 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,11 +92,13 @@ SRC			=	commands/run/run_bin.c \
 				commands/commands.c \
 				commands/lstcommands.c \
 				\
-				env_variables/env_variables.c \
+				env_variables/env_v_utils.c \
 				env_variables/lstenv_v.c \
 				\
 				errors/command_errors.c \
 				\
+				parsing/get_data_no_space.c \
+				parsing/get_data_one_space.c \
 				parsing/get_data.c \
 				parsing/parsing_bin.c \
 				parsing/parsing_cd.c \
@@ -106,6 +108,7 @@ SRC			=	commands/run/run_bin.c \
 				parsing/parsing_export.c \
 				parsing/parsing_pwd.c \
 				parsing/parsing_unset.c \
+				parsing/parsing_utils.c \
 				parsing/parsing.c \
 				\
 				style/style.c \

@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_data.c                                         :+:      :+:    :+:   */
+/*   get_data_no_space.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/10 23:03:25 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 15:31:57 by lmartin          ###   ########.fr       */
+/*   Created: 2019/12/12 12:50:07 by lmartin           #+#    #+#             */
+/*   Updated: 2019/12/12 15:18:32 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-** Get the size to allocate on get_data
+** Get the size to allocate on get_data_no_space
 */
 
-int		get_data_size(char **str)
+int		get_data_no_space_size(char **str)
 {
-	int			ret;
-	char		*ptr;
-	int			size;
+	char	*ptr;
+	int		ret;
+	int		size;
 
 	while (ft_isspace(**str))
 		(*str)++;
 	ptr = *str;
 	size = 0;
-	while (!ft_isseparator(*ptr) && *ptr)
+	while (!ft_isspace(*ptr) && !ft_isseparator(*ptr) && *ptr)
 	{
 		if (*ptr == '$' && (!ft_isalpha((*(ptr + 1))) ||
 !ft_isdigit(*(ptr + 1)) || (*(ptr + 1)) == '_'))
@@ -43,21 +43,21 @@ int		get_data_size(char **str)
 }
 
 /*
-** Get data (argument), until separator or end
+** Get data (argument), until white space or separator or end
 */
 
-char	*get_data(char **str)
+char	*get_data_no_space(char **str)
 {
-	char		*data;
-	char		*ptr;
-	int			size;
+	char	*data;
+	char	*ptr;
+	int		size;
 
-	if ((size = get_data_size(str)) < 0)
+	if ((size = get_data_no_space_size(str)) < 0)
 		return (NULL);
 	if (!(data = malloc(sizeof(char) * (size + 1))))
 		return (NULL);
 	ptr = data;
-	while (!ft_isseparator(**str) && **str)
+	while (!ft_isspace(**str) && !ft_isseparator(**str) && **str)
 	{
 		if (**str == '$' && (!ft_isalpha((*(*str + 1))) ||
 !ft_isdigit(*(*str + 1)) || (*(*str + 1)) == '_'))
