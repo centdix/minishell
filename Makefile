@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/07 23:13:40 by lmartin           #+#    #+#              #
-#    Updated: 2019/12/11 09:18:10 by lmartin          ###   ########.fr        #
+#    Updated: 2019/12/12 00:26:46 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -144,7 +144,7 @@ NAME 		=	minishell
 
 $(NAME):		$(OBJS)
 				@echo "$(_GREEN) All files compiled into '$(DIR_OBJS)'. $(_END)✅"
-				@$(CC) $(CC_FLAGS) -I $(DIR_HEADERS) $(OBJS) -o $(NAME)
+				@$(CC) $(CC_FLAGS) -g3 -fsanitize=address -I $(DIR_HEADERS) $(OBJS) -o $(NAME)
 				@echo "$(_GREEN) Executable '$(NAME)' created. $(_END)✅"
 
 # COMPILED_SOURCES RULES #
