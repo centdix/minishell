@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 23:03:25 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 00:42:20 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/12 02:17:25 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,5 @@ char	*get_data_one_space(char **str)
 		return (NULL);
 	ptr = data;
 	fill_data_one_space(str, &ptr);
-	printf("%s\n", data);
 	return (data);
 }
