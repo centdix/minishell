@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 20:16:41 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 07:58:28 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/12 18:42:42 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define UTILS_H
 
 # define ESC_CHAR 27
+
+int		ft_print_clean_str(char *data);
 
 int		ft_free_return(void *ptr);
 void	ft_multifree(void *ptr1, void *ptr2, void *ptr3, void *ptr4);
