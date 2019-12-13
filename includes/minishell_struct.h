@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 22:55:26 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/13 11:53:34 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/13 12:10:58 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ typedef struct	s_minishell
 	char			*path;
 	t_lstcommands	*commands;
 	t_lstenv_v		*env_variables;
-	int				last_return;
 }				t_minishell;
 
 #endif

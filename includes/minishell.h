@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 23:48:25 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 08:53:33 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/13 12:11:06 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 char		*g_name;
 t_lstenv_v	*g_envv;
 pid_t		g_pid;
+int			g_lastreturn;
 
 int		prompt(t_minishell *minishell);
 void	signal_handler(int nb);

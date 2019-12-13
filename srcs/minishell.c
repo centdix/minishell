@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 23:20:13 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 10:11:02 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/13 12:12:53 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int		launch_minishell(void)
 	minishell.env_variables = g_envv;
 	minishell.path = NULL;
 	minishell.path = getcwd(minishell.path, 0);
+	g_lastreturn = 0;
 	if (!(minishell.name = ft_strjoin(g_name, ": ")))
 		return (-1);
 	if (prompt(&minishell) < 0)

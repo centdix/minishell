@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 11:48:49 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/13 10:52:13 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/13 13:43:41 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int		check_envv_and_size(char **str, int *size)
 	int		ret;
 
 	if (*(*str) == '$' && (!ft_isalpha((*((*str) + 1))) ||
-!ft_isdigit(*((*str) + 1)) || (*((*str) + 1)) == '_') && ++(*str))
+!ft_isdigit(*((*str) + 1)) || (*((*str) + 1)) == '_' ||
+(*((*str) + 1)) == '?') && ++(*str))
 	{
 		if ((ret = count_envv_variable(&(*str))) < 0)
 			return (-1);
@@ -39,7 +40,8 @@ int		check_envv_and_size(char **str, int *size)
 int		check_envv_and_move(char **str, char **data)
 {
 	if (*(*str) == '$' && (!ft_isalpha((*((*str) + 1))) ||
-!ft_isdigit(*((*str) + 1)) || (*((*str) + 1)) == '_') && (*str)++)
+!ft_isdigit(*((*str) + 1)) || (*((*str) + 1)) == '_' ||
+(*((*str) + 1)) == '?') && (*str)++)
 	{
 		if (add_envv_and_move(data, str) < 0)
 			return (-1);
@@ -66,8 +68,12 @@ int		add_envv_and_move(char **ptr, char **str)
 	free(tmp);
 	tmp = value;
 	if (value)
+	{
 		while (*tmp)
 			*(*ptr)++ = *tmp++;
+		if (!ft_strcmp(value, "?"))
+			free(value);
+	}
 	return (0);
 }
 
@@ -79,12 +85,21 @@ int		count_envv_variable(char **ptr)
 {
 	char	*tmp;
 	char	*value;
+	int		ret;
 
 	if (!(tmp = strdup_to_sep(ptr)))
 		return (-1);
 	value = get_env_value(g_envv, tmp);
 	free(tmp);
-	return ((value) ? ft_strlen(value) : 0);
+	if (value)
+	{
+		ret = ft_strlen(value);
+		if (!ft_strcmp(value, "?"))
+			free(value);
+	}
+	else
+		ret = 0;
+	return (ret);
 }
 
 /*
@@ -98,7 +113,8 @@ char	*strdup_to_sep(char **begin)
 	char	*str;
 
 	ptr = *begin;
-	while (*ptr && (ft_isalpha(*ptr) || ft_isdigit(*ptr) || (*ptr == '_')))
+	while (*ptr && (ft_isalpha(*ptr) || ft_isdigit(*ptr) || (*ptr == '_') ||
+*ptr == '?'))
 		ptr++;
 	saved_char = *ptr;
 	*ptr = '\0';

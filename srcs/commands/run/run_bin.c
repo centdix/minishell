@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 08:53:30 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/13 12:02:20 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/13 12:11:31 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,14 +136,14 @@ int		run_bin(t_minishell *minishell)
 
 	data = minishell->commands->data;
 	if (!(arguments = getting_args(&data)))
-		return (ft_setint_and_return(&minishell->last_return, -1));
+		return (ft_setint_and_return(&g_lastreturn, -1));
 	if (!(envv = t_lstenv_v_to_array(minishell->env_variables)))
-		return (ft_setint_and_return(&minishell->last_return, -1));
+		return (ft_setint_and_return(&g_lastreturn, -1));
 	if (!(pid = fork()))
 	{
 		if ((status = execve(arguments[0], arguments, envv)) < 0)
-			return (ft_setint_and_return(&minishell->last_return, -2)); // ERROR HANDLE
-		minishell->last_return = status;
+			return (ft_setint_and_return(&g_lastreturn, -2)); // ERROR HANDLE
+		g_lastreturn = status;
 		exit(0);
 	}
 	else

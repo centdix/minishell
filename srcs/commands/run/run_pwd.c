@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 22:20:27 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/13 12:01:36 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/13 12:12:24 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 int		run_pwd(t_minishell *minishell)
 {
 	if (write(1, minishell->path, ft_strlen(minishell->path)) < 0)
-		return (ft_setint_and_return(&minishell->last_return, -1));
+		return (ft_setint_and_return(&g_lastreturn, -1));
 	if (write(1, "\n", 1) < 0)
-		return (ft_setint_and_return(&minishell->last_return, -1));
-	return (ft_setint_and_return(&minishell->last_return, 0));
+		return (ft_setint_and_return(&g_lastreturn, -1));
+	return (ft_setint_and_return(&g_lastreturn, 0));
 }
