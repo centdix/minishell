@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 22:20:16 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/13 08:10:45 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/13 09:29:44 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int		run_echo(t_minishell *minishell)
 {
 	char	*data;
 	int		option_n;
-
 
 	option_n = 0;
 	data = minishell->commands->data;

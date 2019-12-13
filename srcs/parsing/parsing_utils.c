@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 11:48:49 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/13 09:05:27 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/13 10:52:13 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int		count_envv_variable(char **ptr)
 	free(tmp);
 	return ((value) ? ft_strlen(value) : 0);
 }
+
 /*
 ** Allocate a new string which stop to space, separator or end of the ptr string
 */
@@ -97,8 +98,7 @@ char	*strdup_to_sep(char **begin)
 	char	*str;
 
 	ptr = *begin;
-	while (*ptr && !ft_isspace(*ptr) && !ft_isseparator(*ptr) &&
-!ft_isquote(*ptr))
+	while (*ptr && (ft_isalpha(*ptr) || ft_isdigit(*ptr) || (*ptr == '_')))
 		ptr++;
 	saved_char = *ptr;
 	*ptr = '\0';

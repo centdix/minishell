@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 12:50:07 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 18:07:41 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/13 10:51:30 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 int		get_data_no_space_size(char **str)
 {
 	char	*ptr;
-	int		ret;
 	int		size;
 
 	while (ft_isspace(**str))
@@ -28,19 +27,13 @@ int		get_data_no_space_size(char **str)
 	size = 0;
 	while (!ft_isspace(*ptr) && !ft_isseparator(*ptr) && *ptr)
 	{
-		if (*ptr == '\\')
-			(*ptr)++;
-		if ((*(ptr - 1)) != '\\' &&
-*ptr == '$' && (!ft_isalpha((*(ptr + 1))) ||
-!ft_isdigit(*(ptr + 1)) || (*(ptr + 1)) == '_'))
+		if (*ptr == '\\' && *(ptr + 1) && ptr++)
 		{
-			++ptr;
-			if ((ret = count_envv_variable(&ptr)) < 0)
-				return (-1);
-			size += ret;
-		}
-		else if (++size)
+			size++;
 			ptr++;
+		}
+		else if (check_envv_and_size(&ptr, &size) < 0)
+			return (-1);
 	}
 	return (size);
 }
@@ -62,18 +55,10 @@ char	*get_data_no_space(char **str)
 	ptr = data;
 	while (!ft_isspace(**str) && !ft_isseparator(**str) && **str)
 	{
-		if (*(*str) == '\\')
-			(*str)++;
-		if ((*((*str) - 1)) != '\\' && **str == '$' &&
-(!ft_isalpha((*(*str + 1))) ||
-!ft_isdigit(*(*str + 1)) || (*(*str + 1)) == '_'))
-		{
-			++(*str);
-			if (add_envv_and_move(&ptr, str) < 0)
-				return (NULL);
-		}
-		else
+		if (**str == '\\' && *((*str) + 1) && (*str)++)
 			*ptr++ = *(*str)++;
+		else if (check_envv_and_move(str, &ptr) < 0)
+			return (NULL);
 	}
 	*ptr = '\0';
 	return (data);

@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 23:03:25 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/13 09:28:04 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/13 09:31:39 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,8 @@ int		fill_data(char **str, char **data)
 
 int		get_data_size_special(char **str, int *size)
 {
-	if (*(*str) == '\\' && (*size)++)
-	{
-		(*str) += (*((*str) + 1)) ? 2 : 1;
+	if (*(*str) == '\\' && (*size)++ && ((*str) += (*((*str) + 1)) ? 2 : 1))
 		return (1);
-	}
 	else if (*(*str) == '\'' && (*str)++)
 	{
 		while (*(*str) && *(*str) != '\'' &&
