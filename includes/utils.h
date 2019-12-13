@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 20:16:41 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 18:42:42 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/13 11:57:58 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		ft_print_clean_str(char *data);
 
 int		ft_free_return(void *ptr);
 void	ft_multifree(void *ptr1, void *ptr2, void *ptr3, void *ptr4);
+int		ft_setint_and_return(int *ptr, int value);
 
 int		ft_isalpha(char c);
 int		ft_isdigit(char c);

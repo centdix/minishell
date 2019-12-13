@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 22:20:16 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/13 09:29:44 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/13 12:02:01 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int		run_echo(t_minishell *minishell)
 			data++;
 	}
 	if (write(1, data, ft_strlen(data)) < 0)
-		return (-1);
+		return (ft_setint_and_return(&minishell->last_return, -1));
 	if (!option_n && write(1, "\n", 1) < 0)
-		return (-1);
-	return (0);
+		return (ft_setint_and_return(&minishell->last_return, -1));
+	return (ft_setint_and_return(&minishell->last_return, 0));
 }
