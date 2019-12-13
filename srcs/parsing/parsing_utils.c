@@ -6,11 +6,48 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 11:48:49 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 14:22:24 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/13 09:05:27 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Check for environment variable ($thing) and get size
+*/
+
+int		check_envv_and_size(char **str, int *size)
+{
+	int		ret;
+
+	if (*(*str) == '$' && (!ft_isalpha((*((*str) + 1))) ||
+!ft_isdigit(*((*str) + 1)) || (*((*str) + 1)) == '_') && ++(*str))
+	{
+		if ((ret = count_envv_variable(&(*str))) < 0)
+			return (-1);
+		(*size) += ret;
+	}
+	else if (++(*size))
+		(*str)++;
+	return (0);
+}
+
+/*
+** Check for environment variable ($thing) and call add_envv_and_move
+*/
+
+int		check_envv_and_move(char **str, char **data)
+{
+	if (*(*str) == '$' && (!ft_isalpha((*((*str) + 1))) ||
+!ft_isdigit(*((*str) + 1)) || (*((*str) + 1)) == '_') && (*str)++)
+	{
+		if (add_envv_and_move(data, str) < 0)
+			return (-1);
+	}
+	else
+		*(*data)++ = *(*str)++;
+	return (0);
+}
 
 /*
 ** Add an environment value to a char and move the two pointer (one for the
@@ -25,10 +62,12 @@ int		add_envv_and_move(char **ptr, char **str)
 	if (!(tmp = strdup_to_sep(str)))
 		return (-1);
 	value = get_env_value(g_envv, tmp);
-	if (value)
-		put_str_to_str(&(*ptr), value);
 	(*str) += ft_strlen(tmp);
 	free(tmp);
+	tmp = value;
+	if (value)
+		while (*tmp)
+			*(*ptr)++ = *tmp++;
 	return (0);
 }
 
@@ -47,18 +86,6 @@ int		count_envv_variable(char **ptr)
 	free(tmp);
 	return ((value) ? ft_strlen(value) : 0);
 }
-
-/*
-** Put src into dst, move the pointer
-** Careful : Be sure to have allocated enought space
-*/
-
-void	put_str_to_str(char **dst, char *src)
-{
-	while (*src)
-		*(*dst)++ = *src++;
-}
-
 /*
 ** Allocate a new string which stop to space, separator or end of the ptr string
 */
@@ -70,7 +97,8 @@ char	*strdup_to_sep(char **begin)
 	char	*str;
 
 	ptr = *begin;
-	while (*ptr && !ft_isspace(*ptr) && !ft_isseparator(*ptr))
+	while (*ptr && !ft_isspace(*ptr) && !ft_isseparator(*ptr) &&
+!ft_isquote(*ptr))
 		ptr++;
 	saved_char = *ptr;
 	*ptr = '\0';

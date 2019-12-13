@@ -6,75 +6,155 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 23:03:25 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 17:08:43 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/13 09:28:04 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-** Get the size to allocate on get_data
+** Fill data for special char like ' ', " " or \
 */
 
-int		get_data_size(char **str)
+int		fill_data_special(char **str, char **data)
 {
-	int			ret;
-	char		*ptr;
-	int			size;
-
-	while (ft_isspace(**str))
-		(*str)++;
-	ptr = *str;
-	size = 0;
-	while (!ft_isseparator(*ptr) && *ptr)
+	if (**str == '\\' && (*str)++)
 	{
-		if (*ptr == '\\' && ++size)
-			ptr++;
-		if ((*(ptr - 1)) != '\\' &&
-*ptr == '$' && (!ft_isalpha((*(ptr + 1))) ||
-!ft_isdigit(*(ptr + 1)) || (*(ptr + 1)) == '_'))
+		*(*data)++ = *(*str)++;
+		return (1);
+	}
+	else if (**str == '\'' && (*str)++)
+	{
+		while (**str && **str != '\'' && !ft_isseparator(**str))
+			*(*data)++ = *(*str)++;
+		(*str) += (**str == '\'') ? 1 : 0;
+		return (1);
+	}
+	else if (**str == '\"' && (*str)++)
+	{
+		while (**str && **str != '\"' && !ft_isseparator(**str))
 		{
-			++ptr;
-			if ((ret = count_envv_variable(&ptr)) < 0)
+			if (**str == '\\' && (*str)++)
+				*(*data)++ = *(*str)++;
+			else if (check_envv_and_move(str, data) < 0)
 				return (-1);
-			size += ret;
 		}
-		else if (++size)
-			ptr++;
+		(*str) += (**str == '\"') ? 1 : 0;
+		return (1);
+	}
+	return (0);
+}
+
+/*
+** Fill data for get_data
+*/
+
+int		fill_data(char **str, char **data)
+{
+	int ret;
+
+	while (**str && !ft_isseparator(**str))
+	{
+		ret = fill_data_special(str, data);
+		if (ret < 0)
+			return (-1);
+		else if (!ret)
+		{
+			if (**str && (!ft_isspace(**str) || (*((*str) + 1) &&
+	!ft_isspace(*((*str) + 1)))))
+			{
+				if (check_envv_and_move(str, data) < 0)
+					return (-1);
+			}
+			else
+				(*str)++;
+		}
+	}
+	*(*data) = '\0';
+	return (0);
+}
+
+/*
+** Get size of data for special char like ' ', " " or \
+*/
+
+int		get_data_size_special(char **str, int *size)
+{
+	if (*(*str) == '\\' && (*size)++)
+	{
+		(*str) += (*((*str) + 1)) ? 2 : 1;
+		return (1);
+	}
+	else if (*(*str) == '\'' && (*str)++)
+	{
+		while (*(*str) && *(*str) != '\'' &&
+!ft_isseparator(*(*str)) && ++(*size))
+			(*str)++;
+		(*str) += (*(*str) == '\'') ? 1 : 0;
+		return (1);
+	}
+	else if (*(*str) == '\"' && (*str)++)
+	{
+		while (*(*str) && *(*str) != '\"' && !ft_isseparator(*(*str)))
+		{
+			if (*(*str) == '\\' && ++(*size))
+				(*str) += (*((*str) + 1)) ? 2 : 1;
+			else if (check_envv_and_size(&(*str), &(*size)) < 0)
+				return (-1);
+		}
+		(*str) += (*(*str) == '\"') ? 1 : 0;
+		return (1);
+	}
+	return (0);
+}
+
+/*
+** Get size of data for allocation memory in get_data
+*/
+
+int		get_data_size(char *str)
+{
+	int		ret;
+	int		size;
+
+	size = 0;
+	while (*str && !ft_isseparator(*str))
+	{
+		ret = get_data_size_special(&str, &size);
+		if (ret < 0)
+			return (-1);
+		else if (!ret)
+		{
+			if (*str && (!ft_isspace(*str) || (*(str + 1) &&
+	!ft_isspace(*(str + 1)))))
+			{
+				if (check_envv_and_size(&str, &size) < 0)
+					return (-1);
+			}
+			else
+				str++;
+		}
 	}
 	return (size);
 }
 
 /*
-** Get data (argument), until separator or end
+** Replace backslash, env_variables, and quote when it should
 */
 
 char	*get_data(char **str)
 {
-	char		*data;
-	char		*ptr;
-	int			size;
+	char	*data;
+	char	*ptr;
+	int		size;
 
-	if ((size = get_data_size(str)) < 0)
-		return (NULL);
+	while (ft_isspace(**str))
+		(*str)++;
+	size = get_data_size(*str);
 	if (!(data = malloc(sizeof(char) * (size + 1))))
 		return (NULL);
 	ptr = data;
-	while (!ft_isseparator(**str) && **str)
-	{
-		if (**str == '\\')
-			*ptr++ = *(*str)++;
-		if ((*((*str) - 1)) != '\\' && **str == '$' &&
-(!ft_isalpha((*(*str + 1))) ||
-!ft_isdigit(*(*str + 1)) || (*(*str + 1)) == '_'))
-		{
-			++(*str);
-			if (add_envv_and_move(&ptr, str) < 0)
-				return (NULL);
-		}
-		else
-			*ptr++ = *(*str)++;
-	}
-	*ptr = '\0';
+	if (fill_data(str, &ptr) < 0)
+		return (NULL);
 	return (data);
 }

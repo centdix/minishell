@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/07 23:13:40 by lmartin           #+#    #+#              #
-#    Updated: 2019/12/12 18:42:57 by lmartin          ###   ########.fr        #
+#    Updated: 2019/12/13 09:15:30 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -120,7 +120,6 @@ SRC			=	commands/run/run_bin.c \
 				utils/ft_isseparator.c \
 				utils/ft_isspace.c \
 				utils/ft_multifree.c \
-				utils/ft_print_clean_str.c \
 				utils/ft_strchr.c \
 				utils/ft_strcmp.c \
 				utils/ft_strdup.c \

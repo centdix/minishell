@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 22:20:16 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 18:43:35 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/13 08:10:45 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		run_echo(t_minishell *minishell)
 		while (data && ft_isspace(*data))
 			data++;
 	}
-	if (ft_print_clean_str(data) < 0)
+	if (write(1, data, ft_strlen(data)) < 0)
 		return (-1);
 	if (!option_n && write(1, "\n", 1) < 0)
 		return (-1);

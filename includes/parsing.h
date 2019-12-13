@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:35:53 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 13:09:17 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/13 09:15:04 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 ** Parsing utils
 */
 
+int		check_envv_and_size(char **str, int *size);
+int		check_envv_and_move(char **str, char **data);
 int		add_envv_and_move(char **ptr, char **str);
 int		count_envv_variable(char **ptr);
-void	put_str_to_str(char **dst, char *src);
 char	*strdup_to_sep(char **ptr);
 
 /*
