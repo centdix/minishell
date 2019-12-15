@@ -13,6 +13,7 @@
 #ifndef ERRORS_H
 # define ERRORS_H
 
+# define TOO_MANY_ARGS -3
 /*
 ** Errors about command
 */

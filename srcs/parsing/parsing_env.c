@@ -21,5 +21,5 @@ int		parsing_env(char **line, t_lstcommands **commands)
 	*line = &(*line)[3];
 	if ((add_back(commands, TYPE_ENV, get_data_one_space(line))) < 0)
 		return (-1);
-	return (0);
+	return (1);
 }
