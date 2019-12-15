@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 06:24:23 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 09:27:19 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/15 17:11:40 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,29 @@ int		command_not_found(char *name, char *command)
 ** Check if they are more arguments to a command
 */
 
-int		check_too_many_args(char **str)
+int		check_too_many_args(char **str, int nb_args_max)
 {
-	while (**str && !ft_isseparator(**str) && !ft_isspace(**str))
-		str++;
-	if (**str && !(ft_isseparator(**str)))
+	char *ptr;
+	int was_args;
+
+	ptr = *str;
+	was_args = 0;
+	while (*ptr && !ft_isseparator(*ptr))
+	{
+		if (ft_isspace(*ptr))
+		{
+			was_args = 0;
+			while (ft_isspace(*ptr))
+				(ptr)++;
+		}
+		else
+		{
+			if (!was_args)
+				was_args = 1 + (0 * nb_args_max--);
+			(ptr)++;
+		}
+	}
+	if (nb_args_max < 0)
 		return (-1);
 	return (0);
 }
