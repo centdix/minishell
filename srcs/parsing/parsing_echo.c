@@ -25,5 +25,5 @@ int		parsing_echo(char **line, t_lstcommands **commands)
 		return (-1);
 	if ((add_back(commands, TYPE_ECHO, data) < 0))
 		return (-1);
-	return (0);
+	return (1);
 }

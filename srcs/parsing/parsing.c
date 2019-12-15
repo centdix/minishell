@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:35:38 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/15 22:59:28 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/12 08:40:48 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ int		choice_parsing3(t_minishell *minishell, char **line)
 	if (!ft_strncmp((*line), "unset", 5) &&
 (ft_isspace((*line)[5]) || !(*line)[5]))
 	{
-		if (parsing_unset(line, &minishell->commands) < 0)
-			return (-1);
-		return (1);
+		return (parsing_unset(line, &minishell->commands));
 	}
 	else if (ft_isseparator(*(*line)))
 	{
@@ -75,23 +73,17 @@ int		choice_parsing2(t_minishell *minishell, char **line)
 	if (!ft_strncmp((*line), "exit", 4) &&
 (ft_isspace((*line)[4]) || !(*line)[4]))
 	{
-		if (parsing_exit(line, &minishell->commands) < 0)
-			return (-1);
-		return (1);
+		return (parsing_exit(line, &minishell->commands));
 	}
 	else if (!ft_strncmp((*line), "export", 6) &&
 (ft_isspace((*line)[6]) || !(*line)[6]))
 	{
-		if (parsing_export(line, &minishell->commands) < 0)
-			return (-1);
-		return (1);
+		return (parsing_export(line, &minishell->commands));
 	}
 	else if (!ft_strncmp((*line), "env", 3) &&
 (ft_isspace((*line)[3]) || !(*line)[3]))
 	{
-		if (parsing_env(line, &minishell->commands) < 0)
-			return (-1);
-		return (1);
+		return (parsing_env(line, &minishell->commands));
 	}
 	return (0);
 }
@@ -108,23 +100,17 @@ int		choice_parsing(t_minishell *minishell, char **line)
 	if (!ft_strncmp((*line), "cd", 2) &&
 (ft_isspace((*line)[2]) || !(*line)[2]))
 	{
-		if (parsing_cd(line, &minishell->commands) < 0)
-			return (-1);
-		return (1);
+		return (parsing_cd(line, &minishell->commands));
 	}
 	else if (!ft_strncmp((*line), "pwd", 3) &&
 (ft_isspace((*line)[3]) || !(*line)[3]))
 	{
-		if (parsing_pwd(line, &minishell->commands) < 0)
-			return (-1);
-		return (1);
+		return (parsing_pwd(line, &minishell->commands));
 	}
 	else if (!ft_strncmp((*line), "echo", 4) &&
 (ft_isspace((*line)[4]) || !(*line)[4]))
 	{
-		if (parsing_echo(line, &minishell->commands) < 0)
-			return (-1);
-		return (1);
+		return (parsing_echo(line, &minishell->commands));
 	}
 	return (0);
 }
@@ -147,13 +133,15 @@ int		parsing_command(t_minishell *minishell)
 		while (ft_isspace(*line))
 			line++;
 		if ((ret = choice_parsing(minishell, &line)) < 0)
-			return (-1);
-		if (!ret && ((ret = choice_parsing2(minishell, &line)) < 0))
-			return (-1);
-		if (!ret && ((ret = choice_parsing3(minishell, &line)) < 0))
-			return (-1);
-		if (!ret && ((ret = choice_parsing4(minishell, &line)) < 0))
-			return (-1);
+			break;
+		if ((ret = choice_parsing2(minishell, &line)) < 0)
+			break;
+		if ((ret = choice_parsing3(minishell, &line)) < 0)
+			break;
+		if ((ret = choice_parsing4(minishell, &line)) < 0)
+			break;
 	}
+	if (ret == TOO_MANY_ARGS)
+		write(1, "Too many args\n", 14);
 	return (0);
 }

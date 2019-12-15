@@ -20,8 +20,8 @@ int		parsing_pwd(char **line, t_lstcommands **commands)
 {
 	*line = &(*line)[3];
 	if ((check_too_many_args(line, 0)) < 0)
-		return (-3);
+		return (TOO_MANY_ARGS);
 	if ((add_back(commands, TYPE_PWD, NULL)) < 0)
 		return (-1);
-	return (0);
+	return (1);
 }
