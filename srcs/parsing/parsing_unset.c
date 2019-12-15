@@ -19,7 +19,9 @@
 int		parsing_unset(char **line, t_lstcommands **commands)
 {
 	*line = &(*line)[5];
+	if ((check_too_many_args(line, 1)) < 0)
+		return (TOO_MANY_ARGS);	
 	if ((add_back(commands, TYPE_UNSET, get_data_one_space(line))) < 0)
 		return (-1);
-	return (0);
+	return (1);
 }
