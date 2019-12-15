@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 23:03:25 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/13 09:31:39 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/15 22:38:59 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,9 @@ int		fill_data(char **str, char **data)
 {
 	int ret;
 
-	while (**str && !ft_isseparator(**str))
+	while (**str && ((!ft_isspace(**str) &&
+!ft_isseparator(**str)) || (*(*str + 1) &&
+(!ft_isspace(*(*str + 1)) && !ft_isseparator(*(*str + 1))))))
 	{
 		ret = fill_data_special(str, data);
 		if (ret < 0)
@@ -122,8 +124,9 @@ int		get_data_size(char *str)
 			return (-1);
 		else if (!ret)
 		{
-			if (*str && (!ft_isspace(*str) || (*(str + 1) &&
-	!ft_isspace(*(str + 1)))))
+			if (*str && ((!ft_isspace(*str) &&
+!ft_isseparator(*str)) || (*(str + 1) &&
+(!ft_isspace(*(str + 1)) && !ft_isseparator(*(str + 1))))))
 			{
 				if (check_envv_and_size(&str, &size) < 0)
 					return (-1);

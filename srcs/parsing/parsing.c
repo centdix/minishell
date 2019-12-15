@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:35:38 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 08:40:48 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/15 22:59:28 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,11 +148,11 @@ int		parsing_command(t_minishell *minishell)
 			line++;
 		if ((ret = choice_parsing(minishell, &line)) < 0)
 			return (-1);
-		if (!ret && (ret = choice_parsing2(minishell, &line) < 0))
+		if (!ret && ((ret = choice_parsing2(minishell, &line)) < 0))
 			return (-1);
-		if (!ret && (ret = choice_parsing3(minishell, &line) < 0))
+		if (!ret && ((ret = choice_parsing3(minishell, &line)) < 0))
 			return (-1);
-		if (!ret && (ret = choice_parsing4(minishell, &line) < 0))
+		if (!ret && ((ret = choice_parsing4(minishell, &line)) < 0))
 			return (-1);
 	}
 	return (0);

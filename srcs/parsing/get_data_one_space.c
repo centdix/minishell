@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 12:49:35 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/13 11:46:22 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/15 22:32:13 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ int		fill_data_one_space(char **str, char **data)
 {
 	while (**str && !ft_isseparator(**str))
 	{
-		if (**str && (!ft_isspace(**str) || (*((*str) + 1) &&
-!ft_isspace(*((*str) + 1)))))
+		if (**str && ((!ft_isspace(**str) &&
+!ft_isseparator(**str)) || (*(*str + 1) &&
+(!ft_isspace(*(*str + 1)) && !ft_isseparator(*(*str + 1))))))
 		{
 			if (fill_data_one_space_char(str, data) < 0)
 				return (-1);
@@ -106,8 +107,8 @@ int		get_data_one_space_size(char *str)
 	size = 0;
 	while (*str && !ft_isseparator(*str))
 	{
-		if (*str && (!ft_isspace(*str) || (*(str + 1) &&
-!ft_isspace(*(str + 1)))))
+		if (*str && ((!ft_isspace(*str) && !ft_isseparator(*str)) || (*(str + 1) &&
+(!ft_isspace(*(str + 1)) && !ft_isseparator(*(str + 1))))))
 		{
 			if (get_data_one_space_size_char(&str, &size) < 0)
 				return (-1);
