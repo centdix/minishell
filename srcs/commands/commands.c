@@ -49,24 +49,25 @@ char	*wait_command(char *command)
 int		choice_command(t_minishell *minishell)
 {
 	int type;
+	int ret;
 
 	type = minishell->commands->type;
-	if (type == TYPE_CD && run_cd(minishell) < 0)
-		return (-1);
-	else if (type == TYPE_PWD && run_pwd(minishell) < 0)
-		return (-1);
-	else if (type == TYPE_ECHO && run_echo(minishell) < 0)
-		return (-1);
-	else if (type == TYPE_EXIT && run_exit(minishell) < 0)
-		return (-1);
-	else if (type == TYPE_EXPORT && run_export(minishell) < 0)
-		return (-1);
-	else if (type == TYPE_ENV && run_env(minishell) < 0)
-		return (-1);
-	else if (type == TYPE_UNSET && run_unset(minishell) < 0)
-		return (-1);
-	else if (type == TYPE_BIN && run_bin(minishell) < 0)
-		return (-1);
+	if (type == TYPE_CD && (ret = run_cd(minishell)) < 0)
+		return (ret);
+	else if (type == TYPE_PWD && (ret = run_pwd(minishell)) < 0)
+		return (ret);
+	else if (type == TYPE_ECHO && (ret = run_echo(minishell)) < 0)
+		return (ret);
+	else if (type == TYPE_EXIT && (ret = run_exit(minishell)) < 0)
+		return (ret);
+	else if (type == TYPE_EXPORT && (ret = run_export(minishell)) < 0)
+		return (ret);
+	else if (type == TYPE_ENV && (ret = run_env(minishell)) < 0)
+		return (ret);
+	else if (type == TYPE_UNSET && (ret = run_unset(minishell)) < 0)
+		return (ret);
+	else if (type == TYPE_BIN && (ret = run_bin(minishell)) < 0)
+		return (ret);
 	return (0);
 }
 
@@ -77,11 +78,15 @@ int		choice_command(t_minishell *minishell)
 int		running_commands(t_minishell *minishell)
 {
 	t_lstcommands	*next;
+	int 			ret;
 
 	while (minishell->commands)
 	{
-		if (choice_command(minishell) < 0)
-			return (-1);
+		ret = choice_command(minishell);
+		if (ret == WRONG_ARG)
+			write(STDERR_FILENO, "wrong arguments\n", 16);
+		if (ret == NOT_ENOUGH_ARGS)
+			write(STDERR_FILENO, "not enough args\n", 16);
 		next = minishell->commands->next;
 		free(minishell->commands->data);
 		free(minishell->commands);

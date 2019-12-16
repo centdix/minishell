@@ -14,6 +14,8 @@
 # define ERRORS_H
 
 # define TOO_MANY_ARGS -3
+# define NOT_ENOUGH_ARGS -4
+# define WRONG_ARG -2
 
 /*
 ** Errors about command
