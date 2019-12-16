@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 06:25:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/15 16:39:59 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/16 02:46:39 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define ERRORS_H
 
 # define TOO_MANY_ARGS -3
+
 /*
 ** Errors about command
 */

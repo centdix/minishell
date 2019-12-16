@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:35:38 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/12 08:40:48 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/16 02:46:27 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,15 @@ int		choice_parsing4(t_minishell *minishell, char **line)
 
 	if (**line)
 	{
-		ret = parsing_bin(line, &minishell->commands);
-		if (ret == 1)
-			return (1);
-		else if (ret < 0)
-			return (-1);
+		if ((ret = parsing_bin(line, &minishell->commands)) != 0)
+			return (ret);
 		else
 		{
 			if ((ret = command_not_found(minishell->name, get_data(line))) < 0)
 				return (ret);
 			while (*(*line) && !ft_isseparator(*(*line)))
 				(*line)++;
-			return (1);
+			return (ret);
 		}
 	}
 	return (0);
@@ -142,6 +139,7 @@ int		parsing_command(t_minishell *minishell)
 			break;
 	}
 	if (ret == TOO_MANY_ARGS)
-		write(1, "Too many args\n", 14);
+		if (!(write(STDERR_FILENO, "Too many args\n", 14)))
+			return (-1);
 	return (0);
 }

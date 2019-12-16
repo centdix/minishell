@@ -81,15 +81,15 @@ add_back_env(&minishell->env_variables, name, NULL) < 0))
 
 int		export_write_envv(t_lstenv_v *envv)
 {
-	if (write(1, envv->name, ft_strlen(envv->name)) < 0)
+	if (write(STDOUT_FILENO, envv->name, ft_strlen(envv->name)) < 0)
 		return (-1);
-	if (write(1, "=", 1) < 0)
+	if (write(STDOUT_FILENO, "=", 1) < 0)
 		return (-1);
-	if (envv->value && write(1, envv->value, ft_strlen(envv->value)) < 0)
+	if (envv->value && write(STDOUT_FILENO, envv->value, ft_strlen(envv->value)) < 0)
 		return (-1);
-	else if (!envv->value && write(1, "''", 2) < 0)
+	else if (!envv->value && write(STDOUT_FILENO, "''", 2) < 0)
 		return (-1);
-	if (write(1, "\n", 1) < 0)
+	if (write(STDOUT_FILENO, "\n", 1) < 0)
 		return (-1);
 	return (0);
 }

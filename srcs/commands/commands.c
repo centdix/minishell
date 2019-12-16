@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:22:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 09:40:12 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/16 02:44:51 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*wait_command(char *command)
 	buffer[1] = '\0';
 	while (buffer[0] != '\n' && ft_isspace(buffer[0]))
 	{
-		if (!(read(0, buffer, 1)))
+		if (!(read(STDIN_FILENO, buffer, 1)))
 			return (NULL);
 	}
 	while (buffer[0] != '\n')
@@ -36,7 +36,7 @@ char	*wait_command(char *command)
 		if (!(command = ft_strjoin(cpy, buffer)))
 			return (NULL);
 		free(cpy);
-		if (!(read(0, buffer, 1)))
+		if (!(read(STDIN_FILENO, buffer, 1)))
 			return (NULL);
 	}
 	return (command);

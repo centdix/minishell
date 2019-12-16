@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 06:24:23 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/15 17:11:40 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/16 02:44:13 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ int		command_not_found(char *name, char *command)
 		return (-1);
 	free(begin);
 	free(cpy);
-	if ((write(1, command_line, ft_strlen(command_line))) < 0)
+	if ((write(STDERR_FILENO, command_line, ft_strlen(command_line))) < 0)
 		return (-2);
 	free(command_line);
-	if ((write(1, "\n", 1)) < 0)
+	if ((write(STDERR_FILENO, "\n", 1)) < 0)
 		return (-2);
 	return (0);
 }

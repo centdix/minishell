@@ -62,7 +62,7 @@ int		launch_minishell(void)
 void	signal_handler(int nb)
 {
 	(void)nb;
-	write(1, "\n", 1);
+	write(STDOUT_FILENO, "\n", 1);
 	if (kill(g_pid, SIGTERM) < 0)
 		exit(-1);
 	if (!(g_pid = fork()))

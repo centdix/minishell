@@ -18,9 +18,9 @@
 
 int		run_pwd(t_minishell *minishell)
 {
-	if (write(1, minishell->path, ft_strlen(minishell->path)) < 0)
+	if (write(STDOUT_FILENO, minishell->path, ft_strlen(minishell->path)) < 0)
 		return (ft_setint_and_return(&g_lastreturn, -1));
-	if (write(1, "\n", 1) < 0)
+	if (write(STDOUT_FILENO, "\n", 1) < 0)
 		return (ft_setint_and_return(&g_lastreturn, -1));
 	return (ft_setint_and_return(&g_lastreturn, 0));
 }
