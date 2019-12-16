@@ -84,7 +84,7 @@ int		running_commands(t_minishell *minishell)
 	{
 		ret = choice_command(minishell);
 		if (ret == WRONG_ARG)
-			write(STDERR_FILENO, "wrong arguments\n", 16);
+			write(STDERR_FILENO, "wrong argument\n", 15);
 		if (ret == NOT_ENOUGH_ARGS)
 			write(STDERR_FILENO, "not enough args\n", 16);
 		next = minishell->commands->next;

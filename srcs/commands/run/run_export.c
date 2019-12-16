@@ -147,7 +147,7 @@ int		run_export(t_minishell *minishell)
 			if (ret == -1)
 				return (ft_setint_and_return(&g_lastreturn, -1));
 			if (ret == -2)
-				return (ft_setint_and_return(&g_lastreturn, 1)); // ERREUR A GERER
+				return (ft_setint_and_return(&g_lastreturn, -2)); // ERREUR A GERER
 			if (ft_isspace(*data))
 				data++;
 		}

@@ -139,7 +139,7 @@ int		parsing_command(t_minishell *minishell)
 			break;
 	}
 	if (ret == TOO_MANY_ARGS)
-		if (!(write(STDERR_FILENO, "Too many args\n", 14)))
+		if (!(write(STDERR_FILENO, "too many args\n", 14)))
 			return (-1);
 	return (0);
 }
