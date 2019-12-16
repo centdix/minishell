@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:23:05 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/11 09:02:07 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/16 06:46:39 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # define CMD_NOT_FOUND "command not found"
 
-# define TYPE_PIPE 0
 # define TYPE_CD 1
 # define TYPE_PWD 2
 # define TYPE_ECHO 3
@@ -24,6 +23,7 @@
 # define TYPE_ENV 6
 # define TYPE_UNSET 7
 # define TYPE_BIN 8
+# define TYPE_PIPE 9
 
 # include "commands_struct.h"
 # include "minishell_struct.h"
@@ -52,7 +52,7 @@ int					running_commands(t_minishell *minishell);
 ** lstcommands
 */
 
-t_lstcommands		*new_lstcommands(int type, char *data);
+t_lstcommands		*new_lstcommands(int type, char *data, void *prev);
 int					add_back(t_lstcommands **lst, int type, char *data);
 
 #endif

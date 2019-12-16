@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:54:06 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/10 06:33:36 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/16 10:13:21 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** Types are defined in commands.h
 */
 
-t_lstcommands		*new_lstcommands(int type, char *data)
+t_lstcommands		*new_lstcommands(int type, char *data, void *prev)
 {
 	t_lstcommands *lstcommands;
 
@@ -25,6 +25,7 @@ t_lstcommands		*new_lstcommands(int type, char *data)
 		return (NULL);
 	lstcommands->type = type;
 	lstcommands->data = data;
+	lstcommands->prev = prev;
 	lstcommands->next = NULL;
 	return (lstcommands);
 }
@@ -43,12 +44,12 @@ int					add_back(t_lstcommands **lst, int type, char *data)
 	{
 		while (begin->next)
 			begin = begin->next;
-		if (!(begin->next = new_lstcommands(type, data)))
+		if (!(begin->next = new_lstcommands(type, data, begin)))
 			return (-1);
 	}
 	else
 	{
-		if (!(*lst = new_lstcommands(type, data)))
+		if (!(*lst = new_lstcommands(type, data, NULL)))
 			return (-1);
 		begin = *lst;
 	}

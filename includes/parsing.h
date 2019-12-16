@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:35:53 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/13 09:15:04 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/16 03:50:18 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,11 @@ int		parsing_echo(char **line, t_lstcommands **commands);
 int		parsing_env(char **line, t_lstcommands **commands);
 int		parsing_exit(char **line, t_lstcommands **commands);
 int		parsing_export(char **line, t_lstcommands **commands);
+int		parsing_pipe(char **line, t_lstcommands **commands);
 int		parsing_pwd(char **line, t_lstcommands **commands);
+int		parsing_redirect_double_output(char **line, t_lstcommands **commands);
+int		parsing_redirect_input(char **line, t_lstcommands **commands);
+int		parsing_redirect_simple_output(char **line, t_lstcommands **commands);
 int		parsing_unset(char **line, t_lstcommands **commands);
 
 #endif

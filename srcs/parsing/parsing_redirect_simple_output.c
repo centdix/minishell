@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   commands_struct.h                                  :+:      :+:    :+:   */
+/*   parsing_redirect_simple_output.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/10 05:23:57 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/16 10:12:49 by lmartin          ###   ########.fr       */
+/*   Created: 2019/12/16 03:03:29 by lmartin           #+#    #+#             */
+/*   Updated: 2019/12/16 03:51:56 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMMANDS_STRUCT_H
-# define COMMANDS_STRUCT_H
+#include "minishell.h"
 
-/*
-** lstcommands is a command, the type of the command is stored,
-** the command and the next command (pipe is considered as a command)
-*/
-
-typedef	struct		s_lstcommands
+int		parsing_redirect_simple_output(char **line, t_lstcommands **commands)
 {
-	int				type;
-	int				pipe[2];
-	char			*data;
-	void			*prev;
-	void			*next;
-}					t_lstcommands;
-
-#endif
+	(void)line;
+	(void)commands;
+	return (1);
+}

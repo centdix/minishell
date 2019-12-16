@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:35:38 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/16 02:46:27 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/16 03:11:42 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ int		choice_parsing3(t_minishell *minishell, char **line)
 	}
 	else if (ft_isseparator(*(*line)))
 	{
+		if (**line == '|')
+			return (parsing_pipe(line, &minishell->commands));
+		else if (**line == '<')
+			return (parsing_redirect_input(line, &minishell->commands));
+		else if (!ft_strncmp(*line, ">>", 2))
+			return (parsing_redirect_double_output(line, &minishell->commands));
+		else if (**line == '>')
+			return (parsing_redirect_simple_output(line, &minishell->commands));
 		(*line)++; // A CHANGER
 		return (1);
 	}

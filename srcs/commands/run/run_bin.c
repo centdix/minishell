@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 08:53:30 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/13 14:19:20 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/16 10:14:23 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,25 +131,14 @@ int		run_bin(t_minishell *minishell)
 	char	*data;
 	char	**arguments;
 	char	**envv;
-	pid_t	pid;
-	int		status;
 
 	data = minishell->commands->data;
 	if (!(arguments = getting_args(&data)))
 		return (ft_setint_and_return(&g_lastreturn, -1));
 	if (!(envv = t_lstenv_v_to_array(minishell->env_variables)))
 		return (ft_setint_and_return(&g_lastreturn, -1));
-	if (!(pid = fork()))
-	{
-		if ((status = execve(arguments[0], arguments, envv)) < 0)
-			return (ft_setint_and_return(&g_lastreturn, -2)); // ERROR HANDLE
-		g_lastreturn = status;
-		exit(0);
-	}
-	else
-		while ((pid = wait(&status)) > 0)
-		{
-		}
+	execve(arguments[0], arguments, envv);
+	//printf("end_bin\n");
 	free_2d_array((void **)envv);
 	free_2d_array((void **)arguments);
 	return (0);

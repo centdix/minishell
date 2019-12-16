@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/07 23:13:40 by lmartin           #+#    #+#              #
-#    Updated: 2019/12/13 12:29:10 by lmartin          ###   ########.fr        #
+#    Updated: 2019/12/16 03:51:24 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,7 +106,11 @@ SRC			=	commands/run/run_bin.c \
 				parsing/parsing_env.c \
 				parsing/parsing_exit.c \
 				parsing/parsing_export.c \
+				parsing/parsing_pipe.c \
 				parsing/parsing_pwd.c \
+				parsing/parsing_redirect_double_output.c \
+				parsing/parsing_redirect_input.c \
+				parsing/parsing_redirect_simple_output.c \
 				parsing/parsing_unset.c \
 				parsing/parsing_utils.c \
 				parsing/parsing.c \
