@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 23:48:25 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 10:25:16 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 14:47:36 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ pid_t		g_pid;
 int			g_lastreturn;
 
 int		prompt(t_minishell *minishell);
-void	signal_handler(int nb);
+int		launch_minishell(void);
 
 #endif

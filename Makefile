@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/07 23:13:40 by lmartin           #+#    #+#              #
-#    Updated: 2019/12/17 07:09:46 by lmartin          ###   ########.fr        #
+#    Updated: 2019/12/17 14:47:48 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -136,6 +136,7 @@ SRC			=	commands/run/run_bin.c \
 				utils/ft_strjoin.c \
 				utils/ft_strlen.c \
 				utils/ft_strncmp.c \
+				utils/handler.c \
 				\
 				minishell.c
 

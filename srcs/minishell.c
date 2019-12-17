@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 23:20:13 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 14:45:00 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 14:46:38 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,39 +53,6 @@ int		launch_minishell(void)
 	if (prompt(&minishell) < 0)
 		return (-1);
 	return (0);
-}
-
-/*
-** Handle SIGINT (CTRL + C)
-*/
-
-void	signal_handler(int nb)
-{
-	(void)nb;
-	if (write(STDOUT_FILENO, "\b\b  \n", 5) < 0)
-		return ;
-	if (kill(g_pid, SIGTERM) < 0)
-		exit(-1);
-	if (!(g_pid = fork()))
-	{
-		if ((launch_minishell()) < 0)
-			return ;
-		exit(-1);
-	}
-	else
-		signal(SIGINT, signal_handler);
-}
-
-/*
-** Handle SIGQUIT (CTRL \) Do nothing.
-*/
-
-void	do_nothing(int nb)
-{
-	(void)nb;
-	if (write(STDOUT_FILENO, "\b\b  \b", 5) < 0)
-		return ;
-	return ;
 }
 
 /*
