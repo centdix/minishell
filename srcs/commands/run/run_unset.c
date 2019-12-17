@@ -77,7 +77,7 @@ int		run_unset(t_minishell *minishell)
 
 	if (!ft_strcmp(minishell->commands->data, ""))
 	{
-		return (ft_setint_and_return(&g_lastreturn, 1)); // ERROR NOT ENOUGHT ARGS
+		return (ft_setint_and_return(&g_lastreturn, -4)); // ERROR NOT ENOUGHT ARGS
 	}
 	else
 	{
@@ -88,7 +88,7 @@ int		run_unset(t_minishell *minishell)
 			if (ret == -1)
 				return (ft_setint_and_return(&g_lastreturn, -1));
 			if (ret == -2)
-				return (ft_setint_and_return(&g_lastreturn, 1)); // ERREUR A GERER - INVALID PARAMETER NAME
+				return (ft_setint_and_return(&g_lastreturn, -2)); // ERREUR A GERER - INVALID PARAMETER NAME
 			if (ft_isspace(*data))
 				data++;
 		}

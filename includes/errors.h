@@ -13,8 +13,10 @@
 #ifndef ERRORS_H
 # define ERRORS_H
 
+# define WRONG_ARG -2
 # define TOO_MANY_ARGS -3
-# define ERR_PIPE -4
+# define NOT_ENOUGH_ARGS -4
+# define ERR_PIPE -5
 
 /*
 ** Errors about command

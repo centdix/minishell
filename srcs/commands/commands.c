@@ -48,21 +48,23 @@ char	*wait_command(char *command)
 
 int		choice_command(t_minishell *minishell, int type)
 {
-	if (type == TYPE_CD && run_cd(minishell) < 0)
-		return (-1);
-	else if (type == TYPE_PWD && run_pwd(minishell) < 0)
-		return (-1);
-	else if (type == TYPE_ECHO && run_echo(minishell) < 0)
-		return (-1);
-	else if (type == TYPE_EXPORT && run_export(minishell) < 0)
-		return (-1);
-	else if (type == TYPE_ENV && run_env(minishell) < 0)
-		return (-1);
-	else if (type == TYPE_UNSET && run_unset(minishell) < 0)
-		return (-1);
-	else if (type == TYPE_BIN && run_bin(minishell) < 0)
-		return (-1);
-	return (0);
+  int ret;
+  
+	if (type == TYPE_CD && (ret = run_cd(minishell)) < 0)
+		return (ret);
+	else if (type == TYPE_PWD && (ret = run_pwd(minishell)) < 0)
+		return (ret);
+	else if (type == TYPE_ECHO && (ret = run_echo(minishell)) < 0)
+		return (ret);
+	else if (type == TYPE_EXPORT && (ret = run_export(minishell)) < 0)
+		return (ret);
+	else if (type == TYPE_ENV && (ret = run_env(minishell)) < 0)
+		return (ret);
+	else if (type == TYPE_UNSET && (ret = run_unset(minishell)) < 0)
+		return (ret);
+	else if (type == TYPE_BIN && (ret = run_bin(minishell)) < 0)
+		return (ret);
+	return (ret);
 }
 
 /*
@@ -71,6 +73,7 @@ int		choice_command(t_minishell *minishell, int type)
 
 int		fork_command(t_minishell *minishell)
 {
+  int       ret;
 	int				type;
 	t_lstcommands	*next;
 	t_lstcommands	*prev;
@@ -87,8 +90,13 @@ int		fork_command(t_minishell *minishell)
 			dup_and_close_pipe(prev->pipe, 0);
 		if (next && next->type == TYPE_PIPE)
 			dup_and_close_pipe(next->pipe, 1);
-		if (choice_command(minishell, type) < 0)
-			return (-1);
+		ret = choice_command(minishell);
+		if (ret == WRONG_ARG)
+			if (write(STDERR_FILENO, "wrong argument\n", 15) < 0)
+        return (-1);
+		if (ret == NOT_ENOUGH_ARGS)
+			if (write(STDERR_FILENO, "not enough args\n", 16) < 0)
+        return (-1);
 		exit(0);
 	}
 	if (prev && prev->type == TYPE_PIPE)
@@ -106,6 +114,7 @@ int		running_commands(t_minishell *minishell)
 {
 	t_lstcommands	*begin;
 	t_lstcommands	*next;
+	int 			ret;
 
 	begin = minishell->commands;
 	while (minishell->commands)

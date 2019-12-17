@@ -22,6 +22,7 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <string.h>
 
 # include "commands.h"
 # include "env_variables.h"
