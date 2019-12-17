@@ -63,48 +63,18 @@ void	free_2d_array(void **array)
 ** Get and set exec name in arguments
 */
 
-static char	*find_path(char *exec, char **bin_paths)
-{
-	char	*full_path;
-	int		i;
-	void	*stat;
-
-	if (!(stat = malloc(sizeof(struct stat))))
-		return (NULL);
-	i = 0;
-	full_path = NULL;
-	while (bin_paths[i])
-	{
-		full_path = ft_strjoin(bin_paths[i], exec);
-		if (!lstat(full_path, stat))
-		{
-			free(exec);
-			return (full_path);
-		}
-		free(full_path);
-		i++;
-	}
-	free(exec);
-	free(stat);
-	return (NULL);
-}
-
 int		getting_exec_name(char **data, char ***arguments, char **bin_paths)
 {
 	char		*ptr;
-	int			i;
 	char		*full_path;
 
-	i = 0;
-	while (bin_paths[i])
+	while (*bin_paths)
 	{
-		if (!ft_strncmp(*data, bin_paths[i], ft_strlen(bin_paths[i])) || !ft_strncmp(*data, "./", 2))
+		if (!ft_strncmp(*data, *bin_paths, ft_strlen(*bin_paths))
+			|| !ft_strncmp(*data, "./", 2))
 		{
 			if (!(*(*arguments)++ = get_data_no_space(data)))
-			{
-				--(*arguments);
 				return (-1);
-			}
 			return (0);
 		}
 		else
@@ -114,12 +84,10 @@ int		getting_exec_name(char **data, char ***arguments, char **bin_paths)
 			if ((full_path = find_path(ptr, bin_paths)))
 			{
 				*(*arguments)++ = full_path;
-				//free(ptr);
 				break ;
 			}
-			//free(ptr);
 		}
-		i++;
+		bin_paths++;
 	}
 	return (0);
 }

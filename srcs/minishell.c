@@ -45,17 +45,10 @@ int		prompt(t_minishell *minishell)
 int		launch_minishell(void)
 {
 	t_minishell minishell;
-	int i;
 
 	minishell.env_variables = g_envv;
 	minishell.path = getcwd(NULL, 0);
 	parse_bin_path(&minishell);
-	i = 0;
-	while (minishell.bin_paths[i])
-	{
-		printf("%s\n", minishell.bin_paths[i]);
-		i++;
-	}
 	g_lastreturn = 0;
 	minishell.name = g_name;
 	if (prompt(&minishell) < 0)

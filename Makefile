@@ -118,6 +118,7 @@ SRC			=	commands/run/run_bin.c \
 				parsing/parsing_unset.c \
 				parsing/parsing_utils.c \
 				parsing/parsing.c \
+				parsing/parse_bin_path.c \
 				\
 				style/style.c \
 				\
@@ -138,9 +139,9 @@ SRC			=	commands/run/run_bin.c \
 				utils/ft_strncmp.c \
 				utils/ft_substr.c \
 				utils/handler.c \
+				utils/find_path.c \
 				\
-				minishell.c \
-				utils/parse_bin_path.c
+				minishell.c
 
 SRCS		=	$(SRC)
 

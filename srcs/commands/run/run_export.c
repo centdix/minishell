@@ -58,7 +58,7 @@ int		export_export_env(t_minishell *minishell, char **data)
 	while (*(*data) && *(*data) != '=' && !ft_isspace(*(*data)))
 	{
 		if (!ft_isalpha(**data) && !ft_isdigit(**data) && **data != '_')
-			return (-2);
+			return (WRONG_ARG);
 		(*data)++;
 	}
 	if (*(*data) != '=')
@@ -147,8 +147,8 @@ int		run_export(t_minishell *minishell)
 			ret = export_export_env(minishell, &data);
 			if (ret == -1)
 				return (ret);
-			if (ret == -2)
-				return (ret); // ERREUR A GERER
+			if (ret == WRONG_ARG)
+				return (ret);
 			if (ft_isspace(*data))
 				data++;
 		}

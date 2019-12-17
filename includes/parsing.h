@@ -53,5 +53,7 @@ int		parsing_redirect_double_output(char **line, t_lstcommands **commands);
 int		parsing_redirect_input(char **line, t_lstcommands **commands);
 int		parsing_redirect_simple_output(char **line, t_lstcommands **commands);
 int		parsing_unset(char **line, t_lstcommands **commands);
+int		parse_bin_path(t_minishell *minishell);
+
 
 #endif

@@ -57,7 +57,7 @@ int		unset_env(t_minishell *minishell, char **data)
 	while (*(*data) && !ft_isspace(*(*data)))
 	{
 		if (!ft_isalpha(**data) && !ft_isdigit(**data) && **data != '_')
-			return (-2);
+			return (WRONG_ARG);
 		(*data)++;
 	}
 	if (*(*data))
@@ -76,9 +76,7 @@ int		run_unset(t_minishell *minishell)
 	int		ret;
 
 	if (!ft_strcmp(minishell->commands->data, ""))
-	{
-		return (-4); // ERROR NOT ENOUGHT ARGS
-	}
+		return (NOT_ENOUGH_ARGS);
 	else
 	{
 		data = minishell->commands->data;
@@ -87,8 +85,8 @@ int		run_unset(t_minishell *minishell)
 			ret = unset_env(minishell, &data);
 			if (ret == -1)
 				return (ret);
-			if (ret == -2)
-				return (ret); // ERREUR A GERER - INVALID PARAMETER NAME
+			if (ret == WRONG_ARG)
+				return (ret);
 			if (ft_isspace(*data))
 				data++;
 		}

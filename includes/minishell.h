@@ -41,6 +41,5 @@ int			g_lastreturn;
 
 int		prompt(t_minishell *minishell);
 int		launch_minishell(void);
-int		parse_bin_path(t_minishell *minishell);
 
 #endif
