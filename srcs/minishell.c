@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 23:20:13 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 14:32:28 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 14:45:00 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	signal_handler(int nb)
 void	do_nothing(int nb)
 {
 	(void)nb;
-	if (write(STDOUT_FILENO, "\b\b  ", 4) < 0)
+	if (write(STDOUT_FILENO, "\b\b  \b", 5) < 0)
 		return ;
 	return ;
 }
