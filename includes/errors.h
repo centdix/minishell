@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 06:25:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 16:51:47 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 17:06:39 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@
 # define ERR_PIPE -6
 # define ERR_MALLOC -7
 # define ERR_WRITE -8
+# define NO_SUCH_FILE -9
 
 # define MSG_CMD_NOT_FOUND "Command not found"
 # define MSG_WRONG_ARGS "Wrong argument"
 # define MSG_NOT_ENOUGH_ARGS "Not enough arguments"
 # define MSG_TOO_MANY_ARGS "Too many arguments"
-# define MSG_NO_SUCH
+# define MSG_NO_SUCH_FILE_OR_DIR "No such file or directory"
 
 /*
 ** Errors about command
