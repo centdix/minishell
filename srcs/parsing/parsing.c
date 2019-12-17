@@ -23,7 +23,7 @@ int		choice_parsing4(t_minishell *minishell, char **line)
 
 	if (**line)
 	{
-		if ((ret = parsing_bin(line, &minishell->commands)) != 0)
+		if ((ret = parsing_bin(line, minishell)) != 0)
 			return (ret);
 		else
 		{

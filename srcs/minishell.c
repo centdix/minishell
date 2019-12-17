@@ -48,6 +48,7 @@ int		launch_minishell(void)
 
 	minishell.env_variables = g_envv;
 	minishell.path = getcwd(NULL, 0);
+	parse_bin_path(&minishell);
 	g_lastreturn = 0;
 	minishell.name = g_name;
 	if (prompt(&minishell) < 0)

@@ -63,29 +63,31 @@ void	free_2d_array(void **array)
 ** Get and set exec name in arguments
 */
 
-int		getting_exec_name(char **data, char ***arguments)
+int		getting_exec_name(char **data, char ***arguments, char **bin_paths)
 {
 	char		*ptr;
+	char		*full_path;
 
-	if (!ft_strncmp(*data, "/bin/", 5) || !ft_strncmp(*data, "./", 2))
+	while (*bin_paths)
 	{
-		if (!(*(*arguments)++ = get_data_no_space(data)))
+		if (!ft_strncmp(*data, *bin_paths, ft_strlen(*bin_paths))
+			|| !ft_strncmp(*data, "./", 2))
 		{
-			--(*arguments);
-			return (-1);
+			if (!(*(*arguments)++ = get_data_no_space(data)))
+				return (-1);
+			return (0);
 		}
-	}
-	else
-	{
-		if (!(ptr = get_data_no_space(data)))
-			return (-1);
-		if (!(*(*arguments)++ = ft_strjoin("/bin/", ptr)))
+		else
 		{
-			--(*arguments);
-			free(ptr);
-			return (-1);
+			if (!(ptr = get_data_no_space(data)))
+				return (-1);
+			if ((full_path = find_path(ptr, bin_paths)))
+			{
+				*(*arguments)++ = full_path;
+				break ;
+			}
 		}
-		free(ptr);
+		bin_paths++;
 	}
 	return (0);
 }
@@ -94,7 +96,7 @@ int		getting_exec_name(char **data, char ***arguments)
 ** Getting args from data and return a allocated array arguments of all data
 */
 
-char	**getting_args(char **data)
+char	**getting_args(char **data, char **bin_paths)
 {
 	size_t		size;
 	char		**arguments;
@@ -104,7 +106,7 @@ char	**getting_args(char **data)
 	if (!(arguments = malloc(sizeof(char *) * (size + 1))))
 		return (NULL);
 	tmp = arguments;
-	if (getting_exec_name(data, &tmp) < 0)
+	if (getting_exec_name(data, &tmp, bin_paths) < 0)
 	{
 		*tmp = NULL;
 		free_2d_array((void **)arguments);
@@ -131,9 +133,11 @@ int		run_bin(t_minishell *minishell)
 	char	*data;
 	char	**arguments;
 	char	**envv;
+	char	**bin_paths;
 
 	data = minishell->commands->data;
-	if (!(arguments = getting_args(&data)))
+	bin_paths = minishell->bin_paths;
+	if (!(arguments = getting_args(&data, bin_paths)))
 		return (-1);
 	if (!(envv = t_lstenv_v_to_array(minishell->env_variables)))
 		return (-1);

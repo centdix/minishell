@@ -103,7 +103,7 @@ int		add_and_write_envv(t_minishell *minishell)
 	while (*data)
 	{
 		if ((ret = env_export_env(new, &data)) != 0)
-			return (ret); // A FAIRE GESTION ERREURS
+			return (ret);
 		data = (ft_isspace(*data)) ? data + 1 : data;
 	}
 	while (new && (envv = new))

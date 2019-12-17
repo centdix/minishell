@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/07 23:13:40 by lmartin           #+#    #+#              #
-#    Updated: 2019/12/17 14:47:48 by lmartin          ###   ########.fr        #
+#    Updated: 2019/12/17 16:27:45 by fgoulama         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -118,6 +118,7 @@ SRC			=	commands/run/run_bin.c \
 				parsing/parsing_unset.c \
 				parsing/parsing_utils.c \
 				parsing/parsing.c \
+				parsing/parse_bin_path.c \
 				\
 				style/style.c \
 				\
@@ -136,7 +137,9 @@ SRC			=	commands/run/run_bin.c \
 				utils/ft_strjoin.c \
 				utils/ft_strlen.c \
 				utils/ft_strncmp.c \
+				utils/ft_substr.c \
 				utils/handler.c \
+				utils/find_path.c \
 				\
 				minishell.c
 

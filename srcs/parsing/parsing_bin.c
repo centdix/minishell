@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 09:01:49 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 05:18:22 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 20:05:14 by fgoulama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,31 @@
 ** If the path on line isn't /bin/, set it to /bin (working with binary ./)
 */
 
-char	*create_bin_path(char **line)
+char	*create_bin_path(char **line, t_minishell *minishell)
 {
 	char	*exec;
 	char	*path;
+	int		i;
+	char	**bin_paths;
 
-	if (!ft_strncmp(*line, "/bin/", 5) || !ft_strncmp(*line, "./", 2))
+	bin_paths = minishell->bin_paths;
+	i = -1;
+	while (bin_paths[++i])
 	{
-		if (!(path = get_data_no_space(line)))
-			return (NULL);
+		if (!ft_strncmp(*line, bin_paths[i], ft_strlen(bin_paths[i]))
+		|| !ft_strncmp(*line, "./", 2))
+		{
+			if (!(path = get_data_no_space(line)))
+				return (NULL);
+			break ;
+		}
 	}
-	else
+	if (bin_paths[i] == NULL)
 	{
 		if (!(exec = get_data_no_space(line)))
 			return (NULL);
-		if (!(path = ft_strjoin("/bin/", exec)))
-		{
-			free(exec);
+		if (!(path = find_path(exec, bin_paths)))
 			return (NULL);
-		}
-		free(exec);
 	}
 	return (path);
 }
@@ -47,26 +52,23 @@ char	*create_bin_path(char **line)
 ** otherwise error
 */
 
-int		parsing_bin(char **line, t_lstcommands **commands)
+int		parsing_bin(char **line, t_minishell *minishell)
 {
-	void	*stat;
 	char	*begin;
 	char	*path;
 
 	begin = *line;
-	if (!(path = create_bin_path(line)))
+	if (!(path = create_bin_path(line, minishell)))
 		return (-1);
-	if (!(stat = malloc(sizeof(struct stat))))
-		return (-1);
-	if (!lstat(path, stat))
+	if (path)
 	{
-		ft_multifree(stat, path, NULL, NULL);
 		*line = begin;
-		if ((add_back(commands, TYPE_BIN, NULL, get_data_one_space(line)) < 0))
+		free(path);
+		if ((add_back(&minishell->commands, TYPE_BIN, NULL,
+		get_data_one_space(line)) < 0))
 			return (-1);
 		return (1);
 	}
 	*line = begin;
-	ft_multifree(stat, path, NULL, NULL);
 	return (0);
 }
