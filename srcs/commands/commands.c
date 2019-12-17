@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:22:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 10:01:27 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 10:32:33 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,9 +144,11 @@ type == TYPE_RD_DB_OUT || type == TYPE_RD_S_OUT || type == TYPE_RD_INPUT))
 
 int		running_commands(t_minishell *minishell)
 {
+	int				ret;
 	t_lstcommands	*begin;
 	t_lstcommands	*next;
 
+	ret = 0;
 	begin = minishell->commands;
 	while (minishell->commands)
 	{
@@ -159,11 +161,12 @@ int		running_commands(t_minishell *minishell)
 	next->type == TYPE_RD_S_OUT || next->type == TYPE_RD_INPUT))
 			if (pipe(next->pipe) < 0)
 				return (ERR_PIPE);
-		if (launch_command(minishell) < 0)
-			return (-1);
+		if ((ret = launch_command(minishell)) < 0)
+			return (ret);
 		minishell->commands = minishell->commands->next;
 	}
 	minishell->commands = begin;
 	free_lstcommands(&minishell->commands);
-	return (0);
+	g_lastreturn = ret;
+	return (ret);
 }

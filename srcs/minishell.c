@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 23:20:13 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/16 09:22:49 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 10:31:49 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 
 int		prompt(t_minishell *minishell)
 {
+	int ret;
+
 	while (1)
 	{
 		minishell->commands = NULL;
@@ -27,10 +29,10 @@ int		prompt(t_minishell *minishell)
 			return (-1);
 		if (!(minishell->command_line = wait_command(minishell->command_line)))
 			return (-1);
-		if (parsing_command(minishell) < 0)
-			return (-1);
-		if (running_commands(minishell) < 0)
-			return (-1);
+		if ((ret = parsing_command(minishell)) < 0)
+			return (0);
+		if (!ret && running_commands(minishell) < 0)
+			return (0);
 		free(minishell->command_line);
 	}
 	return (0);
@@ -96,6 +98,7 @@ int		main(int argc, char *argv[], char **envv)
 	int			status;
 
 	(void)argc;
+	g_lastreturn = 1;
 	if (header() < 0)
 		return (-1);
 	if (!(g_envv = init_env(envv)))

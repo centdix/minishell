@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 00:33:01 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 05:56:51 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 10:14:35 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int		run_export(t_minishell *minishell)
 	if (!ft_strcmp(minishell->commands->data, ""))
 	{
 		if (sort_and_write_envv(envv) < 0)
-			return (ft_setint_and_return(&g_lastreturn, -1));
+			return (-1);
 	}
 	else
 	{
@@ -146,12 +146,12 @@ int		run_export(t_minishell *minishell)
 		{
 			ret = export_export_env(minishell, &data);
 			if (ret == -1)
-				return (ft_setint_and_return(&g_lastreturn, -1));
+				return (ret);
 			if (ret == -2)
-				return (ft_setint_and_return(&g_lastreturn, -2)); // ERREUR A GERER
+				return (ret); // ERREUR A GERER
 			if (ft_isspace(*data))
 				data++;
 		}
 	}
-	return (ft_setint_and_return(&g_lastreturn, 0));
+	return (0);
 }

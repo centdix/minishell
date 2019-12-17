@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 07:17:49 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/13 12:12:36 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 10:15:02 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int		run_unset(t_minishell *minishell)
 
 	if (!ft_strcmp(minishell->commands->data, ""))
 	{
-		return (ft_setint_and_return(&g_lastreturn, -4)); // ERROR NOT ENOUGHT ARGS
+		return (-4); // ERROR NOT ENOUGHT ARGS
 	}
 	else
 	{
@@ -86,12 +86,12 @@ int		run_unset(t_minishell *minishell)
 		{
 			ret = unset_env(minishell, &data);
 			if (ret == -1)
-				return (ft_setint_and_return(&g_lastreturn, -1));
+				return (ret);
 			if (ret == -2)
-				return (ft_setint_and_return(&g_lastreturn, -2)); // ERREUR A GERER - INVALID PARAMETER NAME
+				return (ret); // ERREUR A GERER - INVALID PARAMETER NAME
 			if (ft_isspace(*data))
 				data++;
 		}
 	}
-	return (ft_setint_and_return(&g_lastreturn, 0));
+	return (0);
 }

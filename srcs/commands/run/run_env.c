@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 02:25:01 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 04:42:04 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 10:08:11 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int		run_env(t_minishell *minishell)
 		while (envv)
 		{
 			if (env_write_envv(envv) < 0)
-				return (ft_setint_and_return(&g_lastreturn, -1));
+				return (-1);
 			envv = envv->next;
 		}
 	}
@@ -138,9 +138,9 @@ int		run_env(t_minishell *minishell)
 	{
 		ret = add_and_write_envv(minishell);
 		if (ret == -1)
-			return (ft_setint_and_return(&g_lastreturn, ret));
+			return (ret);
 		else if (ret == -2)
-			return (ft_setint_and_return(&g_lastreturn, 0)); // ERREUR A FAIRE NO SUCH FILE OR DIRECTORY
+			return (ret); // ERREUR A FAIRE NO SUCH FILE OR DIRECTORY
 	}
-	return (ft_setint_and_return(&g_lastreturn, 0));
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 08:53:30 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 02:53:22 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 10:07:26 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,9 +134,9 @@ int		run_bin(t_minishell *minishell)
 
 	data = minishell->commands->data;
 	if (!(arguments = getting_args(&data)))
-		return (ft_setint_and_return(&g_lastreturn, -1));
+		return (-1);
 	if (!(envv = t_lstenv_v_to_array(minishell->env_variables)))
-		return (ft_setint_and_return(&g_lastreturn, -1));
+		return (-1);
 	execve(arguments[0], arguments, envv);
 	//printf("end_bin\n");
 	free_2d_array((void **)envv);
