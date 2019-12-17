@@ -6,14 +6,12 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:23:05 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 09:59:35 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 10:50:03 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMANDS_H
 # define COMMANDS_H
-
-# define CMD_NOT_FOUND "command not found"
 
 # define TYPE_CD 1
 # define TYPE_PWD 2

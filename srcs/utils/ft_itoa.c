@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 12:27:48 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/13 13:44:13 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 10:44:25 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_itoa(int n)
 	while (n /= 10)
 		power = power * 10 + (0 * size++);
 	if (!(str = malloc(sizeof(char) * (size + 1))))
-		return (0);
+		return (NULL);
 	nnbr *= sign;
 	size = (sign < 0) ? 1 : 0;
 	while (power /= 10)
