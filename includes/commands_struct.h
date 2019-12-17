@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 05:23:57 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 03:13:58 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 05:15:03 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 typedef	struct		s_lstcommands
 {
+	char			*name;
 	int				type;
 	int				pipe[2];
 	char			*data;

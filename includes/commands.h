@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:23:05 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 03:45:34 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 05:18:03 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,10 @@ int					running_commands(t_minishell *minishell);
 ** lstcommands
 */
 
-t_lstcommands		*new_lstcommands(int type, char *data, void *prev);
-int					add_back(t_lstcommands **lst, int type, char *data);
+t_lstcommands		*new_lstcommands(int type, char *name,
+char *data, void *prev);
+int					add_back(t_lstcommands **lst, int type,
+char *name, char *data);
 
 /*
 ** pipe

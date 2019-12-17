@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 06:25:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/16 06:29:26 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 06:02:08 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 ** Errors about command
 */
 
+int		write_msg_error(char *prg_name, char *cmd_name, char *msg);
 int		command_not_found(char *name, char *command);
 int		check_too_many_args(char **str, int nb_args_max);
 

@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:54:06 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 03:12:51 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 05:40:52 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@
 ** Types are defined in commands.h
 */
 
-t_lstcommands		*new_lstcommands(int type, char *data, void *prev)
+t_lstcommands		*new_lstcommands(int type, char *name,
+char *data, void *prev)
 {
 	t_lstcommands *lstcommands;
 
 	if (!(lstcommands = malloc(sizeof(t_lstcommands))))
 		return (NULL);
+	lstcommands->name = name;
 	lstcommands->type = type;
 	lstcommands->data = data;
 	lstcommands->prev = prev;
@@ -35,7 +37,8 @@ t_lstcommands		*new_lstcommands(int type, char *data, void *prev)
 ** is null.
 */
 
-int					add_back(t_lstcommands **lst, int type, char *data)
+int					add_back(t_lstcommands **lst, int type,
+char *name, char *data)
 {
 	t_lstcommands *begin;
 
@@ -44,12 +47,12 @@ int					add_back(t_lstcommands **lst, int type, char *data)
 	{
 		while (begin->next)
 			begin = begin->next;
-		if (!(begin->next = new_lstcommands(type, data, begin)))
+		if (!(begin->next = new_lstcommands(type, name, data, begin)))
 			return (-1);
 	}
 	else
 	{
-		if (!(*lst = new_lstcommands(type, data, NULL)))
+		if (!(*lst = new_lstcommands(type, name, data, NULL)))
 			return (-1);
 		begin = *lst;
 	}

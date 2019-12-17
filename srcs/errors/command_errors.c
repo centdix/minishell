@@ -6,11 +6,30 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 06:24:23 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 04:41:20 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 06:02:15 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Write a message error
+*/
+
+int		write_msg_error(char *prg_name, char *cmd_name, char *msg)
+{
+	if (write(STDERR_FILENO, prg_name, ft_strlen(prg_name)) < 0)
+		return (-1);
+	if (write(STDERR_FILENO, cmd_name, ft_strlen(cmd_name)) < 0)
+		return (-1);
+	if (write(STDERR_FILENO, ": ", 2) < 0)
+		return (-1);
+	if (write(STDERR_FILENO, msg, ft_strlen(msg)) < 0)
+		return (-1);
+	if (write(STDERR_FILENO, "\n", 1) < 0)
+		return (-1);
+	return (0);
+}
 
 /*
 ** If a command isn't find, print : 'program name: not found: command'

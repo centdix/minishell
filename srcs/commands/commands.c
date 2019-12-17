@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:22:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 05:05:54 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 06:35:13 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int		choice_command(t_minishell *minishell, int type)
 
 int		fork_command(t_minishell *minishell)
 {
-	int       ret;
+	int      		ret;
 	int				type;
 	t_lstcommands	*next;
 	t_lstcommands	*prev;
@@ -84,25 +84,42 @@ int		fork_command(t_minishell *minishell)
 	if (type == TYPE_EXIT)
 		if (run_exit(minishell) < 0)
 			return (-1);
-	if (!(fork()))
+	if ((next && next->type == TYPE_PIPE) || (prev && prev->type == TYPE_PIPE))
 	{
+		if (!(fork()))
+		{
+			if (prev && prev->type == TYPE_PIPE)
+				dup_and_close_pipe(prev->pipe, 0);
+			if (next && next->type == TYPE_PIPE)
+				dup_and_close_pipe(next->pipe, 1);
+			ret = choice_command(minishell, type);
+			if (ret == WRONG_ARG)
+				if (write_msg_error(minishell->name, minishell->commands->name,
+	"wrong argument") < 0)
+					return (-1);
+			if (ret == NOT_ENOUGH_ARGS)
+				if (write_msg_error(minishell->name, minishell->commands->name,
+	"not enough args") < 0)
+					return (-1);
+			exit(0);
+		}
 		if (prev && prev->type == TYPE_PIPE)
-			dup_and_close_pipe(prev->pipe, 0);
-		if (next && next->type == TYPE_PIPE)
-			dup_and_close_pipe(next->pipe, 1);
+			close_pipe(prev->pipe);
+		while ((wait(NULL)) > 0)
+			NULL;
+	}
+	else
+	{
 		ret = choice_command(minishell, type);
 		if (ret == WRONG_ARG)
-			if (write(STDERR_FILENO, "wrong argument\n", 15) < 0)
-        return (-1);
+			if (write_msg_error(minishell->name, minishell->commands->name,
+"wrong argument") < 0)
+				return (-1);
 		if (ret == NOT_ENOUGH_ARGS)
-			if (write(STDERR_FILENO, "not enough args\n", 16) < 0)
-        return (-1);
-		exit(0);
+			if (write_msg_error(minishell->name, minishell->commands->name,
+"not enough args") < 0)
+				return (-1);
 	}
-	if (prev && prev->type == TYPE_PIPE)
-		close_pipe(prev->pipe);
-	while ((wait(NULL)) > 0)
-		NULL;
 	return (0);
 }
 
