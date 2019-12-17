@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:22:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 11:09:05 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 15:14:49 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ char	*wait_command(char *command)
 	while (buffer[0] != '\n' && ft_isspace(buffer[0]))
 	{
 		if (!(read(STDIN_FILENO, buffer, 1)))
+		{
+			if (write(STDOUT_FILENO, "exit\n", 5) < 0)
+				return (NULL);
 			return (NULL);
+		}
 	}
 	while (buffer[0] != '\n')
 	{
@@ -37,7 +41,10 @@ char	*wait_command(char *command)
 			return (NULL);
 		free(cpy);
 		if (!(read(STDIN_FILENO, buffer, 1)))
-			return (NULL);
+		{
+			if (write(STDOUT_FILENO, "exit\n", 5) < 0)
+				return (NULL);
+		}
 	}
 	return (command);
 }
