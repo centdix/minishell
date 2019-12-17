@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 23:20:13 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 11:05:54 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 11:45:06 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ int		main(int argc, char *argv[], char **envv)
 	else
 		signal(SIGINT, signal_handler);
 	while ((wpid = wait(&status)) > 0)
-	{
-	}
+		NULL;
 	return (0);
 }

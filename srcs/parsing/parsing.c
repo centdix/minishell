@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:35:38 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 11:27:48 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 11:46:20 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,9 +135,8 @@ int		parsing_command(t_minishell *minishell)
 	line = minishell->command_line;
 	if (!(ft_strcmp(line, "")))
 		return (0);
-	while (*line)
+	while (*line && !(ret = 0))
 	{
-		ret = 0;
 		while (ft_isspace(*line))
 			line++;
 		if ((ret = choice_parsing(minishell, &line)) < 0)
@@ -149,8 +148,7 @@ int		parsing_command(t_minishell *minishell)
 		if (!ret && (ret = choice_parsing4(minishell, &line)) < 0)
 			break ;
 	}
-	g_lastreturn = ret;
-	if (ret < 0 && (command_error(minishell->name,
+	if ((g_lastreturn = ret) < 0 && (command_error(minishell->name,
 get_data_no_space(&line), ret) < 0))
 		return (-1);
 	if (ret < 0)
