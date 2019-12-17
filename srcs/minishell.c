@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 23:20:13 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 11:45:06 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 14:32:28 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ int		launch_minishell(void)
 void	signal_handler(int nb)
 {
 	(void)nb;
-	write(STDOUT_FILENO, "\n", 1);
+	if (write(STDOUT_FILENO, "\b\b  \n", 5) < 0)
+		return ;
 	if (kill(g_pid, SIGTERM) < 0)
 		exit(-1);
 	if (!(g_pid = fork()))
@@ -82,6 +83,8 @@ void	signal_handler(int nb)
 void	do_nothing(int nb)
 {
 	(void)nb;
+	if (write(STDOUT_FILENO, "\b\b  ", 4) < 0)
+		return ;
 	return ;
 }
 
