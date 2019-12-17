@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 03:03:29 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 18:25:16 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 18:27:38 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		parsing_redirect_simple_output(char **line, t_lstcommands **commands)
 		return (-1);
 	if (!(data = get_data_no_space(line)))
 		return (-1);
-	if ((ret = check_error_simple_output(&data, &name, line, & begin)) < 0)
+	if ((ret = check_error_simple_output(&data, &name, line, &begin)) < 0)
 		return (ret);
 	if ((add_back(commands, TYPE_RD_S_OUT, name, data) < 0))
 		return (-1);
