@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 06:25:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 11:11:36 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 18:00:15 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,17 @@
 # define ERR_PIPE -6
 # define ERR_MALLOC -7
 # define ERR_WRITE -8
+# define NO_SUCH_FILE -9
+# define PERM_DENIED -10
+# define IS_A_DIRECTORY -11
 
-# define MSG_CMD_NOT_FOUND "command not found"
-# define MSG_WRONG_ARGS "wrong argument"
-# define MSG_NOT_ENOUGH_ARGS "not enough arguments"
-# define MSG_TOO_MANY_ARGS "too many arguments"
+# define MSG_CMD_NOT_FOUND "Command not found"
+# define MSG_WRONG_ARGS "Wrong argument"
+# define MSG_NOT_ENOUGH_ARGS "Not enough arguments"
+# define MSG_TOO_MANY_ARGS "Too many arguments"
+# define MSG_NO_SUCH_FILE_OR_DIR "No such file or directory"
+# define MSG_PERM_DENIED "Permission denied"
+# define MSG_IS_A_DIRECTORY "Is a directory"
 
 /*
 ** Errors about command

@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 22:19:12 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 10:07:13 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 16:54:31 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ get_env_value(minishell->env_variables, "HOME"));
 	if (chdir(minishell->commands->data) < 0)
 	{
 		error = strerror(errno);
-		write(STDERR_FILENO, error, ft_strlen(error));
-		write(STDERR_FILENO, "\n", 1);
+		write_msg_error(minishell->name, minishell->commands->name, error);
 		return (-1);
 	}
 	free(minishell->path);

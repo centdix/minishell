@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 06:24:23 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 11:29:35 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 18:00:47 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ int		command_error(char *name, char *cmd_name, int ret)
 			return (ERR_WRITE);
 	if (ret == CMD_NOT_FOUND)
 		if (write_msg_error(name, cmd_name, MSG_CMD_NOT_FOUND) < 0)
+			return (ERR_WRITE);
+	if (ret == NO_SUCH_FILE)
+		if (write_msg_error(name, cmd_name, MSG_NO_SUCH_FILE_OR_DIR) < 0)
+			return (ERR_WRITE);
+	if (ret == PERM_DENIED)
+		if (write_msg_error(name, cmd_name, MSG_PERM_DENIED) < 0)
+			return (ERR_WRITE);
+	if (ret == IS_A_DIRECTORY)
+		if (write_msg_error(name, cmd_name, MSG_IS_A_DIRECTORY) < 0)
 			return (ERR_WRITE);
 	return (0);
 }
