@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:22:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/16 10:13:55 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 02:49:02 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,13 @@ char	*wait_command(char *command)
 
 int		choice_command(t_minishell *minishell)
 {
-	pid_t			wpid;
-	pid_t			pid;
 	int				type;
-	int				status;
+	t_lstcommands	*next;
+	t_lstcommands	*prev;
 
 	type = minishell->commands->type;
-	if (((t_lstcommands *)minishell->commands->next) &&
-((t_lstcommands *)minishell->commands->next)->type == TYPE_PIPE)
-	{
-		if (pipe(((t_lstcommands *)minishell->commands->next)->pipe) < 0)
-			return (ERR_PIPE);
-	}
+	next = minishell->commands->next;
+	prev = minishell->commands->prev;
 	if (type == TYPE_EXIT)
 	{
 		if (run_exit(minishell) < 0)
@@ -67,21 +62,19 @@ int		choice_command(t_minishell *minishell)
 	}
 	else
 	{
-		if (!(pid = fork()))
+		if (!(fork()))
 		{
-			if (((t_lstcommands *)minishell->commands->next) &&
-		((t_lstcommands *)minishell->commands->next)->type == TYPE_PIPE)
+			if (next && next->type == TYPE_PIPE)
 			{
-				dup2(((t_lstcommands *)minishell->commands->next)->pipe[1], STDOUT_FILENO);
-				close(((t_lstcommands *)minishell->commands->next)->pipe[0]);
-				close(((t_lstcommands *)minishell->commands->next)->pipe[1]);
+				dup2(next->pipe[1], 1);
+				close(next->pipe[0]);
+				close(next->pipe[1]);
 			}
-			if (((t_lstcommands *)minishell->commands->prev) &&
-		((t_lstcommands *)minishell->commands->prev)->type == TYPE_PIPE)
+			if (prev && prev->type == TYPE_PIPE)
 			{
-				dup2(((t_lstcommands *)minishell->commands->prev)->pipe[0], STDIN_FILENO);
-				close(((t_lstcommands *)minishell->commands->prev)->pipe[1]);
-				close(((t_lstcommands *)minishell->commands->prev)->pipe[0]);
+				dup2(prev->pipe[0], 0);
+				close(prev->pipe[1]);
+				close(prev->pipe[0]);
 			}
 			if (type == TYPE_CD && run_cd(minishell) < 0)
 				return (-1);
@@ -99,7 +92,7 @@ int		choice_command(t_minishell *minishell)
 				return (-1);
 			exit(0);
 		}
-		while ((wpid = wait(&status)) > 0)
+		while ((wait(NULL)) > 0)
 		{
 		}
 	}
@@ -112,12 +105,29 @@ int		choice_command(t_minishell *minishell)
 
 int		running_commands(t_minishell *minishell)
 {
+	t_lstcommands	*begin;
 	t_lstcommands	*next;
 
+	begin = minishell->commands;
 	while (minishell->commands)
 	{
+		next = minishell->commands->next;
+		printf("TYPE : %d\n", minishell->commands->type);
+		printf("DATA : %s$\n", minishell->commands->data);
+		if (next && next->type == TYPE_PIPE)
+		{
+			if (pipe(next->pipe) < 0)
+				return (ERR_PIPE);
+		}
 		if (choice_command(minishell) < 0)
 			return (-1);
+		minishell->commands = minishell->commands->next;
+	}
+	minishell->commands = begin;
+	while (minishell->commands)
+	{
+		printf("TYPE : %d\n", minishell->commands->type);
+		printf("DATA : %s$\n", minishell->commands->data);
 		next = minishell->commands->next;
 		if (minishell->commands->data)
 			free(minishell->commands->data);
