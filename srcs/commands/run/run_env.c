@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 02:25:01 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/13 12:12:00 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 04:42:04 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ int		env_write_envv(t_lstenv_v *envv)
 		return (-1);
 	if (write(STDOUT_FILENO, "=", 1) < 0)
 		return (-1);
-	if (envv->value && write(STDOUT_FILENO, envv->value, ft_strlen(envv->value)) < 0)
+	if (envv->value && write(STDOUT_FILENO, envv->value,
+ft_strlen(envv->value)) < 0)
 		return (-1);
 	if (write(STDOUT_FILENO, "\n", 1) < 0)
 		return (-1);

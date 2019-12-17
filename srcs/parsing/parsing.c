@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:35:38 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/16 02:46:27 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 04:42:46 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,14 @@ int		choice_parsing3(t_minishell *minishell, char **line)
 	}
 	else if (ft_isseparator(*(*line)))
 	{
-		(*line)++; // A CHANGER
+		if (**line == '|')
+			return (parsing_pipe(line, &minishell->commands));
+		else if (**line == '<')
+			return (parsing_redirect_input(line, &minishell->commands));
+		else if (!ft_strncmp(*line, ">>", 2))
+			return (parsing_redirect_double_output(line, &minishell->commands));
+		else if (**line == '>')
+			return (parsing_redirect_simple_output(line, &minishell->commands));
 		return (1);
 	}
 	return (0);
@@ -127,16 +134,17 @@ int		parsing_command(t_minishell *minishell)
 		return (0);
 	while (*line)
 	{
+		ret = 0;
 		while (ft_isspace(*line))
 			line++;
 		if ((ret = choice_parsing(minishell, &line)) < 0)
-			break;
-		if ((ret = choice_parsing2(minishell, &line)) < 0)
-			break;
-		if ((ret = choice_parsing3(minishell, &line)) < 0)
-			break;
-		if ((ret = choice_parsing4(minishell, &line)) < 0)
-			break;
+			break ;
+		if (!ret && (ret = choice_parsing2(minishell, &line)) < 0)
+			break ;
+		if (!ret && (ret = choice_parsing3(minishell, &line)) < 0)
+			break ;
+		if (!ret && (ret = choice_parsing4(minishell, &line)) < 0)
+			break ;
 	}
 	if (ret == TOO_MANY_ARGS)
 		if (!(write(STDERR_FILENO, "Too many args\n", 14)))
