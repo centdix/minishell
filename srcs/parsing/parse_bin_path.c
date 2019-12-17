@@ -44,7 +44,7 @@ int		parse_bin_path(t_minishell *minishell)
 	while (path[j])
 		if (path[j++] == ':')
 			count++;
-	if (!(minishell->bin_paths = malloc(sizeof(char *) * count + 1)))
+	if (!(minishell->bin_paths = malloc(sizeof(char *) * (count + 1))))
 		return (-1);
 	fill_bin_path(count, path, minishell->bin_paths);
 	return (0);
