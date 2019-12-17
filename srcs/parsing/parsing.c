@@ -20,6 +20,7 @@
 int		choice_parsing4(t_minishell *minishell, char **line)
 {
 	int		ret;
+	char 	*tmp;
 
 	if (**line)
 	{
@@ -27,9 +28,13 @@ int		choice_parsing4(t_minishell *minishell, char **line)
 			return (ret);
 		else
 		{
-			if ((ret = command_error(minishell->name,
-get_data_no_space(line), CMD_NOT_FOUND)) < 0)
+			tmp = get_data_no_space(line);
+			if ((ret = command_error(minishell->name, tmp, CMD_NOT_FOUND)) < 0)
+			{
+				free(tmp);
 				return (ret);
+			}
+			free(tmp);
 			while (*(*line) && !ft_isseparator(*(*line)))
 				(*line)++;
 			return (ret);
