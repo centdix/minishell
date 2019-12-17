@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:22:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 10:32:33 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 11:09:05 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ t_minishell *minishell, int type)
 	{
 		apply_pipes(prev, next, minishell, type);
 		ret = choice_command(minishell, type);
-		if (ret < 0 && (command_error(minishell, ret) < 0))
+		if (ret < 0 && (command_error(minishell->name,
+minishell->commands->name, ret) < 0))
 			return (-1);
 		exit(0);
 	}
@@ -133,7 +134,8 @@ type == TYPE_RD_DB_OUT || type == TYPE_RD_S_OUT || type == TYPE_RD_INPUT))
 		return (0);
 	}
 	ret = choice_command(minishell, type);
-	if (ret < 0 && (command_error(minishell, ret) < 0))
+	if (ret < 0 && (command_error(minishell->name,
+minishell->commands->name, ret) < 0))
 		return (-1);
 	return (0);
 }
