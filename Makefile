@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/07 23:13:40 by lmartin           #+#    #+#              #
-#    Updated: 2019/12/16 03:51:24 by lmartin          ###   ########.fr        #
+#    Updated: 2019/12/17 03:44:47 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,6 +91,7 @@ SRC			=	commands/run/run_bin.c \
 				commands/run/run_unset.c \
 				commands/commands.c \
 				commands/lstcommands.c \
+				commands/pipe.c \
 				\
 				env_variables/env_v_utils.c \
 				env_variables/lstenv_v.c \

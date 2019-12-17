@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:22:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 02:49:02 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 04:39:55 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,30 @@ char	*wait_command(char *command)
 ** Choose a command by it's type (minishell->commands->type)
 */
 
-int		choice_command(t_minishell *minishell)
+int		choice_command(t_minishell *minishell, int type)
+{
+	if (type == TYPE_CD && run_cd(minishell) < 0)
+		return (-1);
+	else if (type == TYPE_PWD && run_pwd(minishell) < 0)
+		return (-1);
+	else if (type == TYPE_ECHO && run_echo(minishell) < 0)
+		return (-1);
+	else if (type == TYPE_EXPORT && run_export(minishell) < 0)
+		return (-1);
+	else if (type == TYPE_ENV && run_env(minishell) < 0)
+		return (-1);
+	else if (type == TYPE_UNSET && run_unset(minishell) < 0)
+		return (-1);
+	else if (type == TYPE_BIN && run_bin(minishell) < 0)
+		return (-1);
+	return (0);
+}
+
+/*
+** Fork a command
+*/
+
+int		fork_command(t_minishell *minishell)
 {
 	int				type;
 	t_lstcommands	*next;
@@ -56,46 +79,22 @@ int		choice_command(t_minishell *minishell)
 	next = minishell->commands->next;
 	prev = minishell->commands->prev;
 	if (type == TYPE_EXIT)
-	{
 		if (run_exit(minishell) < 0)
 			return (-1);
-	}
-	else
+	if (!(fork()))
 	{
-		if (!(fork()))
-		{
-			if (next && next->type == TYPE_PIPE)
-			{
-				dup2(next->pipe[1], 1);
-				close(next->pipe[0]);
-				close(next->pipe[1]);
-			}
-			if (prev && prev->type == TYPE_PIPE)
-			{
-				dup2(prev->pipe[0], 0);
-				close(prev->pipe[1]);
-				close(prev->pipe[0]);
-			}
-			if (type == TYPE_CD && run_cd(minishell) < 0)
-				return (-1);
-			else if (type == TYPE_PWD && run_pwd(minishell) < 0)
-				return (-1);
-			else if (type == TYPE_ECHO && run_echo(minishell) < 0)
-				return (-1);
-			else if (type == TYPE_EXPORT && run_export(minishell) < 0)
-				return (-1);
-			else if (type == TYPE_ENV && run_env(minishell) < 0)
-				return (-1);
-			else if (type == TYPE_UNSET && run_unset(minishell) < 0)
-				return (-1);
-			else if (type == TYPE_BIN && run_bin(minishell) < 0)
-				return (-1);
-			exit(0);
-		}
-		while ((wait(NULL)) > 0)
-		{
-		}
+		if (prev && prev->type == TYPE_PIPE)
+			dup_and_close_pipe(prev->pipe, 0);
+		if (next && next->type == TYPE_PIPE)
+			dup_and_close_pipe(next->pipe, 1);
+		if (choice_command(minishell, type) < 0)
+			return (-1);
+		exit(0);
 	}
+	if (prev && prev->type == TYPE_PIPE)
+		close_pipe(prev->pipe);
+	while ((wait(NULL)) > 0)
+		NULL;
 	return (0);
 }
 
@@ -112,22 +111,16 @@ int		running_commands(t_minishell *minishell)
 	while (minishell->commands)
 	{
 		next = minishell->commands->next;
-		printf("TYPE : %d\n", minishell->commands->type);
-		printf("DATA : %s$\n", minishell->commands->data);
 		if (next && next->type == TYPE_PIPE)
-		{
 			if (pipe(next->pipe) < 0)
 				return (ERR_PIPE);
-		}
-		if (choice_command(minishell) < 0)
+		if (fork_command(minishell) < 0)
 			return (-1);
 		minishell->commands = minishell->commands->next;
 	}
 	minishell->commands = begin;
 	while (minishell->commands)
 	{
-		printf("TYPE : %d\n", minishell->commands->type);
-		printf("DATA : %s$\n", minishell->commands->data);
 		next = minishell->commands->next;
 		if (minishell->commands->data)
 			free(minishell->commands->data);

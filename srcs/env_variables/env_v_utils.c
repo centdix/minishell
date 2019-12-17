@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 09:59:13 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/13 13:41:17 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 04:41:06 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_lstenv_v			*get_env_variable(t_lstenv_v *lst, char *name)
 char				*get_env_value(t_lstenv_v *lst, char *name)
 {
 	if (!ft_strcmp(name, "?"))
-		return(ft_itoa(g_lastreturn));
+		return (ft_itoa(g_lastreturn));
 	while (lst)
 	{
 		if (!ft_strcmp(lst->name, name))

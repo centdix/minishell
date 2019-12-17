@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 06:24:23 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 02:17:33 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 04:41:20 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int		command_not_found(char *name, char *command)
 
 int		check_too_many_args(char **str, int nb_args_max)
 {
-	char *ptr;
-	int was_args;
+	char	*ptr;
+	int		was_args;
 
 	ptr = *str;
 	was_args = 0;

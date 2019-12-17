@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:23:05 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/16 06:46:39 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 03:45:34 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,12 @@ int					running_commands(t_minishell *minishell);
 
 t_lstcommands		*new_lstcommands(int type, char *data, void *prev);
 int					add_back(t_lstcommands **lst, int type, char *data);
+
+/*
+** pipe
+*/
+
+void		dup_and_close_pipe(int	pipe[2], int dupped);
+void		close_pipe(int	pipe[2]);
 
 #endif
