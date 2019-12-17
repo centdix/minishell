@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:22:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 06:37:14 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 06:51:34 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,36 @@ int		choice_command(t_minishell *minishell, int type)
 ** Fork a command
 */
 
-int		fork_command(t_minishell *minishell)
+int		fork_command(t_lstcommands *prev, t_lstcommands *next,
+t_minishell *minishell, int type)
 {
-	int      		ret;
+	int				ret;
+
+	if (!(fork()))
+	{
+		if (prev && prev->type == TYPE_PIPE)
+			dup_and_close_pipe(prev->pipe, 0);
+		if (next && next->type == TYPE_PIPE)
+			dup_and_close_pipe(next->pipe, 1);
+		ret = choice_command(minishell, type);
+		if (ret < 0 && (command_error(minishell, ret) < 0))
+			return (-1);
+		exit(0);
+	}
+	if (prev && prev->type == TYPE_PIPE)
+		close_pipe(prev->pipe);
+	while ((wait(NULL)) > 0)
+		NULL;
+	return (0);
+}
+
+/*
+** Launch a command
+*/
+
+int		launch_command(t_minishell *minishell)
+{
+	int				ret;
 	int				type;
 	t_lstcommands	*next;
 	t_lstcommands	*prev;
@@ -84,43 +111,16 @@ int		fork_command(t_minishell *minishell)
 	if (type == TYPE_EXIT)
 		if (run_exit(minishell) < 0)
 			return (-1);
-	if ((next && next->type == TYPE_PIPE) || (prev && prev->type == TYPE_PIPE)
-|| (type == TYPE_BIN))
+	if ((next && next->type == TYPE_PIPE) ||
+(prev && prev->type == TYPE_PIPE) || (type == TYPE_BIN))
 	{
-		if (!(fork()))
-		{
-			if (prev && prev->type == TYPE_PIPE)
-				dup_and_close_pipe(prev->pipe, 0);
-			if (next && next->type == TYPE_PIPE)
-				dup_and_close_pipe(next->pipe, 1);
-			ret = choice_command(minishell, type);
-			if (ret == WRONG_ARG)
-				if (write_msg_error(minishell->name, minishell->commands->name,
-	"wrong argument") < 0)
-					return (-1);
-			if (ret == NOT_ENOUGH_ARGS)
-				if (write_msg_error(minishell->name, minishell->commands->name,
-	"not enough args") < 0)
-					return (-1);
-			exit(0);
-		}
-		if (prev && prev->type == TYPE_PIPE)
-			close_pipe(prev->pipe);
-		while ((wait(NULL)) > 0)
-			NULL;
+		if (fork_command(prev, next, minishell, type) < 0)
+			return (-1);
+		return (0);
 	}
-	else
-	{
-		ret = choice_command(minishell, type);
-		if (ret == WRONG_ARG)
-			if (write_msg_error(minishell->name, minishell->commands->name,
-"wrong argument") < 0)
-				return (-1);
-		if (ret == NOT_ENOUGH_ARGS)
-			if (write_msg_error(minishell->name, minishell->commands->name,
-"not enough args") < 0)
-				return (-1);
-	}
+	ret = choice_command(minishell, type);
+	if (ret < 0 && (command_error(minishell, ret) < 0))
+		return (-1);
 	return (0);
 }
 
@@ -140,7 +140,7 @@ int		running_commands(t_minishell *minishell)
 		if (next && next->type == TYPE_PIPE)
 			if (pipe(next->pipe) < 0)
 				return (ERR_PIPE);
-		if (fork_command(minishell) < 0)
+		if (launch_command(minishell) < 0)
 			return (-1);
 		minishell->commands = minishell->commands->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:23:05 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 05:18:03 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 06:53:57 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char *name, char *data);
 ** pipe
 */
 
-void		dup_and_close_pipe(int	pipe[2], int dupped);
-void		close_pipe(int	pipe[2]);
+void				dup_and_close_pipe(int	pipe[2], int dupped);
+void				close_pipe(int	pipe[2]);
 
 #endif

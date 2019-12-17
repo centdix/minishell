@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:35:38 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 06:34:56 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 06:53:16 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,9 +148,7 @@ int		parsing_command(t_minishell *minishell)
 		if (!ret && (ret = choice_parsing4(minishell, &line)) < 0)
 			break ;
 	}
-	if (ret == TOO_MANY_ARGS)
-		if (write_msg_error(minishell->name, "",
-	"too many args") < 0)
+	if (ret < 0 && (command_error(minishell, ret) < 0))
 		return (-1);
 	return (0);
 }

@@ -6,11 +6,31 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 06:24:23 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 06:02:15 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 06:52:58 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Command error lead to write error
+*/
+
+int		command_error(t_minishell *minishell, int ret)
+{
+	if (ret == WRONG_ARG)
+		if (write_msg_error(minishell->name, minishell->commands->name,
+"wrong argument") < 0)
+			return (-1);
+	if (ret == NOT_ENOUGH_ARGS)
+		if (write_msg_error(minishell->name, minishell->commands->name,
+"not enough args") < 0)
+			return (-1);
+	if (ret == TOO_MANY_ARGS)
+		if (write_msg_error(minishell->name, "", "too many args") < 0)
+			return (-1);
+	return (0);
+}
 
 /*
 ** Write a message error
