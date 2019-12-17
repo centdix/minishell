@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:35:38 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 20:57:22 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 21:43:32 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 int		choice_parsing4(t_minishell *minishell, char **line)
 {
+	char	*tmp;
 	int		ret;
 
 	if (**line)
@@ -27,9 +28,13 @@ int		choice_parsing4(t_minishell *minishell, char **line)
 			return (ret);
 		else
 		{
-			if ((ret = command_error(minishell->name,
-get_data_no_space(line), CMD_NOT_FOUND)) < 0)
+			tmp = get_data_no_space(line);
+			if ((ret = command_error(minishell->name, tmp, CMD_NOT_FOUND)) < 0)
+			{
+				free(tmp);
 				return (ret);
+			}
+			free(tmp);
 			while (*(*line) && (!ft_isseparator(*(*line)) || **line == '<' ||
 **line == '>'))
 				(*line)++;
