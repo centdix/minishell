@@ -22,6 +22,7 @@ typedef struct	s_minishell
 	char			*name;
 	char			*command_line;
 	char			*path;
+	char			**bin_paths;
 	t_lstcommands	*commands;
 	t_lstenv_v		*env_variables;
 }				t_minishell;

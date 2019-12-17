@@ -47,6 +47,8 @@ char	*create_bin_path(char **line)
 ** otherwise error
 */
 
+//get_env_value(minishell->env_variables, "PATH")
+
 int		parsing_bin(char **line, t_lstcommands **commands)
 {
 	void	*stat;
