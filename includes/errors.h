@@ -6,16 +6,17 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 06:25:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/16 02:46:39 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/16 06:29:26 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERRORS_H
 # define ERRORS_H
 
+# define WRONG_ARG -2
 # define TOO_MANY_ARGS -3
 # define NOT_ENOUGH_ARGS -4
-# define WRONG_ARG -2
+# define ERR_PIPE -5
 
 /*
 ** Errors about command

@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isseparator.c                                   :+:      :+:    :+:   */
+/*   parsing_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/10 04:59:39 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/16 02:50:34 by lmartin          ###   ########.fr       */
+/*   Created: 2019/12/16 02:52:19 by lmartin           #+#    #+#             */
+/*   Updated: 2019/12/17 03:13:11 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-** Check if char c is a separator of command line
-*/
-
-int		ft_isseparator(char c)
+int		parsing_pipe(char **line, t_lstcommands **commands)
 {
-	return ((c == ';' || c == '|' || c == '<' || c == '>'));
+	(*line)++;
+	if ((add_back(commands, TYPE_PIPE, NULL) < 0))
+		return (-1);
+	while (ft_isspace(**line))
+		(*line)++;
+	return (1);
 }

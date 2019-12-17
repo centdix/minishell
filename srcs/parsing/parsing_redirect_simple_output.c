@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isseparator.c                                   :+:      :+:    :+:   */
+/*   parsing_redirect_simple_output.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/10 04:59:39 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/16 02:50:34 by lmartin          ###   ########.fr       */
+/*   Created: 2019/12/16 03:03:29 by lmartin           #+#    #+#             */
+/*   Updated: 2019/12/16 03:51:56 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-** Check if char c is a separator of command line
-*/
-
-int		ft_isseparator(char c)
+int		parsing_redirect_simple_output(char **line, t_lstcommands **commands)
 {
-	return ((c == ';' || c == '|' || c == '<' || c == '>'));
+	(void)line;
+	(void)commands;
+	return (1);
 }

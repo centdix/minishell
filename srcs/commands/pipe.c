@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isseparator.c                                   :+:      :+:    :+:   */
+/*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/10 04:59:39 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/16 02:50:34 by lmartin          ###   ########.fr       */
+/*   Created: 2019/12/17 03:42:05 by lmartin           #+#    #+#             */
+/*   Updated: 2019/12/17 04:37:59 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-** Check if char c is a separator of command line
-*/
-
-int		ft_isseparator(char c)
+void		dup_and_close_pipe(int pipe[2], int dupped)
 {
-	return ((c == ';' || c == '|' || c == '<' || c == '>'));
+	dup2(pipe[dupped], dupped);
+	close(pipe[0]);
+	close(pipe[1]);
+}
+
+void		close_pipe(int pipe[2])
+{
+	close(pipe[0]);
+	close(pipe[1]);
 }

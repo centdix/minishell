@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/07 23:13:40 by lmartin           #+#    #+#              #
-#    Updated: 2019/12/13 12:29:10 by lmartin          ###   ########.fr        #
+#    Updated: 2019/12/17 03:44:47 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,6 +91,7 @@ SRC			=	commands/run/run_bin.c \
 				commands/run/run_unset.c \
 				commands/commands.c \
 				commands/lstcommands.c \
+				commands/pipe.c \
 				\
 				env_variables/env_v_utils.c \
 				env_variables/lstenv_v.c \
@@ -106,7 +107,11 @@ SRC			=	commands/run/run_bin.c \
 				parsing/parsing_env.c \
 				parsing/parsing_exit.c \
 				parsing/parsing_export.c \
+				parsing/parsing_pipe.c \
 				parsing/parsing_pwd.c \
+				parsing/parsing_redirect_double_output.c \
+				parsing/parsing_redirect_input.c \
+				parsing/parsing_redirect_simple_output.c \
 				parsing/parsing_unset.c \
 				parsing/parsing_utils.c \
 				parsing/parsing.c \
