@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:22:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 04:39:55 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 05:05:54 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ char	*wait_command(char *command)
 
 int		choice_command(t_minishell *minishell, int type)
 {
-  int ret;
-  
+	int ret;
+
 	if (type == TYPE_CD && (ret = run_cd(minishell)) < 0)
 		return (ret);
 	else if (type == TYPE_PWD && (ret = run_pwd(minishell)) < 0)
@@ -73,7 +73,7 @@ int		choice_command(t_minishell *minishell, int type)
 
 int		fork_command(t_minishell *minishell)
 {
-  int       ret;
+	int       ret;
 	int				type;
 	t_lstcommands	*next;
 	t_lstcommands	*prev;
@@ -90,7 +90,7 @@ int		fork_command(t_minishell *minishell)
 			dup_and_close_pipe(prev->pipe, 0);
 		if (next && next->type == TYPE_PIPE)
 			dup_and_close_pipe(next->pipe, 1);
-		ret = choice_command(minishell);
+		ret = choice_command(minishell, type);
 		if (ret == WRONG_ARG)
 			if (write(STDERR_FILENO, "wrong argument\n", 15) < 0)
         return (-1);
@@ -114,7 +114,6 @@ int		running_commands(t_minishell *minishell)
 {
 	t_lstcommands	*begin;
 	t_lstcommands	*next;
-	int 			ret;
 
 	begin = minishell->commands;
 	while (minishell->commands)
