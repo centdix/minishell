@@ -6,11 +6,31 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:54:06 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 05:40:52 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 10:01:49 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Free a list of commands
+*/
+
+void				free_lstcommands(t_lstcommands **lst)
+{
+	t_lstcommands	*next;
+
+	while ((*lst))
+	{
+		next = (*lst)->next;
+		if ((*lst)->name)
+			free((*lst)->name);
+		if ((*lst)->data)
+			free((*lst)->data);
+		free((*lst));
+		(*lst) = next;
+	}
+}
 
 /*
 ** Create a element lstcommands with type and data and return it.

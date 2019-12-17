@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:22:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 09:00:06 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 10:01:27 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,28 +81,26 @@ int		choice_command(t_minishell *minishell, int type)
 int		fork_command(t_lstcommands *prev, t_lstcommands *next,
 t_minishell *minishell, int type)
 {
+	t_lstcommands	*save;
 	int				ret;
 
+	if (next && next->type == TYPE_RD_INPUT)
+	{
+		save = minishell->commands;
+		minishell->commands = minishell->commands->next;
+		if (fork_command(save, next->next, minishell, next->type) < 0)
+			return (-1);
+		minishell->commands = save;
+	}
 	if (!(fork()))
 	{
-		if ((prev && prev->type == TYPE_PIPE))
-			dup_and_close_pipe(prev->pipe, 0);
-		if ((type == TYPE_RD_DB_OUT || type == TYPE_RD_S_OUT ||
-type == TYPE_RD_INPUT))
-			dup_and_close_pipe(minishell->commands->pipe, 0);
-		if (next && (next->type == TYPE_PIPE || next->type == TYPE_RD_DB_OUT ||
-next->type == TYPE_RD_S_OUT || next->type == TYPE_RD_INPUT))
-			dup_and_close_pipe(next->pipe, 1);
+		apply_pipes(prev, next, minishell, type);
 		ret = choice_command(minishell, type);
 		if (ret < 0 && (command_error(minishell, ret) < 0))
 			return (-1);
 		exit(0);
 	}
-	if ((prev && prev->type == TYPE_PIPE))
-		close_pipe(prev->pipe);
-	if ((type == TYPE_RD_DB_OUT ||
-type == TYPE_RD_S_OUT || type == TYPE_RD_INPUT))
-		close_pipe(minishell->commands->pipe);
+	apply_closing_pipes(prev, next, minishell, type);
 	while ((wait(NULL)) > 0)
 		NULL;
 	return (0);
@@ -152,6 +150,10 @@ int		running_commands(t_minishell *minishell)
 	begin = minishell->commands;
 	while (minishell->commands)
 	{
+		if (minishell->commands->type == TYPE_RD_INPUT)
+			minishell->commands = minishell->commands->next;
+		if (!minishell->commands)
+			break ;
 		next = minishell->commands->next;
 		if (next && (next->type == TYPE_PIPE || next->type == TYPE_RD_DB_OUT ||
 	next->type == TYPE_RD_S_OUT || next->type == TYPE_RD_INPUT))
@@ -162,13 +164,6 @@ int		running_commands(t_minishell *minishell)
 		minishell->commands = minishell->commands->next;
 	}
 	minishell->commands = begin;
-	while (minishell->commands)
-	{
-		next = minishell->commands->next;
-		if (minishell->commands->data)
-			free(minishell->commands->data);
-		free(minishell->commands);
-		minishell->commands = next;
-	}
+	free_lstcommands(&minishell->commands);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 07:08:16 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 08:50:39 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 09:25:22 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ O_CREAT | O_WRONLY | O_TRUNC, 0644)) < 0)
 		return (-1);
 	if ((write(fd, to_write, count)) < 0)
 		return (-1);
+	free(to_write);
 	close(fd);
 	return (0);
 }
