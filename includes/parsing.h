@@ -41,7 +41,7 @@ int		parsing_command(t_minishell *minishell);
 ** Parsing commands
 */
 
-int		parsing_bin(char **line, t_lstcommands **commands);
+int		parsing_bin(char **line, t_minishell *minishell);
 int		parsing_cd(char **line, t_lstcommands **commands);
 int		parsing_echo(char **line, t_lstcommands **commands);
 int		parsing_env(char **line, t_lstcommands **commands);
