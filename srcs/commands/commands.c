@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:22:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 06:35:13 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 06:37:14 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ int		fork_command(t_minishell *minishell)
 	if (type == TYPE_EXIT)
 		if (run_exit(minishell) < 0)
 			return (-1);
-	if ((next && next->type == TYPE_PIPE) || (prev && prev->type == TYPE_PIPE))
+	if ((next && next->type == TYPE_PIPE) || (prev && prev->type == TYPE_PIPE)
+|| (type == TYPE_BIN))
 	{
 		if (!(fork()))
 		{
