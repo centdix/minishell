@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 14:46:18 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 14:46:42 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 21:40:35 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void	do_nothing(int nb)
 {
 	(void)nb;
-	if (write(STDOUT_FILENO, "\b\b  \b", 5) < 0)
+	if (write(STDOUT_FILENO, " \b\b \b", 5) < 0)
 		return ;
 	return ;
 }
