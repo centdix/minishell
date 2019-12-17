@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:22:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 06:51:34 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 09:00:06 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,27 @@ int		choice_command(t_minishell *minishell, int type)
 {
 	int ret;
 
-	if (type == TYPE_CD && (ret = run_cd(minishell)) < 0)
-		return (ret);
-	else if (type == TYPE_PWD && (ret = run_pwd(minishell)) < 0)
-		return (ret);
-	else if (type == TYPE_ECHO && (ret = run_echo(minishell)) < 0)
-		return (ret);
-	else if (type == TYPE_EXPORT && (ret = run_export(minishell)) < 0)
-		return (ret);
-	else if (type == TYPE_ENV && (ret = run_env(minishell)) < 0)
-		return (ret);
-	else if (type == TYPE_UNSET && (ret = run_unset(minishell)) < 0)
-		return (ret);
-	else if (type == TYPE_BIN && (ret = run_bin(minishell)) < 0)
-		return (ret);
+	ret = 0;
+	if (type == TYPE_CD)
+		ret = run_cd(minishell);
+	else if (type == TYPE_PWD)
+		ret = run_pwd(minishell);
+	else if (type == TYPE_ECHO)
+		ret = run_echo(minishell);
+	else if (type == TYPE_EXPORT)
+		ret = run_export(minishell);
+	else if (type == TYPE_ENV)
+		ret = run_env(minishell);
+	else if (type == TYPE_UNSET)
+		ret = run_unset(minishell);
+	else if (type == TYPE_BIN)
+		ret = run_bin(minishell);
+	else if (type == TYPE_RD_DB_OUT)
+		ret = run_redirect_double_output(minishell);
+	else if (type == TYPE_RD_S_OUT)
+		ret = run_redirect_simple_output(minishell);
+	else if (type == TYPE_RD_INPUT)
+		ret = run_redirect_input(minishell);
 	return (ret);
 }
 
@@ -78,17 +85,24 @@ t_minishell *minishell, int type)
 
 	if (!(fork()))
 	{
-		if (prev && prev->type == TYPE_PIPE)
+		if ((prev && prev->type == TYPE_PIPE))
 			dup_and_close_pipe(prev->pipe, 0);
-		if (next && next->type == TYPE_PIPE)
+		if ((type == TYPE_RD_DB_OUT || type == TYPE_RD_S_OUT ||
+type == TYPE_RD_INPUT))
+			dup_and_close_pipe(minishell->commands->pipe, 0);
+		if (next && (next->type == TYPE_PIPE || next->type == TYPE_RD_DB_OUT ||
+next->type == TYPE_RD_S_OUT || next->type == TYPE_RD_INPUT))
 			dup_and_close_pipe(next->pipe, 1);
 		ret = choice_command(minishell, type);
 		if (ret < 0 && (command_error(minishell, ret) < 0))
 			return (-1);
 		exit(0);
 	}
-	if (prev && prev->type == TYPE_PIPE)
+	if ((prev && prev->type == TYPE_PIPE))
 		close_pipe(prev->pipe);
+	if ((type == TYPE_RD_DB_OUT ||
+type == TYPE_RD_S_OUT || type == TYPE_RD_INPUT))
+		close_pipe(minishell->commands->pipe);
 	while ((wait(NULL)) > 0)
 		NULL;
 	return (0);
@@ -111,8 +125,10 @@ int		launch_command(t_minishell *minishell)
 	if (type == TYPE_EXIT)
 		if (run_exit(minishell) < 0)
 			return (-1);
-	if ((next && next->type == TYPE_PIPE) ||
-(prev && prev->type == TYPE_PIPE) || (type == TYPE_BIN))
+	if ((next && (next->type == TYPE_PIPE || next->type == TYPE_RD_DB_OUT ||
+next->type == TYPE_RD_S_OUT || next->type == TYPE_RD_INPUT)) ||
+(prev && prev->type == TYPE_PIPE) || (type == TYPE_BIN ||
+type == TYPE_RD_DB_OUT || type == TYPE_RD_S_OUT || type == TYPE_RD_INPUT))
 	{
 		if (fork_command(prev, next, minishell, type) < 0)
 			return (-1);
@@ -137,7 +153,8 @@ int		running_commands(t_minishell *minishell)
 	while (minishell->commands)
 	{
 		next = minishell->commands->next;
-		if (next && next->type == TYPE_PIPE)
+		if (next && (next->type == TYPE_PIPE || next->type == TYPE_RD_DB_OUT ||
+	next->type == TYPE_RD_S_OUT || next->type == TYPE_RD_INPUT))
 			if (pipe(next->pipe) < 0)
 				return (ERR_PIPE);
 		if (launch_command(minishell) < 0)

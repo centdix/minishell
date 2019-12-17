@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:23:05 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 06:53:57 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 07:12:07 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # define TYPE_UNSET 7
 # define TYPE_BIN 8
 # define TYPE_PIPE 9
+# define TYPE_RD_DB_OUT 10
+# define TYPE_RD_S_OUT 11
+# define TYPE_RD_INPUT 12
 
 # include "commands_struct.h"
 # include "minishell_struct.h"
@@ -39,6 +42,9 @@ int					run_env(t_minishell *minishell);
 int					run_exit(t_minishell *minishell);
 int					run_export(t_minishell *minishell);
 int					run_pwd(t_minishell *minishell);
+int					run_redirect_double_output(t_minishell *minishell);
+int					run_redirect_input(t_minishell *minishell);
+int					run_redirect_simple_output(t_minishell *minishell);
 int					run_unset(t_minishell *minishell);
 
 /*

@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/07 23:13:40 by lmartin           #+#    #+#              #
-#    Updated: 2019/12/17 03:44:47 by lmartin          ###   ########.fr        #
+#    Updated: 2019/12/17 07:09:46 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,6 +88,9 @@ SRC			=	commands/run/run_bin.c \
 				commands/run/run_exit.c \
 				commands/run/run_export.c \
 				commands/run/run_pwd.c \
+				commands/run/run_redirect_double_output.c \
+				commands/run/run_redirect_input.c \
+				commands/run/run_redirect_simple_output.c \
 				commands/run/run_unset.c \
 				commands/commands.c \
 				commands/lstcommands.c \
