@@ -21,7 +21,6 @@ int		choice_parsing4(t_minishell *minishell, char **line)
 {
 	char	*tmp;
 	int		ret;
-	char 	*tmp;
 
 	if (**line)
 	{
