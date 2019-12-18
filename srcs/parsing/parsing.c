@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 02:35:38 by lmartin           #+#    #+#             */
-/*   Updated: 2019/12/17 11:46:20 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/12/17 21:43:32 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 int		choice_parsing4(t_minishell *minishell, char **line)
 {
+	char	*tmp;
 	int		ret;
 	char 	*tmp;
 
@@ -35,7 +36,8 @@ int		choice_parsing4(t_minishell *minishell, char **line)
 				return (ret);
 			}
 			free(tmp);
-			while (*(*line) && !ft_isseparator(*(*line)))
+			while (*(*line) && (!ft_isseparator(*(*line)) || **line == '<' ||
+**line == '>'))
 				(*line)++;
 			return (ret);
 		}
